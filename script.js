@@ -1,7 +1,7 @@
 "use strict";
 
-/* CACHE-BUSTER: 2026-10-12-1600 */
-const HM_JS_VERSION = "16.3";
+/* CACHE-BUSTER: 2026-10-12-1700 */
+const HM_JS_VERSION = "16.4";
 
 
 const paginas = {
@@ -771,7 +771,6 @@ async function intentarIngreso() {
 
         }
 
-        // Redirección automática inmediata al flujo de pago si el acceso es false
         await abrirMercadoPago();
 
     } catch (error) {
@@ -1096,18 +1095,19 @@ async function abrirMercadoPago() {
 
 
 
+/* ==================================================
+   ASIGNACIÓN DE EVENTOS A BOTONES DE ACCESO
+   ================================================== */
+
 if (
     botonYaAcceso
 ) {
 
     botonYaAcceso.addEventListener(
         "click",
-        function() {
-
-            mostrarPanelIngreso(
-                "ingreso"
-            );
-
+        function(e) {
+            e.preventDefault();
+            mostrarPanelIngreso("ingreso");
         }
     );
 
@@ -1121,10 +1121,9 @@ if (
 
     botonNoAcceso.addEventListener(
         "click",
-        function() {
-
+        function(e) {
+            e.preventDefault();
             abrirMercadoPago();
-
         }
     );
 
@@ -1138,10 +1137,9 @@ if (
 
     botonConfirmarIngreso.addEventListener(
         "click",
-        function() {
-
+        function(e) {
+            e.preventDefault();
             intentarIngreso();
-
         }
     );
 
@@ -1155,10 +1153,9 @@ if (
 
     botonCerrarIngreso.addEventListener(
         "click",
-        function() {
-
+        function(e) {
+            e.preventDefault();
             ocultarPanelIngreso();
-
         }
     );
 

@@ -63,9 +63,8 @@ const SUPABASE_URL =
     "https://zjviadsqbhqdjyomaoct.supabase.co";
 
 
-/* REEMPLAZA ESTA CLAVE POR TU ANON/PUBLISHABLE KEY REAL DE SUPABASE (LA QUE COMIENZA CON "eyJ...") */
 const SUPABASE_PUBLISHABLE_KEY =
-    "TU_ANON_KEY_REAL_DE_SUPABASE_AQUI";
+    "sb_publishable_63lSHlN2SiggU_YsouSzaQ_Bis21lzw";
 
 
 const SUPABASE_FUNCTION_PAGO =

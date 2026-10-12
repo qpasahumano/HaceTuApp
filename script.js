@@ -1,7 +1,7 @@
 "use strict";
 
-/* CACHE-BUSTER: 2026-10-12-1500 */
-const HM_JS_VERSION = "16.2";
+/* CACHE-BUSTER: 2026-10-12-1600 */
+const HM_JS_VERSION = "16.3";
 
 
 const paginas = {
@@ -32,7 +32,7 @@ const videosComplementarios = {
     3: "https://youtu.be/3TgsyUGaGmo?si=pEEJblCUj0GJcZHQ",
     4: "https://youtu.be/RM6gJD6T2hs?si=4RiDAidkcyIAk7CA",
     5: "https://youtu.be/NjUCNCCuooY?si=6tCWzhaVfM_oMrGY",
-    6: "https://youtu.be/fCXe7nWPwnI?si=okpMxERks_rMO3aL",
+    6: "https://youtu.be/fCXe7nWPwnI?si=okpMoERks_rMO3aL",
     7: "https://youtu.be/SS5NcxjVFDg?si=AUSJN6uAlNPGoNqX",
     8: "https://youtu.be/3XH0yOdORYQ?si=B9URc73_TJDXAZxj",
     9: "https://youtu.be/jdDYxj2rlzU?si=tW2fi_ssXeQ3wukB"
@@ -710,14 +710,12 @@ async function intentarIngreso() {
             if (
                 mensajeIngreso
             ) {
-
-                mensajeIngreso.textContent =
-                    "Error de Supabase: " +
-                    (
-                        error.message ||
-                        "No se pudo iniciar sesión."
-                    );
-
+                const mensajeError = error.message || "";
+                if (mensajeError.includes("rate limit") || mensajeError.includes("52 seconds")) {
+                    mensajeIngreso.textContent = "Por seguridad, aguardá unos segundos antes de intentar nuevamente.";
+                } else {
+                    mensajeIngreso.textContent = "Correo o contraseña incorrectos.";
+                }
             }
 
             return;
@@ -769,7 +767,7 @@ async function intentarIngreso() {
         ) {
 
             mensajeIngreso.textContent =
-                "Cuenta correcta sin acceso. Redirigiendo a pasarela de pago...";
+                "Este correo no registra un pago activo. Redirigiendo para adquirir el curso...";
 
         }
 
@@ -889,14 +887,12 @@ async function crearCuenta() {
             if (
                 mensajeIngreso
             ) {
-
-                mensajeIngreso.textContent =
-                    "Error de Supabase: " +
-                    (
-                        error.message ||
-                        "No se pudo crear la cuenta."
-                    );
-
+                const mensajeError = error.message || "";
+                if (mensajeError.includes("rate limit") || mensajeError.includes("52 seconds")) {
+                    mensajeIngreso.textContent = "Por seguridad, aguardá unos segundos antes de intentar nuevamente.";
+                } else {
+                    mensajeIngreso.textContent = "No se pudo crear la cuenta: " + mensajeError;
+                }
             }
 
             return;
@@ -978,7 +974,7 @@ async function abrirMercadoPago() {
     ) {
 
         mensajeIngreso.textContent =
-            "";
+            "Redirigiendo a Mercado Pago...";
 
     }
 
@@ -1034,7 +1030,7 @@ async function abrirMercadoPago() {
         ) {
 
             mensajeIngreso.textContent =
-                "Generando el acceso de pago...";
+                "Generando el enlace de pago...";
 
         }
 

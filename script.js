@@ -60,7 +60,7 @@ let paginaActual = 1;
    ================================================== */
 
 const SUPABASE_URL =
-    "https://zjviadsqbhqdjyomaoct.supabase.co";
+    "https://zjviadsqbhdqdyomaot.supabase.co";
 
 
 const SUPABASE_PUBLISHABLE_KEY =
@@ -281,7 +281,7 @@ let modoPanelIngreso =
    false = ejecutar la verificación de acceso habitual.
    ================================================== */
 
-const MODO_DESARROLLO = true;
+const MODO_DESARROLLO = false;
 
 
 
@@ -732,18 +732,6 @@ async function intentarIngreso() {
             );
 
 
-            console.error(
-                "HUMANÓMETRO: nombre del error:",
-                error.name
-            );
-
-
-            console.error(
-                "HUMANÓMETRO: mensaje del error:",
-                error.message
-            );
-
-
             if (
                 mensajeIngreso
             ) {
@@ -767,12 +755,6 @@ async function intentarIngreso() {
             !data.user
         ) {
 
-            console.error(
-                "HUMANÓMETRO: Supabase respondió sin un usuario válido.",
-                data
-            );
-
-
             if (
                 mensajeIngreso
             ) {
@@ -785,11 +767,6 @@ async function intentarIngreso() {
             return;
 
         }
-
-
-        console.log(
-            "HUMANÓMETRO: autenticación realizada correctamente."
-        );
 
 
         const tieneAcceso =
@@ -817,57 +794,18 @@ async function intentarIngreso() {
         ) {
 
             mensajeIngreso.textContent =
-                "La cuenta es correcta, pero todavía no tiene acceso habilitado. Usá DESBLOQUEAR CONOCIMIENTOS para realizar el pago.";
+                "La cuenta es correcta, pero todavía no tiene acceso habilitado.";
 
         }
 
     } catch (error) {
-
-        console.error(
-            "HUMANÓMETRO: EXCEPCIÓN DURANTE EL INGRESO:",
-            error
-        );
-
-
-        console.error(
-            "HUMANÓMETRO: tipo de excepción:",
-            error &&
-            error.constructor
-                ? error.constructor.name
-                : "Desconocido"
-        );
-
-
-        console.error(
-            "HUMANÓMETRO: nombre:",
-            error &&
-            error.name
-                ? error.name
-                : "Sin nombre"
-        );
-
-
-        console.error(
-            "HUMANÓMETRO: mensaje:",
-            error &&
-            error.message
-                ? error.message
-                : "Sin mensaje"
-        );
-
 
         if (
             mensajeIngreso
         ) {
 
             mensajeIngreso.textContent =
-                "Error de conexión con Supabase: " +
-                (
-                    error &&
-                    error.message
-                        ? error.message
-                        : "No se pudo conectar con el sistema de acceso."
-                );
+                "Error de conexión con Supabase.";
 
         }
 
@@ -970,12 +908,6 @@ async function crearCuenta() {
             error
         ) {
 
-            console.error(
-                "Error creando cuenta:",
-                error
-            );
-
-
             if (
                 mensajeIngreso
             ) {
@@ -1024,7 +956,7 @@ async function crearCuenta() {
             ) {
 
                 mensajeIngreso.textContent =
-                    "Cuenta creada correctamente. Ahora podés continuar con el pago.";
+                    "Cuenta creada correctamente.";
 
             }
 
@@ -1038,28 +970,18 @@ async function crearCuenta() {
         ) {
 
             mensajeIngreso.textContent =
-                "Cuenta creada. Revisá tu correo y confirmá tu dirección. Después volvé a ingresar para continuar con el pago.";
+                "Cuenta creada. Revisá tu correo.";
 
         }
 
     } catch (error) {
-
-        console.error(
-            "Error creando cuenta:",
-            error
-        );
-
 
         if (
             mensajeIngreso
         ) {
 
             mensajeIngreso.textContent =
-                "Error de Supabase: " +
-                (
-                    error.message ||
-                    "No se pudo crear la cuenta."
-                );
+                "Error al crear la cuenta.";
 
         }
 
@@ -1150,34 +1072,7 @@ async function abrirMercadoPago() {
 
 
         if (
-            error
-        ) {
-
-            console.error(
-                "Error creando pago:",
-                error
-            );
-
-
-            if (
-                mensajeIngreso
-            ) {
-
-                mensajeIngreso.textContent =
-                    "No se pudo generar el pago. Intentá nuevamente.";
-
-            }
-
-            mostrarPanelIngreso(
-                "compra"
-            );
-
-            return;
-
-        }
-
-
-        if (
+            error ||
             !data ||
             !data.payment_url
         ) {
@@ -1187,7 +1082,7 @@ async function abrirMercadoPago() {
             ) {
 
                 mensajeIngreso.textContent =
-                    "Mercado Pago no devolvió un enlace de pago válido.";
+                    "No se pudo generar el pago.";
 
             }
 
@@ -1204,12 +1099,6 @@ async function abrirMercadoPago() {
             data.payment_url;
 
     } catch (error) {
-
-        console.error(
-            "Error abriendo Mercado Pago:",
-            error
-        );
-
 
         if (
             mensajeIngreso
@@ -1560,13 +1449,7 @@ function reproducirTimbreRecreo() {
                     iniciarTimbre
                 )
                 .catch(
-                    function() {
-
-                        /* El navegador puede bloquear
-                           el audio automático. No rompe
-                           la interfaz. */
-
-                    }
+                    function() {}
                 );
 
         } else {
@@ -1575,12 +1458,7 @@ function reproducirTimbreRecreo() {
 
         }
 
-    } catch (error) {
-
-        /* El sonido nunca debe impedir
-           el funcionamiento de la página. */
-
-    }
+    } catch (error) {}
 
 }
 
@@ -2194,7 +2072,7 @@ document.addEventListener(
 
 
 /* ==================================================
-   PROTECCIONES EXISTENTES
+   PROTECCIONES EXISTENTES (BLINDAJE ACTIVADO)
    ================================================== */
 
 document.addEventListener(
@@ -2386,7 +2264,7 @@ document.addEventListener(
 
 
 /* ==================================================
-   INICIO — MODO DE DESARROLLO
+   INICIO — PRODUCCIÓN
    ================================================== */
 
 window.addEventListener(
@@ -2430,12 +2308,6 @@ window.addEventListener(
             );
 
         } catch (error) {
-
-            console.error(
-                "Error iniciando Supabase:",
-                error
-            );
-
 
             ocultarContenidoPrincipal();
 

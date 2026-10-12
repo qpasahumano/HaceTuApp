@@ -1,7 +1,7 @@
 "use strict";
 
-/* CACHE-BUSTER: 2026-10-10-1900 */
-const HM_JS_VERSION = "16.1";
+/* CACHE-BUSTER: 2026-10-12-1500 */
+const HM_JS_VERSION = "16.2";
 
 
 const paginas = {
@@ -769,9 +769,12 @@ async function intentarIngreso() {
         ) {
 
             mensajeIngreso.textContent =
-                "La cuenta es correcta, pero todavía no tiene acceso habilitado.";
+                "Cuenta correcta sin acceso. Redirigiendo a pasarela de pago...";
 
         }
+
+        // Redirección automática inmediata al flujo de pago si el acceso es false
+        await abrirMercadoPago();
 
     } catch (error) {
 
@@ -931,9 +934,11 @@ async function crearCuenta() {
             ) {
 
                 mensajeIngreso.textContent =
-                    "Cuenta creada correctamente.";
+                    "Cuenta creada. Redirigiendo al pago...";
 
             }
+
+            await abrirMercadoPago();
 
             return;
 

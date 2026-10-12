@@ -60,7 +60,7 @@ let paginaActual = 1;
    ================================================== */
 
 const SUPABASE_URL =
-    "https://zjviadsqbhdqdyomaot.supabase.co";
+    "https://zjviadsqbhqdjyomaoct.supabase.co";
 
 
 const SUPABASE_PUBLISHABLE_KEY =

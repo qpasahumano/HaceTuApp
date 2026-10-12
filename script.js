@@ -60,7 +60,7 @@ let paginaActual = 1;
    ================================================== */
 
 const SUPABASE_URL =
-    "https://zjviadsqbhdqdyomaot.supabase.co";
+    "https://zjviadsqbhqdjyomaoct.supabase.co";
 
 
 const SUPABASE_PUBLISHABLE_KEY =
@@ -277,8 +277,6 @@ let modoPanelIngreso =
 
 /* ==================================================
    MODO DE DESARROLLO
-   true  = mostrar el curso sin verificación automática.
-   false = ejecutar la verificación de acceso habitual.
    ================================================== */
 
 const MODO_DESARROLLO = false;
@@ -624,12 +622,6 @@ async function verificarAccesoActual(
 
     } catch (error) {
 
-        console.error(
-            "Error verificando acceso:",
-            error
-        );
-
-
         ocultarContenidoPrincipal();
 
         return false;
@@ -701,17 +693,6 @@ async function intentarIngreso() {
             await obtenerSupabaseClient();
 
 
-        console.log(
-            "HUMANÓMETRO: iniciando autenticación con Supabase."
-        );
-
-
-        console.log(
-            "HUMANÓMETRO: URL de Supabase:",
-            SUPABASE_URL
-        );
-
-
         const {
             data,
             error
@@ -725,12 +706,6 @@ async function intentarIngreso() {
         if (
             error
         ) {
-
-            console.error(
-                "HUMANÓMETRO: error devuelto por Supabase durante el ingreso:",
-                error
-            );
-
 
             if (
                 mensajeIngreso

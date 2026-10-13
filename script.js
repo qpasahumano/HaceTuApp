@@ -1,7 +1,7 @@
 "use strict";
 
 /* CACHE-BUSTER-FORCE: 2026-10-13-1215 - FORZAR RECARGA TOTAL */
-const HM_JS_VERSION = "16.9";
+const HM_JS_VERSION = "16.10";
 
 
 const paginas = {
@@ -203,7 +203,7 @@ async function obtenerSupabaseClient() {
 
 
 /* ==================================================
-   BLINDAJE DE SESIÓN ÚNICA (RECHAZO ATÓMICO EN SUPABASE - RPC)
+   BLINDAJE DE SESIÓN ÚNICA (PRIORIDAD AL DUEÑO - RPC)
    ================================================== */
 
 async function verificarYSellarSesion(cliente, userId) {
@@ -220,13 +220,13 @@ async function verificarYSellarSesion(cliente, userId) {
             p_token_dispositivo: tokenDispositivo
         });
 
-        if (error || !data) {
+        if (error) {
             return { permitido: false, mensaje: "Error de validación en el servidor." };
         }
 
         return { 
-            permitido: data.permitido, 
-            mensaje: data.mensaje || "Esta cuenta ya tiene una sesión activa en otro dispositivo." 
+            permitido: true, 
+            mensaje: "Acceso autorizado." 
         };
     } catch (e) {
         return { permitido: false, mensaje: "Error de conexión." };
@@ -248,7 +248,7 @@ async function validarSesionUnica(cliente, userId) {
         if (error || !data) return true;
 
         if (data.active_session_id && data.active_session_id !== tokenDispositivo) {
-            alert("Tu sesión ha sido cerrada porque se abrió en otro dispositivo.");
+            alert("Tu sesión ha sido cerrada porque se inició sesión en otro dispositivo.");
             await cliente.auth.signOut();
             localStorage.removeItem('hm_token_dispositivo');
             ocultarContenidoPrincipal();
@@ -1174,7 +1174,7 @@ async function abrirMercadoPago() {
             tieneAcceso
         ) {
 
-            const resultadoSesion = await verificarYSellarSesion(cliente, usuarioData.user.id);
+            const resultadoSesion = await verificarYSellarSesion(cliente, data.user.id);
             if (!resultadoSesion.permitido) {
                 if (mensajeIngreso) {
                     mensajeIngreso.textContent = resultadoSesion.mensaje;

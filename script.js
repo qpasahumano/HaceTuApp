@@ -1,7 +1,7 @@
 "use strict";
 
-/* CACHE-BUSTER: 2026-10-12-1700 */
-const HM_JS_VERSION = "16.5";
+/* CACHE-BUSTER-FORCE: 2026-10-13-1105 - REFRESH FORZADO */
+const HM_JS_VERSION = "16.6";
 
 
 const paginas = {
@@ -240,7 +240,6 @@ async function validarSesionUnica(cliente, userId) {
             await cliente.auth.signOut();
             localStorage.removeItem('hm_token_dispositivo');
             ocultarContenidoPrincipal();
-            mostrarPanelIngreso("ingreso");
             return false;
         }
 
@@ -379,7 +378,7 @@ function ocultarContenidoPrincipal() {
     ) {
 
         pantallaAcceso.style.display =
-            "";
+            "block";
 
     }
 
@@ -651,6 +650,7 @@ async function verificarAccesoActual(
         // Validar que la sesión sea única (bloqueo por cuentas compartidas)
         const sesionValida = await validarSesionUnica(cliente, usuarioData.user.id);
         if (!sesionValida) {
+            ocultarContenidoPrincipal();
             return false;
         }
 
@@ -2215,7 +2215,7 @@ const indicadorDeslizar =
     );
 
 
-let carruselYaDesplazado =
+ let carruselYaDesplazado =
     false;
 
 

@@ -2733,7 +2733,7 @@ body::before {
         width:
             42px;
 
-        height:
+            height:
             42px;
 
         font-size:
@@ -4513,5 +4513,20 @@ body {
     .pantalla-acceso:has(.panel-ingreso.visible) .boton-confirmar-ingreso,
     .pantalla-acceso:has(.panel-ingreso.visible) .boton-cerrar-ingreso {
         min-height: 38px !important;
+    }
+}
+
+
+/* ==================================================
+   ADAPTACIÓN PARA COMPUTADORAS Y PANTALLAS GRANDES
+   (Centra el contenido y evita estiramientos raros)
+   ================================================== */
+@media (min-width: 768px) {
+    .escena-pupitre,
+    .acceso-escena,
+    .modal-contenido {
+        max-width: 500px !important;
+        margin: 0 auto !important;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
     }
 }

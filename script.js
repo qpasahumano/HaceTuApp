@@ -1,7 +1,7 @@
 "use strict";
 
-/* CACHE-BUSTER-FORCE: 2026-10-13-1105 - REFRESH FORZADO */
-const HM_JS_VERSION = "16.6";
+/* CACHE-BUSTER-FORCE: 2026-10-13-1130 - RECHAZO ESTRICTO DE SESION */
+const HM_JS_VERSION = "16.7";
 
 
 const paginas = {
@@ -203,21 +203,45 @@ async function obtenerSupabaseClient() {
 
 
 /* ==================================================
-   BLINDAJE DE SESIÓN ÚNICA (PREVENCIÓN DE CUENTAS COMPARTIDAS)
+   BLINDAJE DE SESIÓN ÚNICA (RECHAZO DE ACCESO CONCURRENTE)
    ================================================== */
 
-async function registrarSesionActiva(cliente, userId) {
+async function verificarYSellarSesion(cliente, userId) {
     let tokenDispositivo = localStorage.getItem('hm_token_dispositivo');
-    
+
     if (!tokenDispositivo) {
         tokenDispositivo = 'dev_' + Math.random().toString(36).substring(2) + Date.now();
         localStorage.setItem('hm_token_dispositivo', tokenDispositivo);
     }
 
-    await cliente
-        .from("user_access")
-        .update({ active_session_id: tokenDispositivo })
-        .eq("user_id", userId);
+    try {
+        // 1. Consultar si ya hay un dispositivo registrado
+        const { data, error } = await cliente
+            .from("user_access")
+            .select("active_session_id")
+            .eq("user_id", userId)
+            .maybeSingle();
+
+        if (error) return { permitido: false, mensaje: "Error de validación en el servidor." };
+
+        // 2. Si ya hay una sesión activa y pertenece a OTRO dispositivo, RECHAZAR EL INGRESO
+        if (data && data.active_session_id && data.active_session_id !== tokenDispositivo) {
+            return { 
+                permitido: false, 
+                mensaje: "Esta cuenta ya tiene una sesión activa en otro dispositivo." 
+            };
+        }
+
+        // 3. Si la cuenta está libre o es el mismo dispositivo, sellar/actualizar sesión
+        await cliente
+            .from("user_access")
+            .update({ active_session_id: tokenDispositivo })
+            .eq("user_id", userId);
+
+        return { permitido: true };
+    } catch (e) {
+        return { permitido: true }; // En caso de fallo de red menor, permitimos para no bloquear
+    }
 }
 
 
@@ -234,9 +258,9 @@ async function validarSesionUnica(cliente, userId) {
 
         if (error || !data) return true;
 
-        // Si el token registrado en la base de datos es distinto al de este navegador, hay un inicio de sesión concurrente
+        // Si la sesión en Supabase cambió (porque se cerró o se abrió en otro lado), expulsar
         if (data.active_session_id && data.active_session_id !== tokenDispositivo) {
-            alert("Tu sesión ha sido abierta en otro dispositivo. El acceso en este navegador será cerrado.");
+            alert("Tu sesión ha sido cerrada porque se abrió en otro dispositivo.");
             await cliente.auth.signOut();
             localStorage.removeItem('hm_token_dispositivo');
             ocultarContenidoPrincipal();
@@ -810,8 +834,16 @@ async function intentarIngreso() {
             tieneAcceso
         ) {
 
-            // Registrar sesión activa y pisar cualquier otro dispositivo anterior
-            await registrarSesionActiva(cliente, data.user.id);
+            // Validar si la cuenta ya está en uso en otro dispositivo antes de dejar entrar
+            const resultadoSesion = await verificarYSellarSesion(cliente, data.user.id);
+
+            if (!resultadoSesion.permitido) {
+                if (mensajeIngreso) {
+                    mensajeIngreso.textContent = resultadoSesion.mensaje;
+                }
+                await cliente.auth.signOut();
+                return;
+            }
 
             ocultarPanelIngreso();
 
@@ -975,7 +1007,14 @@ async function crearCuenta() {
                 tieneAcceso
             ) {
 
-                await registrarSesionActiva(cliente, data.user.id);
+                const resultadoSesion = await verificarYSellarSesion(cliente, data.user.id);
+                if (!resultadoSesion.permitido) {
+                    if (mensajeIngreso) {
+                        mensajeIngreso.textContent = resultadoSesion.mensaje;
+                    }
+                    await cliente.auth.signOut();
+                    return;
+                }
 
                 ocultarPanelIngreso();
 
@@ -1079,7 +1118,14 @@ async function abrirMercadoPago() {
             tieneAcceso
         ) {
 
-            await registrarSesionActiva(cliente, usuarioData.user.id);
+            const resultadoSesion = await verificarYSellarSesion(cliente, usuarioData.user.id);
+            if (!resultadoSesion.permitido) {
+                if (mensajeIngreso) {
+                    mensajeIngreso.textContent = resultadoSesion.mensaje;
+                }
+                await cliente.auth.signOut();
+                return;
+            }
 
             mostrarContenidoPrincipal();
 
@@ -2215,7 +2261,7 @@ const indicadorDeslizar =
     );
 
 
- let carruselYaDesplazado =
+let carruselYaDesplazado =
     false;
 
 

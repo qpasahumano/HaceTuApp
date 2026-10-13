@@ -344,6 +344,73 @@ const MODO_DESARROLLO = false;
 
 
 
+/* ==================================================
+   BOTÓN DE SALIR / CERRAR SESIÓN (SEGURO Y COMPACTO)
+   ================================================== */
+function prepararBotonCerrarSesion() {
+    if (document.getElementById("botonCerrarSesionSeguro")) {
+        return;
+    }
+
+    const barraNavegacion = document.querySelector(".contenido-header") || 
+                            document.querySelector("header") || 
+                            contenidoPrincipal;
+
+    if (!barraNavegacion) {
+        return;
+    }
+
+    const botonSalir = document.createElement("button");
+    botonSalir.id = "botonCerrarSesionSeguro";
+    botonSalir.type = "button";
+    botonSalir.textContent = "SALIR";
+    
+    botonSalir.style.cssText = `
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 20px;
+        padding: 6px 12px;
+        font-size: 11px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 1000;
+        transition: background-color 0.2s ease;
+    `;
+
+    botonSalir.addEventListener("mouseenter", function() {
+        botonSalir.style.backgroundColor = "rgba(180, 0, 0, 0.8)";
+    });
+
+    botonSalir.addEventListener("mouseleave", function() {
+        botonSalir.style.backgroundColor = "rgba(0, 0, 0, 0.6)";
+    });
+
+    botonSalir.addEventListener("click", async function(e) {
+        e.preventDefault();
+        try {
+            const cliente = await obtenerSupabaseClient();
+            await cliente.auth.signOut();
+            localStorage.removeItem('hm_token_dispositivo');
+            ocultarContenidoPrincipal();
+            mostrarPanelIngreso("ingreso");
+        } catch (err) {
+            window.location.reload();
+        }
+    });
+
+    if (window.getComputedStyle(barraNavegacion).position === "static") {
+        barraNavegacion.style.position = "relative";
+    }
+
+    barraNavegacion.appendChild(botonSalir);
+}
+
+
+
 function mostrarContenidoPrincipal() {
 
     if (
@@ -368,6 +435,9 @@ function mostrarContenidoPrincipal() {
 
     document.body.style.overflow =
         "";
+
+
+    prepararBotonCerrarSesion();
 
 }
 

@@ -1,7 +1,7 @@
 "use strict";
 
-/* CACHE-BUSTER-FORCE: 2026-10-13-1130 - RECHAZO ESTRICTO DE SESION */
-const HM_JS_VERSION = "16.7";
+/* CACHE-BUSTER-FORCE: 2026-10-13-1215 - FORZAR RECARGA TOTAL */
+const HM_JS_VERSION = "16.9";
 
 
 const paginas = {
@@ -203,7 +203,7 @@ async function obtenerSupabaseClient() {
 
 
 /* ==================================================
-   BLINDAJE DE SESIÓN ÚNICA (RECHAZO DE ACCESO CONCURRENTE)
+   BLINDAJE DE SESIÓN ÚNICA (RECHAZO ATÓMICO EN SUPABASE - RPC)
    ================================================== */
 
 async function verificarYSellarSesion(cliente, userId) {
@@ -215,32 +215,21 @@ async function verificarYSellarSesion(cliente, userId) {
     }
 
     try {
-        // 1. Consultar si ya hay un dispositivo registrado
-        const { data, error } = await cliente
-            .from("user_access")
-            .select("active_session_id")
-            .eq("user_id", userId)
-            .maybeSingle();
+        const { data, error } = await cliente.rpc('intentar_login_seguro', {
+            p_user_id: userId,
+            p_token_dispositivo: tokenDispositivo
+        });
 
-        if (error) return { permitido: false, mensaje: "Error de validación en el servidor." };
-
-        // 2. Si ya hay una sesión activa y pertenece a OTRO dispositivo, RECHAZAR EL INGRESO
-        if (data && data.active_session_id && data.active_session_id !== tokenDispositivo) {
-            return { 
-                permitido: false, 
-                mensaje: "Esta cuenta ya tiene una sesión activa en otro dispositivo." 
-            };
+        if (error || !data) {
+            return { permitido: false, mensaje: "Error de validación en el servidor." };
         }
 
-        // 3. Si la cuenta está libre o es el mismo dispositivo, sellar/actualizar sesión
-        await cliente
-            .from("user_access")
-            .update({ active_session_id: tokenDispositivo })
-            .eq("user_id", userId);
-
-        return { permitido: true };
+        return { 
+            permitido: data.permitido, 
+            mensaje: data.mensaje || "Esta cuenta ya tiene una sesión activa en otro dispositivo." 
+        };
     } catch (e) {
-        return { permitido: true }; // En caso de fallo de red menor, permitimos para no bloquear
+        return { permitido: false, mensaje: "Error de conexión." };
     }
 }
 
@@ -258,7 +247,6 @@ async function validarSesionUnica(cliente, userId) {
 
         if (error || !data) return true;
 
-        // Si la sesión en Supabase cambió (porque se cerró o se abrió en otro lado), expulsar
         if (data.active_session_id && data.active_session_id !== tokenDispositivo) {
             alert("Tu sesión ha sido cerrada porque se abrió en otro dispositivo.");
             await cliente.auth.signOut();
@@ -671,7 +659,6 @@ async function verificarAccesoActual(
         }
 
 
-        // Validar que la sesión sea única (bloqueo por cuentas compartidas)
         const sesionValida = await validarSesionUnica(cliente, usuarioData.user.id);
         if (!sesionValida) {
             ocultarContenidoPrincipal();
@@ -834,7 +821,6 @@ async function intentarIngreso() {
             tieneAcceso
         ) {
 
-            // Validar si la cuenta ya está en uso en otro dispositivo antes de dejar entrar
             const resultadoSesion = await verificarYSellarSesion(cliente, data.user.id);
 
             if (!resultadoSesion.permitido) {

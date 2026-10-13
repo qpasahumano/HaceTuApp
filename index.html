@@ -236,39 +236,34 @@
              SALÓN DE ESTUDIO: DUAL COMPUTADORAS RETRO
              ================================================== -->
 
-        <div class="salon-estudio-doble" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 900px; margin: 20px auto;">
+        <div class="salon-estudio-doble">
 
             <!-- COMPUTADORA 1: GUÍA DE TRINCHERA -->
-            <div class="bloque-curso-retro" style="flex: 1 1 380px; max-width: 420px; text-align: center;">
-                <div class="zona-computadora">
-                    <div class="computadora-real">
-                        <img
-                            src="computadora_retro_80_90.png"
-                            class="computadora-imagen"
-                            alt="Computadora Guía de Trinchera"
-                            draggable="false"
-                        >
-                        <div class="pantalla-youtube">
-                            <iframe
-                                src="https://www.youtube.com/embed/videoseries?list=PLgMXXa_ibKppXXotFeUcuNdBL-Zm5GKxA"
-                                title="Guía de Trinchera"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen>
-                            </iframe>
-                        </div>
+            <div class="bloque-curso-retro">
+                <div class="computadora-real">
+                    <img
+                        src="computadora_retro_80_90.png"
+                        class="computadora-imagen"
+                        alt="Computadora Guía de Trinchera"
+                        draggable="false"
+                    >
+                    <div class="pantalla-youtube">
+                        <iframe
+                            src="https://www.youtube.com/embed/videoseries?list=PLgMXXa_ibKppXXotFeUcuNdBL-Zm5GKxA"
+                            title="Guía de Trinchera"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                        </iframe>
                     </div>
                 </div>
 
-                <!-- Papel con descripción y botón -->
-                <div style="background-color: #fdf6e3; border: 1px solid #d3c6aa; border-radius: 8px; padding: 15px; margin-top: 10px; box-shadow: 2px 2px 8px rgba(0,0,0,0.3);">
-                    <h3 style="margin: 0 0 8px 0; color: #2c2c2c; font-size: 18px;">Guía de Trinchera</h3>
-                    <p style="margin: 0 0 12px 0; color: #4a4a4a; font-size: 13px; line-height: 1.4;">
-                        De la idea a una app real, sin saber programar. Un recorrido paso a paso, práctico y simple para crear tu propia app.
-                    </p>
-                    <button 
-                        type="button" 
-                        onclick="document.getElementById('carruselHojas').scrollIntoView({behavior: 'smooth'})"
-                        style="background: linear-gradient(135deg, #e91e63, #c2185b); color: #fff; border: none; padding: 10px 18px; border-radius: 20px; font-weight: bold; font-size: 13px; cursor: pointer; box-shadow: 0 0 10px rgba(233, 30, 99, 0.5);">
+                <div class="papel-descripcion-retro">
+                    <h3>Guía de Trinchera</h3>
+                    <p>De la idea a una app real, sin saber programar. Un recorrido paso a paso, práctico y simple para crear tu propia app.</p>
+                </div>
+
+                <div class="contenedor-boton-curso">
+                    <button class="boton-curso-accion fucsia" onclick="document.getElementById('carruselHojas').scrollIntoView({behavior: 'smooth'})" type="button">
                         📖 ENTRAR A LA GUÍA ›
                     </button>
                 </div>
@@ -276,35 +271,30 @@
 
 
             <!-- COMPUTADORA 2: BLINDAJE DIGITAL -->
-            <div class="bloque-curso-retro" style="flex: 1 1 380px; max-width: 420px; text-align: center;">
-                <div class="zona-computadora">
-                    <div class="computadora-real">
-                        <img
-                            src="computadora_retro_80_90.png"
-                            class="computadora-imagen"
-                            alt="Computadora Blindaje Digital"
-                            draggable="false"
-                        >
-                        <div class="pantalla-youtube" style="background: #050b14; display: flex; align-items: center; justify-content: center; color: #00d2ff; text-align: center; padding: 10px;">
-                            <div>
-                                <div style="font-size: 24px; margin-bottom: 5px;">🛡️</div>
-                                <strong style="display: block; font-size: 14px; letter-spacing: 1px;">BLINDAJE DIGITAL</strong>
-                                <span style="font-size: 11px; color: #ffca28; display: block; margin-top: 4px;">[ EN PREPARACIÓN ]</span>
-                            </div>
+            <div class="bloque-curso-retro">
+                <div class="computadora-real">
+                    <img
+                        src="computadora_retro_80_90.png"
+                        class="computadora-imagen"
+                        alt="Computadora Blindaje Digital"
+                        draggable="false"
+                    >
+                    <div class="pantalla-youtube" style="background: #050b14; display: flex; align-items: center; justify-content: center; color: #00d2ff; text-align: center; padding: 10px;">
+                        <div>
+                            <div style="font-size: 24px; margin-bottom: 5px;">🛡️</div>
+                            <strong style="display: block; font-size: 14px; letter-spacing: 1px;">BLINDAJE DIGITAL</strong>
+                            <span style="font-size: 11px; color: #ffca28; display: block; margin-top: 4px;">[ EN PREPARACIÓN ]</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Papel con descripción y botón -->
-                <div style="background-color: #fdf6e3; border: 1px solid #d3c6aa; border-radius: 8px; padding: 15px; margin-top: 10px; box-shadow: 2px 2px 8px rgba(0,0,0,0.3);">
-                    <h3 style="margin: 0 0 8px 0; color: #2c2c2c; font-size: 18px;">Blindaje Digital</h3>
-                    <p style="margin: 0 0 12px 0; color: #4a4a4a; font-size: 13px; line-height: 1.4;">
-                        Protegé tu proyecto y preparalo para generar ingresos. Todo lo que necesitás para publicar, resguardar y hacer crecer tu app.
-                    </p>
-                    <button 
-                        type="button" 
-                        disabled
-                        style="background: #78909c; color: #e0e0e0; border: none; padding: 10px 18px; border-radius: 20px; font-weight: bold; font-size: 13px; cursor: not-allowed; opacity: 0.8;">
+                <div class="papel-descripcion-retro">
+                    <h3>Blindaje Digital</h3>
+                    <p>Protegé tu proyecto y preparalo para generar ingresos. Todo lo que necesitás para publicar, resguardar y hacer crecer tu app.</p>
+                </div>
+
+                <div class="contenedor-boton-curso">
+                    <button class="boton-curso-accion azul deshabilitado" disabled type="button">
                         ⚙️ INGRESAR A ESTA TEMÁTICA ›
                     </button>
                 </div>

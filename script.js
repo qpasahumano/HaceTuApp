@@ -1,7 +1,7 @@
 "use strict";
 
 /* CACHE-BUSTER: 2026-10-12-1700 */
-const HM_JS_VERSION = "16.4";
+const HM_JS_VERSION = "16.5";
 
 
 const paginas = {
@@ -198,6 +198,56 @@ async function obtenerSupabaseClient() {
 
     return supabaseClient;
 
+}
+
+
+
+/* ==================================================
+   BLINDAJE DE SESIÓN ÚNICA (PREVENCIÓN DE CUENTAS COMPARTIDAS)
+   ================================================== */
+
+async function registrarSesionActiva(cliente, userId) {
+    let tokenDispositivo = localStorage.getItem('hm_token_dispositivo');
+    
+    if (!tokenDispositivo) {
+        tokenDispositivo = 'dev_' + Math.random().toString(36).substring(2) + Date.now();
+        localStorage.setItem('hm_token_dispositivo', tokenDispositivo);
+    }
+
+    await cliente
+        .from("user_access")
+        .update({ active_session_id: tokenDispositivo })
+        .eq("user_id", userId);
+}
+
+
+async function validarSesionUnica(cliente, userId) {
+    try {
+        const tokenDispositivo = localStorage.getItem('hm_token_dispositivo');
+        if (!tokenDispositivo) return true;
+
+        const { data, error } = await cliente
+            .from("user_access")
+            .select("active_session_id")
+            .eq("user_id", userId)
+            .maybeSingle();
+
+        if (error || !data) return true;
+
+        // Si el token registrado en la base de datos es distinto al de este navegador, hay un inicio de sesión concurrente
+        if (data.active_session_id && data.active_session_id !== tokenDispositivo) {
+            alert("Tu sesión ha sido abierta en otro dispositivo. El acceso en este navegador será cerrado.");
+            await cliente.auth.signOut();
+            localStorage.removeItem('hm_token_dispositivo');
+            ocultarContenidoPrincipal();
+            mostrarPanelIngreso("ingreso");
+            return false;
+        }
+
+        return true;
+    } catch (e) {
+        return true;
+    }
 }
 
 
@@ -598,6 +648,13 @@ async function verificarAccesoActual(
         }
 
 
+        // Validar que la sesión sea única (bloqueo por cuentas compartidas)
+        const sesionValida = await validarSesionUnica(cliente, usuarioData.user.id);
+        if (!sesionValida) {
+            return false;
+        }
+
+
         const tieneAcceso =
             await consultarAccesoUsuario(
                 cliente,
@@ -752,6 +809,9 @@ async function intentarIngreso() {
         if (
             tieneAcceso
         ) {
+
+            // Registrar sesión activa y pisar cualquier otro dispositivo anterior
+            await registrarSesionActiva(cliente, data.user.id);
 
             ocultarPanelIngreso();
 
@@ -915,6 +975,8 @@ async function crearCuenta() {
                 tieneAcceso
             ) {
 
+                await registrarSesionActiva(cliente, data.user.id);
+
                 ocultarPanelIngreso();
 
                 mostrarContenidoPrincipal();
@@ -1016,6 +1078,8 @@ async function abrirMercadoPago() {
         if (
             tieneAcceso
         ) {
+
+            await registrarSesionActiva(cliente, usuarioData.user.id);
 
             mostrarContenidoPrincipal();
 

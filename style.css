@@ -3648,7 +3648,7 @@ body::before {
 }
 
 /* Igualdad REAL de los dos botones:
-   misma caja y misma altura visual, independientemente
+   misma caja y mesma altura visual, independientemente
    de las proporciones diferentes de las imágenes. */
 .pantalla-acceso .acceso-opciones {
     width: min(calc(100% - 12px), 245px);
@@ -4519,10 +4519,13 @@ body {
 
 /* ==================================================
    ADAPTACIÓN PARA COMPUTADORAS Y PANTALLAS GRANDES
-   (Centra el contenido y evita estiramientos raros)
+   (Corregido: Permite ancho completo para las dos computadoras)
    ================================================== */
 @media (min-width: 768px) {
-    .escena-pupitre,
+    .escena-pupitre {
+        max-width: 1100px !important;
+        margin: 0 auto !important;
+    }
     .acceso-escena,
     .modal-contenido {
         max-width: 500px !important;

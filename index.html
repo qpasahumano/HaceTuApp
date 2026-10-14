@@ -19,8 +19,14 @@
 
     <link
         rel="stylesheet"
-        href="style.css?v=39"
+        href="style.css?v=40"
     >
+
+    <!-- Librería PDF.js para renderizar el PDF en canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    </script>
 
 </head>
 
@@ -338,7 +344,7 @@
 
 
 <!-- ==================================================
-     VISOR DE PÁGINAS (MODAL DEL CURSO DE BLINDAJE)
+     VISOR DE PÁGINAS (MODAL DEL CURSO DE BLINDAJE DIGITAL)
      ================================================== -->
 
 <div
@@ -365,7 +371,8 @@
 
             <div class="hoja-lectura">
 
-                <canvas id="pdfCanvasBlindaje"></canvas>
+                <!-- Canvas optimizado para PDF.js -->
+                <canvas id="pdfCanvasBlindaje" style="display: block; max-width: 100%; height: auto; margin: 0 auto; box-shadow: 0 4px 15px rgba(0,0,0,0.5);"></canvas>
 
             </div>
 
@@ -373,42 +380,44 @@
             <section
                 class="zona-complementaria"
                 aria-label="Contenido complementario de la página"
+                style="margin-top: 15px; display: flex; flex-direction: column; align-items: center; gap: 10px;"
             >
 
-                <div class="fila-acciones">
+                <div class="fila-acciones" style="display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap;">
 
                     <button
                         id="botonAnteriorBlindaje"
                         class="accion-pagina"
                         type="button"
                         onclick="cambiarPaginaBlindaje(-1)"
+                        style="padding: 8px 14px; background: rgba(0,0,0,0.6); color: #fff; border: 1px solid rgba(255,255,255,0.5); border-radius: 4px; font-family: 'Courier New', monospace; font-weight: bold; cursor: pointer;"
                     >
-                        ⮜ PÁGINA ANTERIOR
+                        ⮜ ANTERIOR
                     </button>
 
-                    <span id="contadorPaginasBlindaje" style="color: #fff; font-family: 'Courier New', monospace; font-size: 13px; align-self: center;">
+                    <span id="contadorPaginasBlindaje" style="color: #fff; font-family: 'Courier New', monospace; font-size: 13px; font-weight: bold; padding: 0 5px;">
                         Pág. 1 / --
                     </span>
-
-                    <button
-                        id="botonVideoComplementarioBlindaje"
-                        class="boton-video-complementario"
-                        type="button"
-                        onclick="alternarVideoComplementarioBlindaje()"
-                    >
-                        ▶ VER VIDEO
-                    </button>
-
 
                     <button
                         id="botonSiguienteBlindaje"
                         class="accion-pagina"
                         type="button"
                         onclick="cambiarPaginaBlindaje(1)"
+                        style="padding: 8px 14px; background: rgba(0,0,0,0.6); color: #fff; border: 1px solid rgba(255,255,255,0.5); border-radius: 4px; font-family: 'Courier New', monospace; font-weight: bold; cursor: pointer;"
                     >
-                        SIGUIENTE PÁGINA ⮞
+                        SIGUIENTE ⮞
                     </button>
 
+                    <button
+                        id="botonVideoComplementarioBlindaje"
+                        class="boton-video-complementario"
+                        type="button"
+                        onclick="alternarVideoComplementarioBlindaje()"
+                        style="padding: 8px 14px; background: linear-gradient(135deg, #ff2a75, #c2185b); color: #fff; border: 1px solid rgba(255,255,255,0.5); border-radius: 4px; font-family: 'Courier New', monospace; font-weight: bold; cursor: pointer;"
+                    >
+                        ▶ VER VIDEO
+                    </button>
 
                 </div>
 
@@ -417,6 +426,7 @@
                     id="subtituloVideoBlindaje"
                     class="subtitulo-video"
                     aria-live="polite"
+                    style="color: #fdf6e3; font-size: 12px; text-align: center;"
                 ></div>
 
 
@@ -424,14 +434,16 @@
                     id="contenedorVideoComplementarioBlindaje"
                     class="contenedor-video-complementario"
                     aria-hidden="true"
+                    style="display: none; width: 100%; max-width: 600px; margin-top: 10px;"
                 >
 
-                    <div class="video-responsive">
+                    <div class="video-responsive" style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0;">
 
                         <iframe
                             id="videoComplementarioBlindaje"
                             title="Video complementario del curso de Blindaje Digital"
                             src=""
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
                             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowfullscreen>
                         </iframe>

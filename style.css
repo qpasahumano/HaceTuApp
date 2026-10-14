@@ -4640,3 +4640,26 @@ body {
     box-shadow: 0 0 6px rgba(96, 125, 139, 0.5) !important;
     opacity: 0.9 !important;
 }
+
+/* Ajuste optimizado de las pantallas CRT para contener perfectamente los nuevos stickers */
+.bloque-curso-retro .pantalla-youtube {
+    position: absolute !important;
+    z-index: 30 !important;
+    left: 17% !important;
+    top: 9.5% !important;
+    width: 66% !important;
+    height: 39% !important;
+    overflow: hidden !important;
+    background: #050505 !important;
+    border-radius: 9% / 11% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.bloque-curso-retro .pantalla-youtube img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    pointer-events: none !important;
+}

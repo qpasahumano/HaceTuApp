@@ -1,11 +1,14 @@
 "use strict";
 
-/* CACHE-BUSTER-FORCE: 2026-10-13-1215 - FORZAR RECARGA TOTAL */
-const HM_JS_VERSION = "16.12";
+/* CACHE-BUSTER-FORCE: 2026-10-14-1830 - FORZAR RECARGA TOTAL */
+const HM_JS_VERSION = "16.13";
 
+
+/* ==================================================
+   CURSO 1: GUÍA DE TRINCHERA (IMÁGENES)
+   ================================================== */
 
 const paginas = {
-
     1: "pagina_1.png",
     2: "pagina_2.png",
     3: "pagina_3.png",
@@ -16,17 +19,9 @@ const paginas = {
     8: "pagina_8.png",
     9: "pagina_9.png",
     10: "pagina_10.png"
-
 };
 
-
-
-/* ==================================================
-   VIDEOS COMPLEMENTARIOS
-   ================================================== */
-
 const videosComplementarios = {
-
     1: "https://youtu.be/PkNDkUbAATU?si=BG3NB_5aOFggDn3Y",
     2: "https://youtu.be/I95gS70vAPg?si=BnhaDzNyJ397-6Y5",
     3: "https://youtu.be/3TgsyUGaGmo?si=pEEJblCUj0GJcZHQ",
@@ -36,210 +31,96 @@ const videosComplementarios = {
     7: "https://youtu.be/SS5NcxjVFDg?si=AUSJN6uAlNPGoNqX",
     8: "https://youtu.be/3XH0yOdORYQ?si=B9URc73_TJDXAZxj",
     9: "https://youtu.be/jdDYxj2rlzU?si=tW2fi_ssXeQ3wukB"
-
 };
 
-
-
 const subtitulosVideos = {
-
     7: "Cuerpo de la app (HTML/JS y CSS)",
     8: "Ejemplos personales de Promos",
     9: "Estructura para realizar juegos estilo retros."
-
 };
-
-
 
 let paginaActual = 1;
 
 
 /* ==================================================
-   CURSO DE BLINDAJE DIGITAL (ABRIR PDF DIRECTO)
+   CURSO 2: BLINDAJE DIGITAL (MATRIZ DE IMÁGENES PASO A PASO)
    ================================================== */
 
-const urlPdfBlindaje = "Curso_Humanometro_Guia_de_Trinchera_AJUSTE_VERTICAL_SOLO_PAGINAS_HORIZONTALES.pdf";
+// Mapeo de páginas troceadas para el curso de Blindaje
+const paginasBlindaje = {
+    1: "blindaje_pagina_1.png",
+    2: "blindaje_pagina_2.png",
+    3: "blindaje_pagina_3.png"
+    // Aquí irás sumando blindaje_pagina_4.png, etc., a medida que trocees la guía.
+};
 
-function abrirBlindaje() {
-    const modal = document.getElementById("modalPdfBlindaje");
-    const iframe = document.getElementById("visorIframeBlindaje");
+const totalPaginasBlindaje = Object.keys(paginasBlindaje).length || 77;
 
-    if (!modal || !iframe) return;
+const videosBlindaje = {
+    // Ejemplo para cuando subas los videos complementarios:
+    // 1: "https://youtu.be/..."
+};
 
-    iframe.src = urlPdfBlindaje;
-    modal.style.display = "flex";
-    modal.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
-}
+const subtitulosBlindaje = {
+    // 1: "Video demostrativo de la puerta de entrada"
+};
 
-function cerrarModalBlindaje() {
-    const modal = document.getElementById("modalPdfBlindaje");
-    const iframe = document.getElementById("visorIframeBlindaje");
-
-    if (!modal) return;
-
-    if (iframe) iframe.src = "";
-    modal.style.display = "none";
-    modal.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
-}
-
+let paginaActualBlindaje = 1;
 
 
 /* ==================================================
-   SUPABASE
+   SUPABASE Y CONFIGURACIÓN
    ================================================== */
 
-const SUPABASE_URL =
-    "https://zjviadsqbhqdjyomaoct.supabase.co";
+const SUPABASE_URL = "https://zjviadsqbhqdjyomaoct.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_63lSHlN2SiggU_YsouSzaQ_Bis21lzw";
+const SUPABASE_FUNCTION_PAGO = "crear-pago";
 
-
-const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_63lSHlN2SiggU_YsouSzaQ_Bis21lzw";
-
-
-const SUPABASE_FUNCTION_PAGO =
-    "crear-pago";
-
-
-let supabaseClient =
-    null;
-
-
-let supabaseLibraryPromise =
-    null;
-
+let supabaseClient = null;
+let supabaseLibraryPromise = null;
 
 function cargarLibreriaSupabase() {
-
-    if (
-        window.supabase &&
-        typeof window.supabase.createClient === "function"
-    ) {
-
+    if (window.supabase && typeof window.supabase.createClient === "function") {
         return Promise.resolve();
-
     }
-
-
-    if (
-        supabaseLibraryPromise
-    ) {
-
+    if (supabaseLibraryPromise) {
         return supabaseLibraryPromise;
-
     }
-
-
-    supabaseLibraryPromise =
-        new Promise(
-            function(resolve, reject) {
-
-                const script =
-                    document.createElement(
-                        "script"
-                    );
-
-
-                script.src =
-                    "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
-
-
-                script.async =
-                    true;
-
-
-                script.onload =
-                    function() {
-
-                        if (
-                            window.supabase &&
-                            typeof window.supabase.createClient === "function"
-                        ) {
-
-                            resolve();
-
-                            return;
-
-                        }
-
-
-                        reject(
-                            new Error(
-                                "No se pudo cargar Supabase."
-                            )
-                        );
-
-                    };
-
-
-                script.onerror =
-                    function() {
-
-                        reject(
-                            new Error(
-                                "No se pudo cargar la librería de Supabase."
-                            )
-                        );
-
-                    };
-
-
-                document.head.appendChild(
-                    script
-                );
-
+    supabaseLibraryPromise = new Promise(function(resolve, reject) {
+        const script = document.createElement("script");
+        script.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
+        script.async = true;
+        script.onload = function() {
+            if (window.supabase && typeof window.supabase.createClient === "function") {
+                resolve();
+                return;
             }
-        );
-
-
+            reject(new Error("No se pudo cargar Supabase."));
+        };
+        script.onerror = function() {
+            reject(new Error("No se pudo cargar la librería de Supabase."));
+        };
+        document.head.appendChild(script);
+    });
     return supabaseLibraryPromise;
-
 }
-
-
 
 async function obtenerSupabaseClient() {
-
-    if (
-        supabaseClient
-    ) {
-
-        return supabaseClient;
-
-    }
-
-
+    if (supabaseClient) return supabaseClient;
     await cargarLibreriaSupabase();
-
-
-    supabaseClient =
-        window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_PUBLISHABLE_KEY,
-            {
-                auth: {
-                    autoRefreshToken: true,
-                    persistSession: true,
-                    detectSessionInUrl: true
-                }
-            }
-        );
-
-
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+        auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true }
+    });
     return supabaseClient;
-
 }
-
 
 
 /* ==================================================
-   BLINDAJE DE SESIÓN ÚNICA (PRIORIDAD AL DUEÑO - RPC)
+   BLINDAJE DE SESIÓN ÚNICA
    ================================================== */
 
 async function verificarYSellarSesion(cliente, userId) {
     let tokenDispositivo = localStorage.getItem('hm_token_dispositivo');
-
     if (!tokenDispositivo) {
         tokenDispositivo = 'dev_' + Math.random().toString(36).substring(2) + Date.now();
         localStorage.setItem('hm_token_dispositivo', tokenDispositivo);
@@ -250,20 +131,12 @@ async function verificarYSellarSesion(cliente, userId) {
             p_user_id: userId,
             p_token_dispositivo: tokenDispositivo
         });
-
-        if (error) {
-            return { permitido: false, mensaje: "Error de validación en el servidor." };
-        }
-
-        return { 
-            permitido: true, 
-            mensaje: "Acceso autorizado." 
-        };
+        if (error) return { permitido: false, mensaje: "Error de validación en el servidor." };
+        return { permitido: true, mensaje: "Acceso autorizado." };
     } catch (e) {
         return { permitido: false, mensaje: "Error de conexión." };
     }
 }
-
 
 async function validarSesionUnica(cliente, userId) {
     try {
@@ -285,7 +158,6 @@ async function validarSesionUnica(cliente, userId) {
             ocultarContenidoPrincipal();
             return false;
         }
-
         return true;
     } catch (e) {
         return true;
@@ -293,406 +165,89 @@ async function validarSesionUnica(cliente, userId) {
 }
 
 
-
 /* ==================================================
-   PANTALLA PREVIA DE ACCESO
+   PANTALLA PREVIA Y CONTROL DE ACCESO
    ================================================== */
 
-const pantallaAcceso =
-    document.getElementById(
-        "pantallaAcceso"
-    );
+const pantallaAcceso = document.getElementById("pantallaAcceso");
+const contenidoPrincipal = document.getElementById("contenidoPrincipal");
+const botonYaAcceso = document.getElementById("botonYaAcceso");
+const botonNoAcceso = document.getElementById("botonNoAcceso");
+const panelIngreso = document.getElementById("panelIngreso");
+const botonConfirmarIngreso = document.getElementById("botonConfirmarIngreso");
+const botonCerrarIngreso = document.getElementById("botonCerrarIngreso");
+const mensajeIngreso = document.getElementById("mensajeIngreso");
+const usuarioAcceso = document.getElementById("usuarioAcceso");
+const claveAcceso = document.getElementById("claveAcceso");
 
-
-const contenidoPrincipal =
-    document.getElementById(
-        "contenidoPrincipal"
-    );
-
-
-const botonYaAcceso =
-    document.getElementById(
-        "botonYaAcceso"
-    );
-
-
-const botonNoAcceso =
-    document.getElementById(
-        "botonNoAcceso"
-    );
-
-
-const panelIngreso =
-    document.getElementById(
-        "panelIngreso"
-    );
-
-
-const botonConfirmarIngreso =
-    document.getElementById(
-        "botonConfirmarIngreso"
-    );
-
-
-const botonCerrarIngreso =
-    document.getElementById(
-        "botonCerrarIngreso"
-    );
-
-
-const mensajeIngreso =
-    document.getElementById(
-        "mensajeIngreso"
-    );
-
-
-const usuarioAcceso =
-    document.getElementById(
-        "usuarioAcceso"
-    );
-
-
-const claveAcceso =
-    document.getElementById(
-        "claveAcceso"
-    );
-
-
-let botonCrearCuenta =
-    null;
-
-
-let modoPanelIngreso =
-    "ingreso";
-
-
-
-/* ==================================================
-   MODO DE DESARROLLO
-   ================================================== */
-
+let botonCrearCuenta = null;
+let modoPanelIngreso = "ingreso";
 const MODO_DESARROLLO = false;
 
-
-
-/* ==================================================
-   CONTROL DE VISIBILIDAD DE CONTENIDO Y SESIÓN
-   ================================================== */
-
 function mostrarContenidoPrincipal() {
-
-    if (
-        contenidoPrincipal
-    ) {
-
-        contenidoPrincipal.style.display =
-            "block";
-
-    }
-
-
-    if (
-        pantallaAcceso
-    ) {
-
-        pantallaAcceso.style.display =
-            "none";
-
-    }
-
-
-    document.body.style.overflow =
-        "";
-
+    if (contenidoPrincipal) contenidoPrincipal.style.display = "block";
+    if (pantallaAcceso) pantallaAcceso.style.display = "none";
+    document.body.style.overflow = "";
 }
-
-
 
 function ocultarContenidoPrincipal() {
-
-    if (
-        contenidoPrincipal
-    ) {
-
-        contenidoPrincipal.style.display =
-            "none";
-
-    }
-
-
-    if (
-        pantallaAcceso
-    ) {
-
-        pantallaAcceso.style.display =
-            "block";
-
-    }
-
+    if (contenidoPrincipal) contenidoPrincipal.style.display = "none";
+    if (pantallaAcceso) pantallaAcceso.style.display = "block";
 }
-
-
 
 function prepararBotonCrearCuenta() {
+    if (botonCrearCuenta) return;
+    const contenedor = panelIngreso ? panelIngreso.querySelector(".panel-ingreso-contenido") : null;
+    if (!contenedor) return;
 
-    if (
-        botonCrearCuenta
-    ) {
+    botonCrearCuenta = document.createElement("button");
+    botonCrearCuenta.id = "botonCrearCuenta";
+    botonCrearCuenta.type = "button";
+    botonCrearCuenta.className = "boton-confirmar-ingreso";
+    botonCrearCuenta.textContent = "CREAR CUENTA";
+    botonCrearCuenta.addEventListener("click", function() { crearCuenta(); });
 
-        return;
-
-    }
-
-
-    const contenedor =
-        panelIngreso
-            ? panelIngreso.querySelector(
-                ".panel-ingreso-contenido"
-            )
-            : null;
-
-
-    if (
-        !contenedor
-    ) {
-
-        return;
-
-    }
-
-
-    botonCrearCuenta =
-        document.createElement(
-            "button"
-        );
-
-
-    botonCrearCuenta.id =
-        "botonCrearCuenta";
-
-
-    botonCrearCuenta.type =
-        "button";
-
-
-    botonCrearCuenta.className =
-        "boton-confirmar-ingreso";
-
-
-    botonCrearCuenta.textContent =
-        "CREAR CUENTA";
-
-
-    botonCrearCuenta.addEventListener(
-        "click",
-        function() {
-
-            crearCuenta();
-
-        }
-    );
-
-
-    if (
-        botonConfirmarIngreso
-    ) {
-
-        botonConfirmarIngreso.insertAdjacentElement(
-            "afterend",
-            botonCrearCuenta
-        );
-
+    if (botonConfirmarIngreso) {
+        botonConfirmarIngreso.insertAdjacentElement("afterend", botonCrearCuenta);
     } else {
-
-        contenedor.appendChild(
-            botonCrearCuenta
-        );
-
+        contenedor.appendChild(botonCrearCuenta);
     }
-
 }
 
-
-
-function mostrarPanelIngreso(
-    modo = "ingreso"
-) {
-
-    if (
-        !panelIngreso
-    ) {
-
-        return;
-
-    }
-
-
-    modoPanelIngreso =
-        modo;
-
-
+function mostrarPanelIngreso(modo = "ingreso") {
+    if (!panelIngreso) return;
+    modoPanelIngreso = modo;
     prepararBotonCrearCuenta();
+    panelIngreso.classList.add("visible");
+    panelIngreso.setAttribute("aria-hidden", "false");
 
-
-    panelIngreso.classList.add(
-        "visible"
-    );
-
-
-    panelIngreso.setAttribute(
-        "aria-hidden",
-        "false"
-    );
-
-
-    if (
-        usuarioAcceso
-    ) {
-
-        usuarioAcceso.placeholder =
-            "Correo electrónico";
-
+    if (usuarioAcceso) usuarioAcceso.placeholder = "Correo electrónico";
+    if (mensajeIngreso) {
+        mensajeIngreso.textContent = (modo === "compra") ? "Para continuar con la compra, ingresá a tu cuenta o creá una nueva." : "";
     }
-
-
-    if (
-        mensajeIngreso
-    ) {
-
-        if (
-            modo === "compra"
-        ) {
-
-            mensajeIngreso.textContent =
-                "Para continuar con la compra, ingresá a tu cuenta o creá una nueva.";
-
-        } else {
-
-            mensajeIngreso.textContent =
-                "";
-
-        }
-
-    }
-
-
-    window.setTimeout(
-        function() {
-
-            if (
-                usuarioAcceso
-            ) {
-
-                usuarioAcceso.focus();
-
-            }
-
-        },
-        80
-    );
-
+    window.setTimeout(function() { if (usuarioAcceso) usuarioAcceso.focus(); }, 80);
 }
-
-
 
 function ocultarPanelIngreso() {
-
-    if (
-        !panelIngreso
-    ) {
-
-        return;
-
-    }
-
-
-    panelIngreso.classList.remove(
-        "visible"
-    );
-
-
-    panelIngreso.setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
-
-    if (
-        mensajeIngreso
-    ) {
-
-        mensajeIngreso.textContent =
-            "";
-
-    }
-
+    if (!panelIngreso) return;
+    panelIngreso.classList.remove("visible");
+    panelIngreso.setAttribute("aria-hidden", "true");
+    if (mensajeIngreso) mensajeIngreso.textContent = "";
 }
 
-
-
-async function consultarAccesoUsuario(
-    cliente,
-    userId
-) {
-
-    const resultado =
-        await cliente
-            .from(
-                "user_access"
-            )
-            .select(
-                "has_access"
-            )
-            .eq(
-                "user_id",
-                userId
-            )
-            .maybeSingle();
-
-
-    if (
-        resultado.error
-    ) {
-
-        throw resultado.error;
-
-    }
-
-
-    return Boolean(
-        resultado.data &&
-        resultado.data.has_access === true
-    );
-
+async function consultarAccesoUsuario(cliente, userId) {
+    const resultado = await cliente.from("user_access").select("has_access").eq("user_id", userId).maybeSingle();
+    if (resultado.error) throw resultado.error;
+    return Boolean(resultado.data && resultado.data.has_access === true);
 }
 
-
-
-async function verificarAccesoActual(
-    cliente
-) {
-
+async function verificarAccesoActual(cliente) {
     try {
-
-        const {
-            data: usuarioData,
-            error: usuarioError
-        } =
-            await cliente.auth.getUser();
-
-
-        if (
-            usuarioError ||
-            !usuarioData ||
-            !usuarioData.user
-        ) {
-
+        const { data: usuarioData, error: usuarioError } = await cliente.auth.getUser();
+        if (usuarioError || !usuarioData || !usuarioData.user) {
             ocultarContenidoPrincipal();
-
             return false;
-
         }
-
 
         const sesionValida = await validarSesionUnica(cliente, usuarioData.user.id);
         if (!sesionValida) {
@@ -700,119 +255,36 @@ async function verificarAccesoActual(
             return false;
         }
 
-
-        const tieneAcceso =
-            await consultarAccesoUsuario(
-                cliente,
-                usuarioData.user.id
-            );
-
-
-        if (
-            tieneAcceso
-        ) {
-
+        const tieneAcceso = await consultarAccesoUsuario(cliente, usuarioData.user.id);
+        if (tieneAcceso) {
             mostrarContenidoPrincipal();
-
             return true;
-
         }
-
-
         ocultarContenidoPrincipal();
-
         return false;
-
     } catch (error) {
-
         ocultarContenidoPrincipal();
-
         return false;
-
     }
-
 }
 
-
-
-/* ==================================================
-   INGRESO
-   ================================================== */
-
 async function intentarIngreso() {
+    if (!usuarioAcceso || !claveAcceso) return;
+    const email = usuarioAcceso.value.trim().toLowerCase();
+    const password = claveAcceso.value;
 
-    if (
-        !usuarioAcceso ||
-        !claveAcceso
-    ) {
-
+    if (!email || !password) {
+        if (mensajeIngreso) mensajeIngreso.textContent = "Ingresá tu correo y tu clave.";
         return;
-
     }
-
-
-    const email =
-        usuarioAcceso.value
-            .trim()
-            .toLowerCase();
-
-
-    const password =
-        claveAcceso.value;
-
-
-    if (
-        !email ||
-        !password
-    ) {
-
-        if (
-            mensajeIngreso
-        ) {
-
-            mensajeIngreso.textContent =
-                "Ingresá tu correo y tu clave.";
-
-        }
-
-        return;
-
-    }
-
-
-    if (
-        mensajeIngreso
-    ) {
-
-        mensajeIngreso.textContent =
-            "Verificando acceso...";
-
-    }
-
+    if (mensajeIngreso) mensajeIngreso.textContent = "Verificando acceso...";
 
     try {
+        const cliente = await obtenerSupabaseClient();
+        const { data, error } = await cliente.auth.signInWithPassword({ email: email, password: password });
 
-        const cliente =
-            await obtenerSupabaseClient();
-
-
-        const {
-            data,
-            error
-        } =
-            await cliente.auth.signInWithPassword({
-                email: email,
-                password: password
-            });
-
-
-        if (
-            error
-        ) {
-
-            if (
-                mensajeIngreso
-            ) {
+        if (error) {
+            if (mensajeIngreso) {
                 const mensajeError = error.message || "";
                 if (mensajeError.includes("rate limit") || mensajeError.includes("52 seconds")) {
                     mensajeIngreso.textContent = "Por seguridad, aguardá unos segundos antes de intentar nuevamente.";
@@ -820,185 +292,59 @@ async function intentarIngreso() {
                     mensajeIngreso.textContent = "Correo o contraseña incorrectos.";
                 }
             }
-
             return;
-
         }
 
-
-        if (
-            !data ||
-            !data.user
-        ) {
-
-            if (
-                mensajeIngreso
-            ) {
-
-                mensajeIngreso.textContent =
-                    "No se pudo validar la cuenta.";
-
-            }
-
+        if (!data || !data.user) {
+            if (mensajeIngreso) mensajeIngreso.textContent = "No se pudo validar la cuenta.";
             return;
-
         }
 
-
-        const tieneAcceso =
-            await consultarAccesoUsuario(
-                cliente,
-                data.user.id
-            );
-
-
-        if (
-            tieneAcceso
-        ) {
-
+        const tieneAcceso = await consultarAccesoUsuario(cliente, data.user.id);
+        if (tieneAcceso) {
             const resultadoSesion = await verificarYSellarSesion(cliente, data.user.id);
-
             if (!resultadoSesion.permitido) {
-                if (mensajeIngreso) {
-                    mensajeIngreso.textContent = resultadoSesion.mensaje;
-                }
+                if (mensajeIngreso) mensajeIngreso.textContent = resultadoSesion.mensaje;
                 await cliente.auth.signOut();
                 return;
             }
-
             ocultarPanelIngreso();
-
             mostrarContenidoPrincipal();
-
             return;
-
         }
 
-
-        if (
-            mensajeIngreso
-        ) {
-
-            mensajeIngreso.textContent =
-                "Este correo no registra un pago activo. Redirigiendo para adquirir el curso...";
-
-        }
-
+        if (mensajeIngreso) mensajeIngreso.textContent = "Este correo no registra un pago activo. Redirigiendo para adquirir el curso...";
         await abrirMercadoPago();
-
     } catch (error) {
-
-        if (
-            mensajeIngreso
-        ) {
-
-            mensajeIngreso.textContent =
-                "Error de conexión con Supabase.";
-
-        }
-
+        if (mensajeIngreso) mensajeIngreso.textContent = "Error de conexión con Supabase.";
     }
-
 }
 
-
-
 async function crearCuenta() {
+    if (!usuarioAcceso || !claveAcceso) return;
+    const email = usuarioAcceso.value.trim().toLowerCase();
+    const password = claveAcceso.value;
 
-    if (
-        !usuarioAcceso ||
-        !claveAcceso
-    ) {
-
+    if (!email || !email.includes("@")) {
+        if (mensajeIngreso) mensajeIngreso.textContent = "Ingresá un correo electrónico válido.";
         return;
-
     }
-
-
-    const email =
-        usuarioAcceso.value
-            .trim()
-            .toLowerCase();
-
-
-    const password =
-        claveAcceso.value;
-
-
-    if (
-        !email ||
-        !email.includes("@")
-    ) {
-
-        if (
-            mensajeIngreso
-        ) {
-
-            mensajeIngreso.textContent =
-                "Ingresá un correo electrónico válido.";
-
-        }
-
+    if (password.length < 6) {
+        if (mensajeIngreso) mensajeIngreso.textContent = "La clave debe tener al menos 6 caracteres.";
         return;
-
     }
-
-
-    if (
-        password.length < 6
-    ) {
-
-        if (
-            mensajeIngreso
-        ) {
-
-            mensajeIngreso.textContent =
-                "La clave debe tener al menos 6 caracteres.";
-
-        }
-
-        return;
-
-    }
-
-
-    if (
-        mensajeIngreso
-    ) {
-
-        mensajeIngreso.textContent =
-            "Creando tu cuenta...";
-
-    }
-
+    if (mensajeIngreso) mensajeIngreso.textContent = "Creando tu cuenta...";
 
     try {
+        const cliente = await obtenerSupabaseClient();
+        const { data, error } = await cliente.auth.signUp({
+            email: email,
+            password: password,
+            options: { emailRedirectTo: "https://hacetuapp.com/" }
+        });
 
-        const cliente =
-            await obtenerSupabaseClient();
-
-
-        const {
-            data,
-            error
-        } =
-            await cliente.auth.signUp({
-                email: email,
-                password: password,
-                options: {
-                    emailRedirectTo:
-                        "https://hacetuapp.com/"
-                }
-            });
-
-
-        if (
-            error
-        ) {
-
-            if (
-                mensajeIngreso
-            ) {
+        if (error) {
+            if (mensajeIngreso) {
                 const mensajeError = error.message || "";
                 if (mensajeError.includes("rate limit") || mensajeError.includes("52 seconds")) {
                     mensajeIngreso.textContent = "Por seguridad, aguardá unos segundos antes de intentar nuevamente.";
@@ -1006,1450 +352,488 @@ async function crearCuenta() {
                     mensajeIngreso.textContent = "No se pudo crear la cuenta: " + mensajeError;
                 }
             }
-
             return;
-
         }
 
-
-        if (
-            data &&
-            data.session
-        ) {
-
-            const tieneAcceso =
-                await consultarAccesoUsuario(
-                    cliente,
-                    data.user.id
-                );
-
-
-            if (
-                tieneAcceso
-            ) {
-
+        if (data && data.session) {
+            const tieneAcceso = await consultarAccesoUsuario(cliente, data.user.id);
+            if (tieneAcceso) {
                 const resultadoSesion = await verificarYSellarSesion(cliente, data.user.id);
                 if (!resultadoSesion.permitido) {
-                    if (mensajeIngreso) {
-                        mensajeIngreso.textContent = resultadoSesion.mensaje;
-                    }
+                    if (mensajeIngreso) mensajeIngreso.textContent = resultadoSesion.mensaje;
                     await cliente.auth.signOut();
                     return;
                 }
-
                 ocultarPanelIngreso();
-
                 mostrarContenidoPrincipal();
-
                 return;
-
             }
-
-
-            if (
-                mensajeIngreso
-            ) {
-
-                mensajeIngreso.textContent =
-                    "Cuenta creada. Redirigiendo al pago...";
-
-            }
-
+            if (mensajeIngreso) mensajeIngreso.textContent = "Cuenta creada. Redirigiendo al pago...";
             await abrirMercadoPago();
-
             return;
-
         }
 
-
-        if (
-            mensajeIngreso
-        ) {
-
-            mensajeIngreso.textContent =
-                "Cuenta creada. Revisá tu correo.";
-
-        }
-
+        if (mensajeIngreso) mensajeIngreso.textContent = "Cuenta creada. Revisá tu correo.";
     } catch (error) {
-
-        if (
-            mensajeIngreso
-        ) {
-
-            mensajeIngreso.textContent =
-                "Error al crear la cuenta.";
-
-        }
-
+        if (mensajeIngreso) mensajeIngreso.textContent = "Error al crear la cuenta.";
     }
-
 }
 
-
-
 async function abrirMercadoPago() {
-
-    if (
-        mensajeIngreso
-    ) {
-
-        mensajeIngreso.textContent =
-            "Redirigiendo a Mercado Pago...";
-
-    }
-
-
+    if (mensajeIngreso) mensajeIngreso.textContent = "Redirigiendo a Mercado Pago...";
     try {
+        const cliente = await obtenerSupabaseClient();
+        const { data: usuarioData, error: usuarioError } = await cliente.auth.getUser();
 
-        const cliente =
-            await obtenerSupabaseClient();
-
-
-        const {
-            data: usuarioData,
-            error: usuarioError
-        } =
-            await cliente.auth.getUser();
-
-
-        if (
-            usuarioError ||
-            !usuarioData ||
-            !usuarioData.user
-        ) {
-
-            mostrarPanelIngreso(
-                "compra"
-            );
-
+        if (usuarioError || !usuarioData || !usuarioData.user) {
+            mostrarPanelIngreso("compra");
             return;
-
         }
 
-
-        const tieneAcceso =
-            await consultarAccesoUsuario(
-                cliente,
-                usuarioData.user.id
-            );
-
-
-        if (
-            tieneAcceso
-        ) {
-
+        const tieneAcceso = await consultarAccesoUsuario(cliente, usuarioData.user.id);
+        if (tieneAcceso) {
             const resultadoSesion = await verificarYSellarSesion(cliente, usuarioData.user.id);
             if (!resultadoSesion.permitido) {
-                if (mensajeIngreso) {
-                    mensajeIngreso.textContent = resultadoSesion.mensaje;
-                }
+                if (mensajeIngreso) mensajeIngreso.textContent = resultadoSesion.mensaje;
                 await cliente.auth.signOut();
                 return;
             }
-
             mostrarContenidoPrincipal();
-
             return;
-
         }
 
+        if (mensajeIngreso) mensajeIngreso.textContent = "Generando el enlace de pago...";
+        const { data, error } = await cliente.functions.invoke(SUPABASE_FUNCTION_PAGO, { body: {} });
 
-        if (
-            mensajeIngreso
-        ) {
-
-            mensajeIngreso.textContent =
-                "Generando el enlace de pago...";
-
-        }
-
-
-        const {
-            data,
-            error
-        } =
-            await cliente.functions.invoke(
-                SUPABASE_FUNCTION_PAGO,
-                {
-                    body: {}
-                }
-            );
-
-
-        if (
-            error ||
-            !data ||
-            !data.payment_url
-        ) {
-
-            if (
-                mensajeIngreso
-            ) {
-
-                mensajeIngreso.textContent =
-                    "No se pudo generar el pago.";
-
-            }
-
-            mostrarPanelIngreso(
-                "compra"
-            );
-
+        if (error || !data || !data.payment_url) {
+            if (mensajeIngreso) mensajeIngreso.textContent = "No se pudo generar el pago.";
+            mostrarPanelIngreso("compra");
             return;
-
         }
-
-
-        window.location.href =
-            data.payment_url;
-
+        window.location.href = data.payment_url;
     } catch (error) {
-
-        if (
-            mensajeIngreso
-        ) {
-
-            mensajeIngreso.textContent =
-                "No se pudo conectar con el sistema de pago.";
-
-        }
-
-
-        mostrarPanelIngreso(
-            "compra"
-        );
-
+        if (mensajeIngreso) mensajeIngreso.textContent = "No se pudo conectar con el sistema de pago.";
+        mostrarPanelIngreso("compra");
     }
-
 }
 
+if (botonYaAcceso) botonYaAcceso.addEventListener("click", function(e) { e.preventDefault(); mostrarPanelIngreso("ingreso"); });
+if (botonNoAcceso) botonNoAcceso.addEventListener("click", function(e) { e.preventDefault(); abrirMercadoPago(); });
+if (botonConfirmarIngreso) botonConfirmarIngreso.addEventListener("click", function(e) { e.preventDefault(); intentarIngreso(); });
+if (botonCerrarIngreso) botonCerrarIngreso.addEventListener("click", function(e) { e.preventDefault(); ocultarPanelIngreso(); });
 
 
 /* ==================================================
-   ASIGNACIÓN DE EVENTOS A BOTONES DE ACCESO
+   TIMBRE DE RECREO
    ================================================== */
 
-if (
-    botonYaAcceso
-) {
-
-    botonYaAcceso.addEventListener(
-        "click",
-        function(e) {
-            e.preventDefault();
-            mostrarPanelIngreso("ingreso");
-        }
-    );
-
-}
-
-
-
-if (
-    botonNoAcceso
-) {
-
-    botonNoAcceso.addEventListener(
-        "click",
-        function(e) {
-            e.preventDefault();
-            abrirMercadoPago();
-        }
-    );
-
-}
-
-
-
-if (
-    botonConfirmarIngreso
-) {
-
-    botonConfirmarIngreso.addEventListener(
-        "click",
-        function(e) {
-            e.preventDefault();
-            intentarIngreso();
-        }
-    );
-
-}
-
-
-
-if (
-    botonCerrarIngreso
-) {
-
-    botonCerrarIngreso.addEventListener(
-        "click",
-        function(e) {
-            e.preventDefault();
-            ocultarPanelIngreso();
-        }
-    );
-
-}
-
-
-
-/* ==================================================
-   TIMBRE SUTIL DE RECREO
-   ================================================== */
-
-let timbreIntentado =
-    false;
-
-
-let timbreProgramado =
-    false;
-
-
-let audioContext =
-    null;
-
+let timbreIntentado = false;
+let timbreProgramado = false;
+let audioContext = null;
 
 function reproducirTimbreRecreo() {
-
-    if (
-        timbreIntentado
-    ) {
-
-        return;
-
-    }
-
-
-    timbreIntentado =
-        true;
-
-
+    if (timbreIntentado) return;
+    timbreIntentado = true;
     try {
-
-        const AudioContextClass =
-            window.AudioContext ||
-            window.webkitAudioContext;
-
-
-        if (
-            !AudioContextClass
-        ) {
-
-            return;
-
-        }
-
-
-        if (!audioContext) {
-
-            audioContext =
-                new AudioContextClass();
-
-        }
-
-
-        const iniciarTimbre =
-            function() {
-
-                if (
-                    !audioContext
-                ) {
-
-                    return;
-
-                }
-
-
-                const ahora =
-                    audioContext.currentTime;
-
-
-                const gananciaPrincipal =
-                    audioContext.createGain();
-
-
-                gananciaPrincipal.gain.setValueAtTime(
-                    0.0001,
-                    ahora
-                );
-
-
-                gananciaPrincipal.gain.exponentialRampToValueAtTime(
-                    0.075,
-                    ahora + 0.025
-                );
-
-
-                gananciaPrincipal.gain.exponentialRampToValueAtTime(
-                    0.0001,
-                    ahora + 1.15
-                );
-
-
-                gananciaPrincipal.connect(
-                    audioContext.destination
-                );
-
-
-                const frecuencias = [
-                    784,
-                    988,
-                    1319
-                ];
-
-
-                frecuencias.forEach(
-                    function(frecuencia, indice) {
-
-                        const oscilador =
-                            audioContext.createOscillator();
-
-
-                        const ganancia =
-                            audioContext.createGain();
-
-
-                        oscilador.type =
-                            "triangle";
-
-
-                        oscilador.frequency.setValueAtTime(
-                            frecuencia,
-                            ahora
-                        );
-
-
-                        ganancia.gain.setValueAtTime(
-                            0.0001,
-                            ahora
-                        );
-
-
-                        ganancia.gain.exponentialRampToValueAtTime(
-                            0.24 / (indice + 1),
-                            ahora + 0.018
-                        );
-
-
-                        ganancia.gain.exponentialRampToValueAtTime(
-                            0.0001,
-                            ahora + 1.05
-                        );
-
-
-                        oscilador.connect(
-                            ganancia
-                        );
-
-
-                        ganancia.connect(
-                            gananciaPrincipal
-                        );
-
-
-                        oscilador.start(
-                            ahora
-                        );
-
-
-                        oscilador.stop(
-                            ahora + 1.12
-                        );
-
-                    }
-                );
-
-
-                window.setTimeout(
-                    function() {
-
-                        if (
-                            !audioContext
-                        ) {
-
-                            return;
-
-                        }
-
-
-                        const secondoToque =
-                            audioContext.currentTime;
-
-
-                        const gananciaSegundo =
-                            audioContext.createGain();
-
-
-                        gananciaSegundo.gain.setValueAtTime(
-                            0.0001,
-                            secondoToque
-                        );
-
-
-                        gananciaSegundo.gain.exponentialRampToValueAtTime(
-                            0.055,
-                            secondoToque + 0.02
-                        );
-
-
-                        gananciaSegundo.gain.exponentialRampToValueAtTime(
-                            0.0001,
-                            secondoToque + 0.85
-                        );
-
-
-                        gananciaSegundo.connect(
-                            audioContext.destination
-                        );
-
-
-                        const osciladorSegundo =
-                            audioContext.createOscillator();
-
-
-                        osciladorSegundo.type =
-                            "triangle";
-
-
-                        osciladorSegundo.frequency.setValueAtTime(
-                            1047,
-                            secondoToque
-                        );
-
-
-                        osciladorSegundo.connect(
-                            gananciaSegundo
-                        );
-
-
-                        osciladorSegundo.start(
-                            secondoToque
-                        );
-
-
-                        osciladorSegundo.stop(
-                            secondoToque + 0.82
-                        );
-
-                    },
-                    480
-                );
-
-            };
-
-
-        const resultado =
-            audioContext.resume();
-
-
-        if (
-            resultado &&
-            typeof resultado.then === "function"
-        ) {
-
-            resultado
-                .then(
-                    iniciarTimbre
-                )
-                .catch(
-                    function() {}
-                );
-
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return;
+        if (!audioContext) audioContext = new AudioContextClass();
+
+        const iniciarTimbre = function() {
+            if (!audioContext) return;
+            const ahora = audioContext.currentTime;
+            const gananciaPrincipal = audioContext.createGain();
+            gananciaPrincipal.gain.setValueAtTime(0.0001, ahora);
+            gananciaPrincipal.gain.exponentialRampToValueAtTime(0.075, ahora + 0.025);
+            gananciaPrincipal.gain.exponentialRampToValueAtTime(0.0001, ahora + 1.15);
+            gananciaPrincipal.connect(audioContext.destination);
+
+            const frecuencias = [784, 988, 1319];
+            frecuencias.forEach(function(frecuencia, indice) {
+                const oscilador = audioContext.createOscillator();
+                const ganancia = audioContext.createGain();
+                oscilador.type = "triangle";
+                oscilador.frequency.setValueAtTime(frecuencia, ahora);
+                ganancia.gain.setValueAtTime(0.0001, ahora);
+                ganancia.gain.exponentialRampToValueAtTime(0.24 / (indice + 1), ahora + 0.018);
+                ganancia.gain.exponentialRampToValueAtTime(0.0001, ahora + 1.05);
+                oscilador.connect(ganancia);
+                ganancia.connect(gananciaPrincipal);
+                oscilador.start(ahora);
+                oscilador.stop(ahora + 1.12);
+            });
+
+            window.setTimeout(function() {
+                if (!audioContext) return;
+                const secondoToque = audioContext.currentTime;
+                const gananciaSegundo = audioContext.createGain();
+                gananciaSegundo.gain.setValueAtTime(0.0001, secondoToque);
+                gananciaSegundo.gain.exponentialRampToValueAtTime(0.055, secondoToque + 0.02);
+                gananciaSegundo.gain.exponentialRampToValueAtTime(0.0001, secondoToque + 0.85);
+                gananciaSegundo.connect(audioContext.destination);
+
+                const osciladorSegundo = audioContext.createOscillator();
+                osciladorSegundo.type = "triangle";
+                osciladorSegundo.frequency.setValueAtTime(1047, secondoToque);
+                osciladorSegundo.connect(gananciaSegundo);
+                osciladorSegundo.start(secondoToque);
+                osciladorSegundo.stop(secondoToque + 0.82);
+            }, 480);
+        };
+
+        const resultado = audioContext.resume();
+        if (resultado && typeof resultado.then === "function") {
+            resultado.then(iniciarTimbre).catch(function() {});
         } else {
-
             iniciarTimbre();
-
         }
-
     } catch (error) {}
-
 }
-
-
 
 function programarTimbreRecreo() {
-
-    if (
-        timbreProgramado
-    ) {
-
-        return;
-
-    }
-
-
-    timbreProgramado =
-        true;
-
-
-    window.setTimeout(
-        function() {
-
-            reproducirTimbreRecreo();
-
-        },
-        4500
-    );
-
+    if (timbreProgramado) return;
+    timbreProgramado = true;
+    window.setTimeout(function() { reproducirTimbreRecreo(); }, 4500);
 }
-
-
 
 function desbloquearTimbreConInteraccion() {
-
-    if (
-        timbreIntentado
-    ) {
-
-        return;
-
-    }
-
-
+    if (timbreIntentado) return;
     reproducirTimbreRecreo();
-
 }
-
 
 
 /* ==================================================
-   YOUTUBE
+   YOUTUBE ID EXTRACTION
    ================================================== */
 
 function obtenerIdYoutube(url) {
-
-    if (!url) {
-
-        return "";
-
-    }
-
-
-    const coincidencia =
-        url.match(
-            /youtu\.be\/([^?&#/]+)|youtube\.com\/watch\?v=([^&#]+)|youtube\.com\/embed\/([^?&#/]+)/i
-        );
-
-
-    if (!coincidencia) {
-
-        return "";
-
-    }
-
-
-    return (
-        coincidencia[1] ||
-        coincidencia[2] ||
-        coincidencia[3] ||
-        ""
-    );
-
+    if (!url) return "";
+    const coincidencia = url.match(/youtu\.be\/([^?&#/]+)|youtube\.com\/watch\?v=([^&#]+)|youtube\.com\/embed\/([^?&#/]+)/i);
+    if (!coincidencia) return "";
+    return coincidencia[1] || coincidencia[2] || coincidencia[3] || "";
 }
 
 
-
 /* ==================================================
-   VIDEO COMPLEMENTARIO (GUÍA DE TRINCHERA)
+   LÓGICA GUÍA DE TRINCHERA (CURSO 1)
    ================================================== */
 
 function resetearVideoComplementario() {
+    const botonVideo = document.getElementById("botonVideoComplementario");
+    const subtitulo = document.getElementById("subtituloVideo");
+    const contenedorVideo = document.getElementById("contenedorVideoComplementario");
+    const video = document.getElementById("videoComplementario");
 
-    const botonVideo =
-        document.getElementById(
-            "botonVideoComplementario"
-        );
+    if (!botonVideo || !subtitulo || !contenedorVideo || !video) return;
 
-
-    const subtitulo =
-        document.getElementById(
-            "subtituloVideo"
-        );
-
-
-    const contenedorVideo =
-        document.getElementById(
-            "contenedorVideoComplementario"
-        );
-
-
-    const video =
-        document.getElementById(
-            "videoComplementario"
-        );
-
-
-    if (
-        !botonVideo ||
-        !subtitulo ||
-        !contenedorVideo ||
-        !video
-    ) {
-
-        return;
-
-    }
-
-
-    video.src =
-        "";
-
-    contenedorVideo.classList.remove(
-        "visible"
-    );
-
-    contenedorVideo.setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
-    botonVideo.classList.remove(
-        "oculto"
-    );
-
-    botonVideo.textContent =
-        "▶ VER VIDEO";
-
-    subtitulo.textContent =
-        subtitulosVideos[paginaActual] ||
-        "";
-
+    video.src = "";
+    contenedorVideo.classList.remove("visible");
+    contenedorVideo.setAttribute("aria-hidden", "true");
+    botonVideo.classList.remove("oculto");
+    botonVideo.textContent = "▶ VER VIDEO";
+    subtitulo.textContent = subtitulosVideos[paginaActual] || "";
 }
-
-
 
 function prepararVideoComplementario() {
+    const botonVideo = document.getElementById("botonVideoComplementario");
+    const subtitulo = document.getElementById("subtituloVideo");
+    if (!botonVideo || !subtitulo) return;
 
-    const botonVideo =
-        document.getElementById(
-            "botonVideoComplementario"
-        );
-
-
-    const subtitulo =
-        document.getElementById(
-            "subtituloVideo"
-        );
-
-
-    if (
-        !botonVideo ||
-        !subtitulo
-    ) {
-
-        return;
-
-    }
-
-
-    const urlVideo =
-        videosComplementarios[paginaActual];
-
-
+    const urlVideo = videosComplementarios[paginaActual];
     if (!urlVideo) {
-
-        botonVideo.classList.add(
-            "oculto"
-        );
-
-        subtitulo.textContent =
-            "";
-
+        botonVideo.classList.add("oculto");
+        subtitulo.textContent = "";
         return;
-
     }
-
-
-    botonVideo.classList.remove(
-        "oculto"
-    );
-
-    subtitulo.textContent =
-        subtitulosVideos[paginaActual] ||
-        "";
-
+    botonVideo.classList.remove("oculto");
+    subtitulo.textContent = subtitulosVideos[paginaActual] || "";
 }
-
-
 
 function alternarVideoComplementario() {
+    const botonVideo = document.getElementById("botonVideoComplementario");
+    const contenedorVideo = document.getElementById("contenedorVideoComplementario");
+    const video = document.getElementById("videoComplementario");
 
-    const botonVideo =
-        document.getElementById(
-            "botonVideoComplementario"
-        );
+    if (!botonVideo || !contenedorVideo || !video) return;
 
+    const urlVideo = videosComplementarios[paginaActual];
+    if (!urlVideo) return;
 
-    const contenedorVideo =
-        document.getElementById(
-            "contenedorVideoComplementario"
-        );
-
-
-    const video =
-        document.getElementById(
-            "videoComplementario"
-        );
-
-
-    if (
-        !botonVideo ||
-        !contenedorVideo ||
-        !video
-    ) {
-
-        return;
-
-    }
-
-
-    const urlVideo =
-        videosComplementarios[paginaActual];
-
-
-    if (!urlVideo) {
-
-        return;
-
-    }
-
-
-    const videoVisible =
-        contenedorVideo.classList.contains(
-            "visible"
-        );
-
-
+    const videoVisible = contenedorVideo.classList.contains("visible");
     if (videoVisible) {
-
-        video.src =
-            "";
-
-        contenedorVideo.classList.remove(
-            "visible"
-        );
-
-        contenedorVideo.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-        botonVideo.textContent =
-            "▶ VER VIDEO";
-
+        video.src = "";
+        contenedorVideo.classList.remove("visible");
+        contenedorVideo.setAttribute("aria-hidden", "true");
+        botonVideo.textContent = "▶ VER VIDEO";
         return;
-
     }
 
+    const youtubeId = obtenerIdYoutube(urlVideo);
+    if (!youtubeId) return;
 
-    const youtubeId =
-        obtenerIdYoutube(
-            urlVideo
-        );
+    // Se fuerza la carga con autoplay para que muestre la pantalla de portada oficial de YouTube
+    video.src = "https://www.youtube.com/embed/" + encodeURIComponent(youtubeId) + "?autoplay=1&rel=0";
+    contenedorVideo.classList.add("visible");
+    contenedorVideo.setAttribute("aria-hidden", "false");
+    botonVideo.textContent = "▲ CERRAR VIDEO";
 
-
-    if (!youtubeId) {
-
-        return;
-
-    }
-
-
-    video.src =
-        "https://www.youtube.com/embed/" +
-        encodeURIComponent(
-            youtubeId
-        ) +
-        "?rel=0";
-
-
-    contenedorVideo.classList.add(
-        "visible"
-    );
-
-    contenedorVideo.setAttribute(
-        "aria-hidden",
-        "false"
-    );
-
-    botonVideo.textContent =
-        "▲ CERRAR VIDEO";
-
-
-    window.setTimeout(
-        function() {
-
-            contenedorVideo.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-        },
-        80
-    );
-
+    window.setTimeout(function() {
+        contenedorVideo.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 80);
 }
-
-
-
-/* ==================================================
-   PÁGINAS (GUÍA DE TRINCHERA)
-   ================================================== */
 
 function actualizarAccionPagina() {
+    const botonAccion = document.getElementById("accionPagina");
+    if (!botonAccion) return;
 
-    const botonAccion =
-        document.getElementById(
-            "accionPagina"
-        );
-
-
-    if (!botonAccion) {
-
+    if (paginaActual >= 10) {
+        botonAccion.textContent = "VOLVER A INTERFAZ";
         return;
-
     }
-
-
-    if (
-        paginaActual >= 10
-    ) {
-
-        botonAccion.textContent =
-            "VOLVER A INTERFAZ";
-
-        return;
-
-    }
-
-
-    botonAccion.textContent =
-        "SIGUIENTE PÁGINA";
-
+    botonAccion.textContent = "SIGUIENTE PÁGINA";
 }
 
+function cargarPaginaEnVisor(numeroPagina) {
+    const visor = document.getElementById("paginaVisor");
+    const carpeta = document.querySelector("#modalPdf .carpeta-visor");
 
+    if (!paginas[numeroPagina] || !visor) return;
 
-function cargarPaginaEnVisor(
-    numeroPagina
-) {
-
-    const visor =
-        document.getElementById(
-            "paginaVisor"
-        );
-
-
-    const carpeta =
-        document.querySelector(
-            ".carpeta-visor"
-        );
-
-
-    if (
-        !paginas[numeroPagina] ||
-        !visor
-    ) {
-
-        return;
-
-    }
-
-
-    paginaActual =
-        numeroPagina;
-
-
-    visor.src =
-        paginas[numeroPagina];
-
-
-    visor.alt =
-        "Hoja " +
-        numeroPagina +
-        " del curso Humanómetro";
-
+    paginaActual = numeroPagina;
+    visor.src = paginas[numeroPagina];
+    visor.alt = "Hoja " + numeroPagina + " del curso Humanómetro";
 
     resetearVideoComplementario();
-
     prepararVideoComplementario();
-
     actualizarAccionPagina();
 
-
-    if (carpeta) {
-
-        carpeta.scrollTop =
-            0;
-
-    }
-
+    if (carpeta) carpeta.scrollTop = 0;
 }
 
+function abrirPagina(numeroPagina) {
+    const modal = document.getElementById("modalPdf");
+    if (!paginas[numeroPagina] || !modal) return;
 
-
-function abrirPagina(
-    numeroPagina
-) {
-
-    const modal =
-        document.getElementById(
-            "modalPdf"
-        );
-
-
-    if (
-        !paginas[numeroPagina] ||
-        !modal
-    ) {
-
-        return;
-
-    }
-
-
-    cargarPaginaEnVisor(
-        numeroPagina
-    );
-
-
-    modal.style.display =
-        "flex";
-
-
-    modal.setAttribute(
-        "aria-hidden",
-        "false"
-    );
-
-
-    document.body.style.overflow =
-        "hidden";
-
+    cargarPaginaEnVisor(numeroPagina);
+    modal.style.display = "flex";
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
 }
-
-
 
 function avanzarPagina() {
-
-    if (
-        paginaActual >= 10
-    ) {
-
+    if (paginaActual >= 10) {
         cerrarModal();
-
         return;
-
     }
-
-
-    cargarPaginaEnVisor(
-        paginaActual + 1
-    );
-
+    cargarPaginaEnVisor(paginaActual + 1);
 }
-
-
 
 function cerrarModal() {
+    const modal = document.getElementById("modalPdf");
+    const visor = document.getElementById("paginaVisor");
+    const video = document.getElementById("videoComplementario");
+    const contenedorVideo = document.getElementById("contenedorVideoComplementario");
 
-    const modal =
-        document.getElementById(
-            "modalPdf"
-        );
+    if (!modal) return;
 
+    modal.style.display = "none";
+    modal.setAttribute("aria-hidden", "true");
 
-    const visor =
-        document.getElementById(
-            "paginaVisor"
-        );
-
-
-    const video =
-        document.getElementById(
-            "videoComplementario"
-        );
-
-
-    const contenedorVideo =
-        document.getElementById(
-            "contenedorVideoComplementario"
-        );
-
-
-    if (!modal) {
-
-        return;
-
-    }
-
-
-    modal.style.display =
-        "none";
-
-
-    modal.setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
-
-    if (visor) {
-
-        visor.src =
-            "";
-
-    }
-
-
-    if (video) {
-
-        video.src =
-            "";
-
-    }
-
-
+    if (visor) visor.src = "";
+    if (video) video.src = "";
     if (contenedorVideo) {
-
-        contenedorVideo.classList.remove(
-            "visible"
-        );
-
-        contenedorVideo.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
+        contenedorVideo.classList.remove("visible");
+        contenedorVideo.setAttribute("aria-hidden", "true");
     }
-
-
-    document.body.style.overflow =
-        "";
-
+    document.body.style.overflow = "";
 }
 
 
-
 /* ==================================================
-   CIERRE DEL VISOR DE CURSO
+   LÓGICA BLINDAJE DIGITAL (CURSO 2 - PASO A PASO POR IMÁGENES)
    ================================================== */
 
-window.addEventListener(
-    "click",
-    function(event) {
+function resetearVideoBlindaje() {
+    const botonVideo = document.getElementById("botonVideoComplementarioBlindaje");
+    const subtitulo = document.getElementById("subtituloVideoBlindaje");
+    const contenedorVideo = document.getElementById("contenedorVideoBlindaje");
+    const video = document.getElementById("videoBlindaje");
 
-        const modal =
-            document.getElementById(
-                "modalPdf"
-            );
+    if (!botonVideo || !subtitulo || !contenedorVideo || !video) return;
 
-        const modalBlindaje =
-            document.getElementById(
-                "modalPdfBlindaje"
-            );
+    video.src = "";
+    contenedorVideo.classList.remove("visible");
+    contenedorVideo.setAttribute("aria-hidden", "true");
+    botonVideo.textContent = "▶ VER VIDEO";
+    subtitulo.textContent = subtitulosBlindaje[paginaActualBlindaje] || "";
+}
 
+function prepararVideoBlindaje() {
+    const botonVideo = document.getElementById("botonVideoComplementarioBlindaje");
+    const subtitulo = document.getElementById("subtituloVideoBlindaje");
+    if (!botonVideo || !subtitulo) return;
 
-        if (
-            event.target === modal
-        ) {
-
-            cerrarModal();
-
-        }
-
-        if (
-            event.target === modalBlindaje
-        ) {
-
-            cerrarModalBlindaje();
-
-        }
-
-    }
-);
-
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key === "Escape"
-        ) {
-
-            cerrarModal();
-            cerrarModalBlindaje();
-
-        }
-
-    }
-);
-
-
-
-/* ==================================================
-   PROTECCIONES EXISTENTES (BLINDAJE ACTIVADO)
-   ================================================== */
-
-document.addEventListener(
-    "contextmenu",
-    function(event) {
-
-        event.preventDefault();
-
-    }
-);
-
-
-document.addEventListener(
-    "dragstart",
-    function(event) {
-
-        if (
-            event.target.tagName === "IMG"
-        ) {
-
-            event.preventDefault();
-
-        }
-
-    }
-);
-
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        const key =
-            event.key.toLowerCase();
-
-
-        if (
-            event.ctrlKey &&
-            (
-                key === "s" ||
-                key === "p" ||
-                key === "u" ||
-                key === "i"
-            )
-        ) {
-
-            event.preventDefault();
-
-        }
-
-
-        if (
-            event.ctrlKey &&
-            event.shiftKey &&
-            (
-                key === "i" ||
-                key === "j" ||
-                key === "c"
-            )
-        ) {
-
-            event.preventDefault();
-
-        }
-
-    }
-);
-
-
-
-/* ==================================================
-   IMÁGENES
-   ================================================== */
-
-document
-    .querySelectorAll("img")
-    .forEach(
-        function(imagen) {
-
-            imagen.setAttribute(
-                "draggable",
-                "false"
-            );
-
-        }
-    );
-
-
-
-/* ==================================================
-   CARRUSEL HORIZONTAL
-   ================================================== */
-
-const carruselHojas =
-    document.getElementById(
-        "carruselHojas"
-    );
-
-
-const indicadorDeslizar =
-    document.querySelector(
-        ".indicador-scroll"
-    );
-
-
-let carruselYaDesplazado =
-    false;
-
-
-function ocultarIndicadorDeslizar() {
-
-    if (
-        carruselYaDesplazado ||
-        !indicadorDeslizar
-    ) {
-
+    const urlVideo = videosBlindaje[paginaActualBlindaje];
+    if (!urlVideo) {
+        botonVideo.classList.add("oculto");
+        subtitulo.textContent = "";
         return;
+    }
+    botonVideo.classList.remove("oculto");
+    subtitulo.textContent = subtitulosBlindaje[paginaActualBlindaje] || "";
+}
 
+function alternarVideoBlindaje() {
+    const botonVideo = document.getElementById("botonVideoComplementarioBlindaje");
+    const contenedorVideo = document.getElementById("contenedorVideoBlindaje");
+    const video = document.getElementById("videoBlindaje");
+
+    if (!botonVideo || !contenedorVideo || !video) return;
+
+    const urlVideo = videosBlindaje[paginaActualBlindaje];
+    if (!urlVideo) {
+        alert("El video complementario de esta página estará disponible próximamente.");
+        return;
     }
 
+    const videoVisible = contenedorVideo.classList.contains("visible");
+    if (videoVisible) {
+        video.src = "";
+        contenedorVideo.classList.remove("visible");
+        contenedorVideo.setAttribute("aria-hidden", "true");
+        botonVideo.textContent = "▶ VER VIDEO";
+        return;
+    }
 
-    carruselYaDesplazado =
-        true;
+    const youtubeId = obtenerIdYoutube(urlVideo);
+    if (!youtubeId) return;
 
-
-    indicadorDeslizar.classList.add(
-        "oculto"
-    );
-
+    video.src = "https://www.youtube.com/embed/" + encodeURIComponent(youtubeId) + "?autoplay=1&rel=0";
+    contenedorVideo.classList.add("visible");
+    contenedorVideo.setAttribute("aria-hidden", "false");
+    botonVideo.textContent = "▲ CERRAR VIDEO";
 }
 
+function cargarPaginaBlindaje(num) {
+    const visor = document.getElementById("paginaVisorBlindaje");
+    const carpeta = document.querySelector("#modalBlindaje .carpeta-visor");
 
+    if (!visor) return;
 
-if (carruselHojas) {
+    paginaActualBlindaje = num;
 
-    carruselHojas.addEventListener(
-        "touchstart",
-        function() {
+    // Si aún no subiste las imágenes troceadas de blindaje, muestra el aviso progresivo de trinchera
+    visor.src = paginasBlindaje[num] || paginas[1]; 
+    visor.alt = "Página " + num + " del curso Blindaje Digital";
 
-            desbloquearTimbreConInteraccion();
+    resetearVideoBlindaje();
+    prepararVideoBlindaje();
 
-        },
-        {
-            passive: true,
-            once: true
-        }
-    );
-
-
-    carruselHojas.addEventListener(
-        "scroll",
-        function() {
-
-            if (
-                carruselHojas.scrollLeft > 2
-            ) {
-
-                ocultarIndicadorDeslizar();
-
-            }
-
-        },
-        {
-            passive: true
-        }
-    );
-
+    if (carpeta) carpeta.scrollTop = 0;
 }
 
+function abrirPaginaBlindaje(num = 1) {
+    const modal = document.getElementById("modalBlindaje");
+    if (!modal) return;
+
+    cargarPaginaBlindaje(num);
+    modal.style.display = "flex";
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+}
+
+function avanzarPaginaBlindaje() {
+    if (paginaActualBlindaje >= totalPaginasBlindaje) {
+        cerrarModalBlindaje();
+        return;
+    }
+    cargarPaginaBlindaje(paginaActualBlindaje + 1);
+}
+
+function retrocederPaginaBlindaje() {
+    if (paginaActualBlindaje <= 1) return;
+    cargarPaginaBlindaje(paginaActualBlindaje - 1);
+}
+
+function cerrarModalBlindaje() {
+    const modal = document.getElementById("modalBlindaje");
+    const visor = document.getElementById("paginaVisorBlindaje");
+    const video = document.getElementById("videoBlindaje");
+    const contenedorVideo = document.getElementById("contenedorVideoBlindaje");
+
+    if (!modal) return;
+
+    modal.style.display = "none";
+    modal.setAttribute("aria-hidden", "true");
+
+    if (visor) visor.src = "";
+    if (video) video.src = "";
+    if (contenedorVideo) {
+        contenedorVideo.classList.remove("visible");
+        contenedorVideo.setAttribute("aria-hidden", "true");
+    }
+    document.body.style.overflow = "";
+}
 
 
 /* ==================================================
-   PRIMERA INTERACCIÓN PARA AUDIO
+   CIERRES Y PROTECCIONES
    ================================================== */
 
-document.addEventListener(
-    "pointerdown",
-    function() {
+window.addEventListener("click", function(event) {
+    const modal = document.getElementById("modalPdf");
+    const modalBlindaje = document.getElementById("modalBlindaje");
 
-        desbloquearTimbreConInteraccion();
+    if (event.target === modal) cerrarModal();
+    if (event.target === modalBlindaje) cerrarModalBlindaje();
+});
 
-    },
-    {
-        passive: true,
-        once: true
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        cerrarModal();
+        cerrarModalBlindaje();
     }
-);
+});
 
+document.addEventListener("contextmenu", function(event) { event.preventDefault(); });
+document.addEventListener("dragstart", function(event) { if (event.target.tagName === "IMG") event.preventDefault(); });
+
+document.addEventListener("keydown", function(event) {
+    const key = event.key.toLowerCase();
+    if (event.ctrlKey && (key === "s" || key === "p" || key === "u" || key === "i")) event.preventDefault();
+    if (event.ctrlKey && event.shiftKey && (key === "i" || key === "j" || key === "c")) event.preventDefault();
+});
+
+document.querySelectorAll("img").forEach(function(imagen) { imagen.setAttribute("draggable", "false"); });
 
 
 /* ==================================================
-   FUNCIONES DE ZOOM PARA CARTA DE PRESENTACIÓN
+   ZOOM DE CARTA Y EVENTOS
    ================================================== */
 
 function abrirZoomCarta() {
     const modal = document.getElementById('modalCartaZoom');
-    if (modal) {
-        modal.style.display = 'flex';
-    }
+    if (modal) modal.style.display = 'flex';
 }
 
 function cerrarZoomCarta() {
     const modal = document.getElementById('modalCartaZoom');
-    if (modal) {
-        modal.style.display = 'none';
-    }
+    if (modal) modal.style.display = 'none';
 }
 
+document.addEventListener("pointerdown", function() { desbloquearTimbreConInteraccion(); }, { passive: true, once: true });
 
-
-/* ==================================================
-   INICIO — PRODUCCIÓN
-   ================================================== */
-
-window.addEventListener(
-    "load",
-    async function() {
-
-        programarTimbreRecreo();
-
-
-        if (
-            MODO_DESARROLLO
-        ) {
-
-            mostrarContenidoPrincipal();
-
-            return;
-
-        }
-
-
-        try {
-
-            const cliente =
-                await obtenerSupabaseClient();
-
-
-            await verificarAccesoActual(
-                cliente
-            );
-
-
-            window.setTimeout(
-                function() {
-
-                    verificarAccesoActual(
-                        cliente
-                    );
-
-                },
-                3000
-            );
-
-        } catch (error) {
-
-            ocultarContenidoPrincipal();
-
-        }
-
+window.addEventListener("load", async function() {
+    programarTimbreRecreo();
+    if (MODO_DESARROLLO) {
+        mostrarContenidoPrincipal();
+        return;
     }
-);
+    try {
+        const cliente = await obtenerSupabaseClient();
+        await verificarAccesoActual(cliente);
+        window.setTimeout(function() { verificarAccesoActual(cliente); }, 3000);
+    } catch (error) {
+        ocultarContenidoPrincipal();
+    }
+});

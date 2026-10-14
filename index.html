@@ -19,7 +19,7 @@
 
     <link
         rel="stylesheet"
-        href="style.css?v=34"
+        href="style.css?v=35"
     >
 
 </head>
@@ -42,7 +42,7 @@
     <div class="acceso-escena">
 
 
-        <!-- BANNER NUEVO REEMPLAZANDO EL PIZARRÓN -->
+        <!-- BANNER NUEVO EN EL ESPACIO EXACTO DEL PIZARRÓN -->
         <div class="acceso-pizarron">
 
             <img
@@ -59,13 +59,12 @@
              ZONA CARTA + IDENTIDAD CON ZOOM (COMPACTADA Y AGRANDADA)
              ================================================== -->
 
-        <div class="acceso-carta-zona" style="text-align: center; margin-bottom: 5px;">
+        <div class="acceso-carta-zona">
 
 
             <div 
                 class="acceso-carta" 
                 onclick="abrirZoomCarta()" 
-                style="cursor: pointer; position: relative; display: inline-block;"
                 title="Toca para ampliar la carta"
             >
 
@@ -82,20 +81,19 @@
             <!-- Indicador sutil y compacto -->
             <p 
                 onclick="abrirZoomCarta()" 
-                style="margin: 2px 0 6px 0; font-family: 'Courier New', monospace; font-size: 11px; color: rgba(255, 255, 255, 0.9); cursor: pointer; text-shadow: 0 1px 2px rgba(0,0,0,0.8); letter-spacing: 0.5px;"
+                class="indicador-texto-carta"
             >
                 🔍 <i>(Toca la carta para leerla en pantalla completa)</i>
             </p>
 
 
-            <!-- Logo Hacé tu App reubicado más arriba -->
-            <div class="acceso-identidad" style="width: 88%; max-width: 360px; margin: 0 auto 8px auto; text-align: center;">
+            <!-- Logo Hacé tu App integrado armónicamente -->
+            <div class="acceso-identidad">
 
                 <img
                     src="hacetuapp_logo_blanco.png"
                     class="acceso-logo-hacetuapp"
                     alt="www.hacetuapp.com"
-                    style="width: 100%; height: auto; display: block;"
                     draggable="false"
                 >
 
@@ -106,7 +104,7 @@
 
 
         <!-- ==================================================
-             OPCIONES DE ACCESO
+             OPCIONES DE ACCESO (BOTONES VISIBLES ADENTRO)
              ================================================== -->
 
         <div class="acceso-opciones">

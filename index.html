@@ -296,7 +296,7 @@
                 </div>
 
                 <div class="contenedor-boton-curso">
-                    <button class="boton-curso-accion azul deshabilitado" disabled type="button">
+                    <button class="boton-curso-accion azul" onclick="abrirBlindaje(1)" type="button">
                         ⚙️ INGRESAR A ESTA TEMÁTICA ›
                     </button>
                 </div>
@@ -338,11 +338,11 @@
 
 
 <!-- ==================================================
-     VISOR DE PÁGINAS (MODAL DEL CURSO SIN CARRUSEL SUPERIOR)
+     VISOR DE PÁGINAS (MODAL DEL CURSO DE BLINDAJE)
      ================================================== -->
 
 <div
-    id="modalPdf"
+    id="modalPdfBlindaje"
     class="modal"
     aria-hidden="true"
 >
@@ -354,7 +354,7 @@
         <button
             class="cerrar-modal"
             type="button"
-            onclick="cerrarModal()"
+            onclick="cerrarModalBlindaje()"
             aria-label="Cerrar"
         >
             ×
@@ -365,12 +365,7 @@
 
             <div class="hoja-lectura">
 
-                <img
-                    id="paginaVisor"
-                    src=""
-                    alt="Página del curso"
-                    draggable="false"
-                >
+                <canvas id="pdfCanvasBlindaje"></canvas>
 
             </div>
 
@@ -382,24 +377,36 @@
 
                 <div class="fila-acciones">
 
+                    <button
+                        id="botonAnteriorBlindaje"
+                        class="accion-pagina"
+                        type="button"
+                        onclick="cambiarPaginaBlindaje(-1)"
+                    >
+                        ⮜ PÁGINA ANTERIOR
+                    </button>
+
+                    <span id="contadorPaginasBlindaje" style="color: #fff; font-family: 'Courier New', monospace; font-size: 13px; align-self: center;">
+                        Pág. 1 / --
+                    </span>
 
                     <button
-                        id="botonVideoComplementario"
+                        id="botonVideoComplementarioBlindaje"
                         class="boton-video-complementario"
                         type="button"
-                        onclick="alternarVideoComplementario()"
+                        onclick="alternarVideoComplementarioBlindaje()"
                     >
                         ▶ VER VIDEO
                     </button>
 
 
                     <button
-                        id="accionPagina"
+                        id="botonSiguienteBlindaje"
                         class="accion-pagina"
                         type="button"
-                        onclick="avanzarPagina()"
+                        onclick="cambiarPaginaBlindaje(1)"
                     >
-                        SIGUIENTE PÁGINA
+                        SIGUIENTE PÁGINA ⮞
                     </button>
 
 
@@ -407,14 +414,14 @@
 
 
                 <div
-                    id="subtituloVideo"
+                    id="subtituloVideoBlindaje"
                     class="subtitulo-video"
                     aria-live="polite"
                 ></div>
 
 
                 <div
-                    id="contenedorVideoComplementario"
+                    id="contenedorVideoComplementarioBlindaje"
                     class="contenedor-video-complementario"
                     aria-hidden="true"
                 >
@@ -422,8 +429,8 @@
                     <div class="video-responsive">
 
                         <iframe
-                            id="videoComplementario"
-                            title="Video complementario del curso Humanómetro"
+                            id="videoComplementarioBlindaje"
+                            title="Video complementario del curso de Blindaje Digital"
                             src=""
                             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowfullscreen>
@@ -475,7 +482,7 @@
 
 
 
-<script src="script.js?v=20"></script>
+<script src="script.js?v=21"></script>
 
 
 </body>

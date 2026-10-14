@@ -19,7 +19,7 @@
 
     <link
         rel="stylesheet"
-        href="style.css?v=32"
+        href="style.css?v=33"
     >
 
 </head>
@@ -212,7 +212,7 @@
 
 <main id="contenidoPrincipal" style="position: relative;">
 
-    <!-- BOTÓN DE SALIR GENERAL LIMPIO Y FUERA DE RIESGO DE SUPERPOSICIÓN -->
+    <!-- ÚNICO BOTÓN DE SALIR GENERAL LIMPIO Y SIN DUPLICADOS -->
     <button
         class="boton-salir-general"
         type="button"
@@ -340,18 +340,6 @@
         </section>
 
 
-
-        <!-- ==================================================
-             CRÉDITOS
-             ================================================== -->
-
-        <footer class="creditos">
-
-            Diseño de página · Diseño de sitio · Carlos Amado Selim
-
-        </footer>
-
-
     </section>
 
 
@@ -360,7 +348,7 @@
 
 
 <!-- ==================================================
-     VISOR DE PÁGINAS (CARRUSEL Y MODAL DEL CURSO)
+     VISOR DE PÁGINAS (MODAL DEL CURSO SIN CARRUSEL SUPERIOR)
      ================================================== -->
 
 <div
@@ -384,47 +372,6 @@
 
 
         <div class="carpeta-visor">
-
-            <!-- CARRUSEL DE HOJAS DENTRO DEL MODAL -->
-            <div
-                class="hojas-carrusel"
-                id="carruselHojas"
-                role="region"
-                aria-label="Páginas del curso Humanómetro"
-                style="margin-bottom: 20px; display: grid;"
-            >
-                <article class="hoja-papel hoja-1" onclick="abrirPagina(1)">
-                    <img src="pagina_1.png" class="miniatura" alt="Página 1" draggable="false">
-                </article>
-                <article class="hoja-papel hoja-2" onclick="abrirPagina(2)">
-                    <img src="pagina_2.png" class="miniatura" alt="Página 2" draggable="false">
-                </article>
-                <article class="hoja-papel hoja-3" onclick="abrirPagina(3)">
-                    <img src="pagina_3.png" class="miniatura" alt="Página 3" draggable="false">
-                </article>
-                <article class="hoja-papel hoja-4" onclick="abrirPagina(4)">
-                    <img src="pagina_4.png" class="miniatura" alt="Página 4" draggable="false">
-                </article>
-                <article class="hoja-papel hoja-5" onclick="abrirPagina(5)">
-                    <img src="pagina_5.png" class="miniatura" alt="Página 5" draggable="false">
-                </article>
-                <article class="hoja-papel hoja-6" onclick="abrirPagina(6)">
-                    <img src="pagina_6.png" class="miniatura" alt="Página 6" draggable="false">
-                </article>
-                <article class="hoja-papel hoja-7" onclick="abrirPagina(7)">
-                    <img src="pagina_7.png" class="miniatura" alt="Página 7" draggable="false">
-                </article>
-                <article class="hoja-papel hoja-8" onclick="abrirPagina(8)">
-                    <img src="pagina_8.png" class="miniatura" alt="Página 8" draggable="false">
-                </article>
-                <article class="hoja-papel hoja-9" onclick="abrirPagina(9)">
-                    <img src="pagina_9.png" class="miniatura" alt="Página 9" draggable="false">
-                </article>
-                <article class="hoja-papel hoja-10" onclick="abrirPagina(10)">
-                    <img src="pagina_10.png" class="miniatura" alt="Página 10" draggable="false">
-                </article>
-            </div>
-
 
             <div class="hoja-lectura">
 
@@ -510,7 +457,7 @@
 
 
 
-<script src="script.js?v=18"></script>
+<script src="script.js?v=19"></script>
 
 
 </body>

@@ -162,21 +162,21 @@ body::before {
 
     display: block;
 
-    width: 132%;
+    width: 105%;
 
     max-width: none;
 
     height: auto;
 
     margin:
-        0 -16%;
+        0 -2.5%;
 
     pointer-events: none;
 
     filter:
         drop-shadow(
-            5px 8px 7px
-            rgba(0,0,0,.55)
+            3px 6px 6px
+            rgba(0,0,0,.50)
         );
 
 }
@@ -283,7 +283,7 @@ body::before {
     display: block;
 
     width:
-        min(100%, 250px);
+        min(100%, 280px);
 
     height:
         auto;
@@ -305,8 +305,8 @@ body::before {
 
     filter:
         drop-shadow(
-            2px 3px 3px
-            rgba(0,0,0,.38)
+            3px 5px 6px
+            rgba(0,0,0,.45)
         );
 
     pointer-events:
@@ -690,7 +690,7 @@ body::before {
 
 
 /* ==================================================
-   PIZARRÓN
+   PIZARRÓN / BANNER INTERNO
    ================================================== */
 
 .zona-pizarron {
@@ -721,14 +721,14 @@ body::before {
 
     display: block;
 
-    width: 132%;
+    width: 105%;
 
     max-width: none;
 
     height: auto;
 
     margin:
-        0 -16%;
+        0 -2.5%;
 
     pointer-events: none;
 
@@ -1388,7 +1388,7 @@ body::before {
 
 
 /* ==================================================
-   VISOR
+   VISOR (CONTENIDO)
    ================================================== */
 
 .carpeta-visor {
@@ -1935,13 +1935,13 @@ body::before {
     .acceso-pizarron-imagen {
 
         width:
-            132%;
+            108%;
 
         max-width:
             none;
 
         margin:
-            0 -16%;
+            0 -4%;
 
     }
 
@@ -1976,7 +1976,7 @@ body::before {
     .acceso-carta-imagen {
 
         width:
-            min(100%, 235px);
+            min(100%, 265px);
 
     }
 
@@ -1998,13 +1998,13 @@ body::before {
     .pizarron {
 
         width:
-            132%;
+            108%;
 
         max-width:
             none;
 
         margin:
-            0 -16%;
+            0 -4%;
 
     }
 
@@ -2470,13 +2470,13 @@ body::before {
     .pizarron {
 
         width:
-            132%;
+            112%;
 
         max-width:
             none;
 
         margin:
-            0 -16%;
+            0 -6%;
 
     }
 
@@ -2960,7 +2960,7 @@ body::before {
         block;
 
     width:
-        min(100%, 235px);
+        min(100%, 265px);
 
     height:
         auto;
@@ -3096,7 +3096,7 @@ body::before {
     .acceso-carta-imagen {
 
         width:
-            min(100%, 235px);
+            min(100%, 265px);
 
     }
 
@@ -3422,30 +3422,22 @@ body::before {
    AJUSTE SOLICITADO — TRES CAMBIOS FINALES
    ================================================== */
 
-/* 1. HACETUAPP.COM MÁS ABAJO Y CON MENOS AIRE
-      HACIA LOS BOTONES. LA CARTA/RECUADRO BAJA
-      JUNTO CON ÉL Y SEPARA MÁS SU DISTANCIA DEL LOGO. */
 .pantalla-acceso .acceso-identidad {
     margin-top: 46px;
     margin-bottom: 30px;
 }
 
-/* 2. RECUADRO TRANSPARENTE DE SCROLL MÁS ABAJO.
-      LA CARTA SIGUE SIENDO EL CONTENEDOR DEL SCROLL. */
 .pantalla-acceso .acceso-carta {
     margin-top: 0;
     margin-bottom: 34px;
     anchor-name: --acceso-carta-scroll;
 }
 
-/* EL INDICADOR ANTERIOR ESTABA DENTRO DE LA CARTA. */
 .pantalla-acceso .acceso-carta::after {
     content: none;
     display: none;
 }
 
-/* INDICADOR EXTERNO: ABAJO A LA DERECHA, SOBRE EL PUPITRE.
-   No forma parte del recuadro desplazable. */
 .pantalla-acceso::after {
     content: "↑  SCROLL";
     position: fixed;
@@ -3471,8 +3463,6 @@ body::before {
     opacity: .86;
 }
 
-/* En navegadores con CSS Anchor Positioning,
-   queda exactamente debajo del recuadro de scroll. */
 @supports (anchor-name: --acceso-carta-scroll) {
     .pantalla-acceso::after {
         position-anchor: --acceso-carta-scroll;
@@ -3483,7 +3473,6 @@ body::before {
     }
 }
 
-/* 3. LOS DOS BOTONES TIENEN EXACTAMENTE EL MISMO ANCHO. */
 .pantalla-acceso .acceso-opciones {
     width: min(calc(100% - 12px), 245px);
     max-width: 245px;
@@ -3501,9 +3490,6 @@ body::before {
     width: 100%;
     height: auto;
 }
-
-/* Al abrir el ingreso, no aparece el indicador externo
-   ni los botones, conservando el ajuste anterior. */
 
 .pantalla-acceso:has(.panel-ingreso.visible)::after {
     display: none;
@@ -3544,9 +3530,6 @@ body::before {
 
 /* ==================================================
    AJUSTE REAL — ACCESO
-   1) CARTA/SCROLL MÁS ABAJO
-   2) SCROLL FUERA DE LA CARTA
-   3) BOTONES VISUALMENTE IDÉNTICOS
    ================================================== */
 
 .pantalla-acceso .acceso-identidad {
@@ -3580,9 +3563,6 @@ body::before {
     content: none !important;
 }
 
-/* Indicador completamente FUERA del recuadro de scroll.
-   Se ancla al bloque de identidad, pero se coloca
-   exactamente después de la altura del recuadro de carta. */
 .pantalla-acceso .acceso-identidad::after {
     content: "↑  SCROLL";
     position: absolute;
@@ -3611,9 +3591,6 @@ body::before {
     content: none !important;
 }
 
-/* Igualdad REAL de los dos botones:
-   misma caja y mesma altura visual, independientemente
-   de las proporciones diferentes de las imágenes. */
 .pantalla-acceso .acceso-opciones {
     width: min(calc(100% - 12px), 245px);
     max-width: 245px;
@@ -3675,8 +3652,6 @@ body::before {
 
 /* ==================================================
    AJUSTE FINAL — PNG ÚNICO DE LAS DOS TECLAS ENTER
-   Se conserva el comportamiento JavaScript mediante
-   los IDs originales botonYaAcceso y botonNoAcceso.
    ================================================== */
 
 .pantalla-acceso .acceso-opciones {
@@ -3774,7 +3749,6 @@ body::before {
 
 /* ==================================================
    CORRECCIÓN REAL — TECLAS PNG SIN TEXTO HTML VISIBLE
-   Mantiene los IDs y los eventos JavaScript existentes.
    ================================================== */
 
 .pantalla-acceso .acceso-opciones {

@@ -453,7 +453,7 @@ body::before {
     opacity: 0.9 !important;
 }
 
-/* PANTALLA YOUTUBE / IMAGEN DE VIDEO DENTRO DEL CRT (Ajustado para mostrar la imagen con claridad) */
+/* PANTALLA YOUTUBE / IMAGEN DE VIDEO DENTRO DEL CRT */
 .bloque-curso-retro .pantalla-youtube,
 .pantalla-youtube {
     position: absolute !important;
@@ -552,17 +552,17 @@ body::before {
     position: relative;
     z-index: 5;
     width: 100%;
-    min-height: calc(100dvh - 112px);
+    min-height: calc(100dvh - 150px);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#paginaVisor {
+#pdfCanvasBlindaje {
     display: block;
-    width: auto;
     max-width: calc(100vw - 20px);
-    max-height: calc(100dvh - 118px);
+    max-height: calc(100dvh - 160px);
+    width: auto;
     height: auto;
     margin: 0 auto;
     object-fit: contain;
@@ -582,4 +582,5 @@ body::before {
         width: min(92vw, 260px);
         bottom: calc(10px + env(safe-area-inset-bottom, 0px));
     }
-}
+        }
+    

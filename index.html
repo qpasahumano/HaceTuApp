@@ -19,7 +19,7 @@
 
     <link
         rel="stylesheet"
-        href="style.css?v=31"
+        href="style.css?v=32"
     >
 
 </head>
@@ -210,20 +210,20 @@
 
 
 
-<main id="contenidoPrincipal">
+<main id="contenidoPrincipal" style="position: relative;">
+
+    <!-- BOTÓN DE SALIR GENERAL LIMPIO Y FUERA DE RIESGO DE SUPERPOSICIÓN -->
+    <button
+        class="boton-salir-general"
+        type="button"
+        onclick="location.reload()"
+        aria-label="Salir de la sesión"
+        style="position: absolute; top: 12px; right: 15px; z-index: 100; background: rgba(0,0,0,0.75); color: #fff; border: 1px solid rgba(255,255,255,0.7); padding: 5px 10px; border-radius: 5px; font-family: 'Courier New', monospace; font-size: 11px; font-weight: bold; cursor: pointer; text-shadow: 0 1px 2px rgba(0,0,0,0.8);"
+    >
+        SALIR ⮑
+    </button>
 
     <section class="escena-pupitre">
-
-        <!-- BOTÓN DE SALIR GENERAL EN LA INTERFAZ -->
-        <button
-            class="boton-salir-general"
-            type="button"
-            onclick="location.reload()"
-            aria-label="Salir de la sesión"
-            style="position: absolute; top: 15px; right: 20px; z-index: 100; background: rgba(0,0,0,0.6); color: #fff; border: 1px solid rgba(255,255,255,0.6); padding: 6px 12px; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 12px; font-weight: bold; cursor: pointer; text-shadow: 0 1px 2px rgba(0,0,0,0.8);"
-        >
-            SALIR ⮑
-        </button>
 
 
         <!-- ==================================================
@@ -260,7 +260,7 @@
                     >
                     <div class="pantalla-youtube" style="background: #050505; display: flex; align-items: center; justify-content: center; overflow: hidden;">
                         <img
-                            src="a_colorful_cutout_sticker_like_illustration_on_a_t.png"
+                            src="guia_trinchera_4x3_transparente.png"
                             alt="Guía de Trinchera"
                             style="width: 100%; height: 100%; object-fit: contain; pointer-events: none;"
                             draggable="false"
@@ -292,7 +292,7 @@
                     >
                     <div class="pantalla-youtube" style="background: #050505; display: flex; align-items: center; justify-content: center; overflow: hidden;">
                         <img
-                            src="guia_blindaje_transparente.png"
+                            src="guia_blindaje_4x3_transparente.png"
                             alt="Blindaje Digital"
                             style="width: 100%; height: 100%; object-fit: contain; pointer-events: none;"
                             draggable="false"
@@ -317,7 +317,7 @@
 
 
         <!-- ==================================================
-             RESPALDO DE SILLA (SUBIDO AL LUGAR CORRECTO)
+             RESPALDO DE SILLA
              ================================================== -->
 
         <section class="zona-silla" style="margin-top: 35px;">
@@ -385,7 +385,7 @@
 
         <div class="carpeta-visor">
 
-            <!-- CARRUSEL DE HOJAS OCULTO EN EL PUPITRE Y DISPONIBLE DENTRO DEL MODAL -->
+            <!-- CARRUSEL DE HOJAS DENTRO DEL MODAL -->
             <div
                 class="hojas-carrusel"
                 id="carruselHojas"
@@ -510,7 +510,7 @@
 
 
 
-<script src="script.js?v=17"></script>
+<script src="script.js?v=18"></script>
 
 
 </body>

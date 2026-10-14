@@ -1,7 +1,7 @@
 "use strict";
 
-/* CACHE-BUSTER-FORCE: 2026-10-14-1915 - FORZAR RECARGA TOTAL */
-const HM_JS_VERSION = "16.14";
+/* CACHE-BUSTER-FORCE: 2026-10-14-1945 - FORZAR RECARGA TOTAL */
+const HM_JS_VERSION = "16.15";
 
 
 /* ==================================================
@@ -574,13 +574,18 @@ function alternarVideoComplementario() {
 
 function actualizarAccionPagina() {
     const botonAccion = document.getElementById("accionPagina");
+    const botonAnterior = document.getElementById("botonAnteriorTrinchera");
     if (!botonAccion) return;
 
     if (paginaActual >= 10) {
         botonAccion.textContent = "VOLVER A INTERFAZ";
-        return;
+    } else {
+        botonAccion.textContent = "SIGUIENTE PÁGINA";
     }
-    botonAccion.textContent = "SIGUIENTE PÁGINA";
+
+    if (botonAnterior) {
+        botonAnterior.style.display = (paginaActual <= 1) ? "none" : "inline-block";
+    }
 }
 
 function cargarPaginaEnVisor(numeroPagina) {
@@ -616,6 +621,11 @@ function avanzarPagina() {
         return;
     }
     cargarPaginaEnVisor(paginaActual + 1);
+}
+
+function retrocederPagina() {
+    if (paginaActual <= 1) return;
+    cargarPaginaEnVisor(paginaActual - 1);
 }
 
 function cerrarModal() {
@@ -707,6 +717,7 @@ function alternarVideoBlindaje() {
 function cargarPaginaBlindaje(num) {
     const visor = document.getElementById("paginaVisorBlindaje");
     const carpeta = document.querySelector("#modalBlindaje .carpeta-visor");
+    const botonAnterior = document.getElementById("botonAnteriorBlindaje");
 
     if (!visor) return;
 
@@ -718,6 +729,10 @@ function cargarPaginaBlindaje(num) {
     const botonAccion = document.getElementById("accionPaginaBlindaje");
     if (botonAccion) {
         botonAccion.textContent = (num >= totalPaginasBlindaje) ? "VOLVER A INTERFAZ" : "SIGUIENTE PÁGINA";
+    }
+
+    if (botonAnterior) {
+        botonAnterior.style.display = (num <= 1) ? "none" : "inline-block";
     }
 
     resetearVideoBlindaje();

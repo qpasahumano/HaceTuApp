@@ -19,14 +19,8 @@
 
     <link
         rel="stylesheet"
-        href="style.css?v=40"
+        href="style.css?v=41"
     >
-
-    <!-- Librería PDF.js para renderizar el PDF en canvas -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-    <script>
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-    </script>
 
 </head>
 
@@ -302,7 +296,7 @@
                 </div>
 
                 <div class="contenedor-boton-curso">
-                    <button class="boton-curso-accion azul" onclick="abrirBlindaje(1)" type="button">
+                    <button class="boton-curso-accion azul" onclick="abrirBlindaje()" type="button">
                         ⚙️ INGRESAR A ESTA TEMÁTICA ›
                     </button>
                 </div>
@@ -344,11 +338,11 @@
 
 
 <!-- ==================================================
-     VISOR DE PÁGINAS (MODAL DEL CURSO DE BLINDAJE DIGITAL)
+     MODAL 1: GUÍA DE TRINCHERA (ORIGINAL Y RESTAURADO)
      ================================================== -->
 
 <div
-    id="modalPdfBlindaje"
+    id="modalPdf"
     class="modal"
     aria-hidden="true"
 >
@@ -360,7 +354,7 @@
         <button
             class="cerrar-modal"
             type="button"
-            onclick="cerrarModalBlindaje()"
+            onclick="cerrarModal()"
             aria-label="Cerrar"
         >
             ×
@@ -371,8 +365,12 @@
 
             <div class="hoja-lectura">
 
-                <!-- Canvas optimizado para PDF.js -->
-                <canvas id="pdfCanvasBlindaje" style="display: block; max-width: 100%; height: auto; margin: 0 auto; box-shadow: 0 4px 15px rgba(0,0,0,0.5);"></canvas>
+                <img
+                    id="paginaVisor"
+                    src=""
+                    alt="Página del curso"
+                    draggable="false"
+                >
 
             </div>
 
@@ -380,70 +378,53 @@
             <section
                 class="zona-complementaria"
                 aria-label="Contenido complementario de la página"
-                style="margin-top: 15px; display: flex; flex-direction: column; align-items: center; gap: 10px;"
             >
 
-                <div class="fila-acciones" style="display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap;">
+                <div class="fila-acciones">
+
 
                     <button
-                        id="botonAnteriorBlindaje"
-                        class="accion-pagina"
-                        type="button"
-                        onclick="cambiarPaginaBlindaje(-1)"
-                        style="padding: 8px 14px; background: rgba(0,0,0,0.6); color: #fff; border: 1px solid rgba(255,255,255,0.5); border-radius: 4px; font-family: 'Courier New', monospace; font-weight: bold; cursor: pointer;"
-                    >
-                        ⮜ ANTERIOR
-                    </button>
-
-                    <span id="contadorPaginasBlindaje" style="color: #fff; font-family: 'Courier New', monospace; font-size: 13px; font-weight: bold; padding: 0 5px;">
-                        Pág. 1 / --
-                    </span>
-
-                    <button
-                        id="botonSiguienteBlindaje"
-                        class="accion-pagina"
-                        type="button"
-                        onclick="cambiarPaginaBlindaje(1)"
-                        style="padding: 8px 14px; background: rgba(0,0,0,0.6); color: #fff; border: 1px solid rgba(255,255,255,0.5); border-radius: 4px; font-family: 'Courier New', monospace; font-weight: bold; cursor: pointer;"
-                    >
-                        SIGUIENTE ⮞
-                    </button>
-
-                    <button
-                        id="botonVideoComplementarioBlindaje"
+                        id="botonVideoComplementario"
                         class="boton-video-complementario"
                         type="button"
-                        onclick="alternarVideoComplementarioBlindaje()"
-                        style="padding: 8px 14px; background: linear-gradient(135deg, #ff2a75, #c2185b); color: #fff; border: 1px solid rgba(255,255,255,0.5); border-radius: 4px; font-family: 'Courier New', monospace; font-weight: bold; cursor: pointer;"
+                        onclick="alternarVideoComplementario()"
                     >
                         ▶ VER VIDEO
                     </button>
+
+
+                    <button
+                        id="accionPagina"
+                        class="accion-pagina"
+                        type="button"
+                        onclick="avanzarPagina()"
+                    >
+                        SIGUIENTE PÁGINA
+                    </button>
+
 
                 </div>
 
 
                 <div
-                    id="subtituloVideoBlindaje"
+                    id="subtituloVideo"
                     class="subtitulo-video"
                     aria-live="polite"
-                    style="color: #fdf6e3; font-size: 12px; text-align: center;"
                 ></div>
 
 
                 <div
-                    id="contenedorVideoComplementarioBlindaje"
+                    id="contenedorVideoComplementario"
                     class="contenedor-video-complementario"
                     aria-hidden="true"
-                    style="display: none; width: 100%; max-width: 600px; margin-top: 10px;"
                 >
 
-                    <div class="video-responsive" style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0;">
+                    <div class="video-responsive">
 
                         <iframe
-                            id="videoComplementarioBlindaje"
-                            title="Video complementario del curso de Blindaje Digital"
+                            id="videoComplementario"
+                            title="Video complementario del curso Humanómetro"
                             src=""
-                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
                             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowfullscreen>
                         </iframe>
@@ -461,6 +442,54 @@
 
     </div>
 
+
+</div>
+
+
+
+<!-- ==================================================
+     MODAL 2: BLINDAJE DIGITAL (DIRECTO EN VISOR DE NAVEGADOR)
+     ================================================== -->
+
+<div
+    id="modalPdfBlindaje"
+    class="modal"
+    aria-hidden="true"
+>
+
+    <div class="modal-contenido" style="padding: 10px;">
+
+        <button
+            class="cerrar-modal"
+            type="button"
+            onclick="cerrarModalBlindaje()"
+            aria-label="Cerrar"
+            style="top: 10px; right: 15px;"
+        >
+            ×
+        </button>
+
+        <div style="width: 100%; height: 100%; margin-top: 35px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <iframe
+                id="visorIframeBlindaje"
+                src=""
+                style="width: 100%; height: 85vh; border: 1px solid rgba(255,255,255,0.3); border-radius: 6px; background: #fff;"
+            ></iframe>
+
+            <!-- ZONA RESERVADA PARA CUANDO SUBAS EL VIDEO COMPLEMENTARIO -->
+            <div style="margin-top: 10px; text-align: center;">
+                <button
+                    id="botonVideoBlindajeFuture"
+                    type="button"
+                    onclick="alert('El video complementario de evidencias estará disponible próximamente.')"
+                    style="display: inline-block; padding: 6px 12px; background: linear-gradient(135deg, #00d2ff, #00838f); color: #fff; border: 1px solid rgba(255,255,255,0.6); border-radius: 12px; font-family: 'Courier New', monospace; font-size: 11px; font-weight: bold; cursor: pointer;"
+                >
+                    🎬 VIDEO COMPLEMENTARIO (PRÓXIMAMENTE)
+                </button>
+            </div>
+        </div>
+
+    </div>
 
 </div>
 
@@ -494,7 +523,7 @@
 
 
 
-<script src="script.js?v=21"></script>
+<script src="script.js?v=22"></script>
 
 
 </body>

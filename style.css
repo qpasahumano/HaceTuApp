@@ -158,18 +158,19 @@ body::before {
 }
 
 
+/* AJUSTE SOLICITADO: Banner principal reducido un 5% (de 105% a 100%) */
 .acceso-pizarron-imagen {
 
     display: block;
 
-    width: 105%;
+    width: 100%;
 
     max-width: none;
 
     height: auto;
 
     margin:
-        0 -2.5%;
+        0 auto;
 
     pointer-events: none;
 
@@ -280,12 +281,13 @@ body::before {
 }
 
 
+/* AJUSTE SOLICITADO: Carta reducida un 10% (de 220px a ~198px) */
 .acceso-carta-imagen {
 
     display: block;
 
     width:
-        min(100%, 220px);
+        min(100%, 198px);
 
     height:
         auto;

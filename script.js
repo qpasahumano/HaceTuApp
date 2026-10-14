@@ -54,6 +54,165 @@ const subtitulosVideos = {
 let paginaActual = 1;
 
 
+/* ==================================================
+   LÓGICA DEL VISOR PDF PARA BLINDAJE DIGITAL
+   ================================================== */
+
+let pdfDocBlindaje = null;
+let paginaActualBlindaje = 1;
+const urlPdfBlindaje = "Curso_Humanometro_Guia_de_Trinchera_AJUSTE_VERTICAL_SOLO_PAGINAS_HORIZONTALES.pdf";
+
+// Videos complementarios futuros para el curso de Blindaje (se pueden asociar por número de página)
+const videosComplementariosBlindaje = {
+    // Ejemplo: 1: "https://youtu.be/..."
+};
+
+const subtitulosVideosBlindaje = {
+    // Ejemplo: 1: "Introducción al circuito de blindaje"
+};
+
+
+async function abrirBlindaje(numeroPagina = 1) {
+    const modal = document.getElementById("modalPdfBlindaje");
+    if (!modal) return;
+
+    modal.style.display = "flex";
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+
+    if (!pdfDocBlindaje) {
+        try {
+            const loadingTask = pdfjsLib.getDocument(urlPdfBlindaje);
+            pdfDocBlindaje = await loadingTask.promise;
+        } catch (error) {
+            console.error("Error al cargar el PDF de blindaje:", error);
+            return;
+        }
+    }
+
+    renderizarPaginaBlindaje(numeroPagina);
+}
+
+
+async function renderizarPaginaBlindaje(num) {
+    if (!pdfDocBlindaje) return;
+
+    if (num < 1) num = 1;
+    if (num > pdfDocBlindaje.numPages) num = pdfDocBlindaje.numPages;
+
+    paginaActualBlindaje = num;
+
+    const page = await pdfDocBlindaje.getPage(num);
+    const canvas = document.getElementById("pdfCanvasBlindaje");
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    
+    // Escala adaptativa para alta resolución y comodidad visual en celulares/PCs
+    const viewport = page.getViewport({ scale: 1.5 });
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
+
+    const renderContext = {
+        canvasContext: ctx,
+        viewport: viewport
+    };
+
+    await page.render(renderContext).promise;
+
+    // Actualizar contador y botones
+    const contador = document.getElementById("contadorPaginasBlindaje");
+    if (contador) {
+        contador.textContent = `Pág. ${paginaActualBlindaje} / ${pdfDocBlindaje.numPages}`;
+    }
+
+    resetearVideoBlindaje();
+    prepararVideoBlindaje();
+}
+
+
+function cambiarPaginaBlindaje(delta) {
+    if (!pdfDocBlindaje) return;
+    const nuevaPagina = paginaActualBlindaje + delta;
+    if (nuevaPagina >= 1 && nuevaPagina <= pdfDocBlindaje.numPages) {
+        renderizarPaginaBlindaje(nuevaPagina);
+    } else if (nuevaPagina > pdfDocBlindaje.numPages) {
+        cerrarModalBlindaje();
+    }
+}
+
+
+function cerrarModalBlindaje() {
+    const modal = document.getElementById("modalPdfBlindaje");
+    if (!modal) return;
+
+    modal.style.display = "none";
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    resetearVideoBlindaje();
+}
+
+
+function resetearVideoBlindaje() {
+    const botonVideo = document.getElementById("botonVideoComplementarioBlindaje");
+    const subtitulo = document.getElementById("subtituloVideoBlindaje");
+    const contenedorVideo = document.getElementById("contenedorVideoComplementarioBlindaje");
+    const video = document.getElementById("videoComplementarioBlindaje");
+
+    if (!botonVideo || !subtitulo || !contenedorVideo || !video) return;
+
+    video.src = "";
+    contenedorVideo.style.display = "none";
+    contenedorVideo.setAttribute("aria-hidden", "true");
+    botonVideo.textContent = "▶ VER VIDEO";
+}
+
+
+function prepararVideoBlindaje() {
+    const botonVideo = document.getElementById("botonVideoComplementarioBlindaje");
+    const subtitulo = document.getElementById("subtituloVideoBlindaje");
+
+    if (!botonVideo || !subtitulo) return;
+
+    const urlVideo = videosComplementariosBlindaje[paginaActualBlindaje];
+    if (!urlVideo) {
+        botonVideo.style.display = "none";
+        subtitulo.textContent = "";
+        return;
+    }
+
+    botonVideo.style.display = "inline-block";
+    subtitulo.textContent = subtitulosVideosBlindaje[paginaActualBlindaje] || "";
+}
+
+
+function alternarVideoComplementarioBlindaje() {
+    const contenedorVideo = document.getElementById("contenedorVideoComplementarioBlindaje");
+    const video = document.getElementById("videoComplementarioBlindaje");
+    const botonVideo = document.getElementById("botonVideoComplementarioBlindaje");
+
+    if (!contenedorVideo || !video || !botonVideo) return;
+
+    const urlVideo = videosComplementariosBlindaje[paginaActualBlindaje];
+    if (!urlVideo) return;
+
+    const youtubeId = obtenerIdYoutube(urlVideo);
+    if (!youtubeId) return;
+
+    if (contenedorVideo.style.display === "block") {
+        video.src = "";
+        contenedorVideo.style.display = "none";
+        contenedorVideo.setAttribute("aria-hidden", "true");
+        botonVideo.textContent = "▶ VER VIDEO";
+    } else {
+        video.src = "https://www.youtube.com/embed/" + encodeURIComponent(youtubeId) + "?rel=0";
+        contenedorVideo.style.display = "block";
+        contenedorVideo.setAttribute("aria-hidden", "false");
+        botonVideo.textContent = "▲ CERRAR VIDEO";
+    }
+}
+
+
 
 /* ==================================================
    SUPABASE
@@ -1620,7 +1779,7 @@ function obtenerIdYoutube(url) {
 
 
 /* ==================================================
-   VIDEO COMPLEMENTARIO
+   VIDEO COMPLEMENTARIO (GUÍA DE TRINCHERA)
    ================================================== */
 
 function resetearVideoComplementario() {
@@ -1742,128 +1901,8 @@ function prepararVideoComplementario() {
 
 
 
-function alternarVideoComplementario() {
-
-    const botonVideo =
-        document.getElementById(
-            "botonVideoComplementario"
-        );
-
-
-    const contenedorVideo =
-        document.getElementById(
-            "contenedorVideoComplementario"
-        );
-
-
-    const video =
-        document.getElementById(
-            "videoComplementario"
-        );
-
-
-    if (
-        !botonVideo ||
-        !contenedorVideo ||
-        !video
-    ) {
-
-        return;
-
-    }
-
-
-    const urlVideo =
-        videosComplementarios[paginaActual];
-
-
-    if (!urlVideo) {
-
-        return;
-
-    }
-
-
-    const videoVisible =
-        contenedorVideo.classList.contains(
-            "visible"
-        );
-
-
-    if (videoVisible) {
-
-        video.src =
-            "";
-
-        contenedorVideo.classList.remove(
-            "visible"
-        );
-
-        contenedorVideo.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-        botonVideo.textContent =
-            "▶ VER VIDEO";
-
-        return;
-
-    }
-
-
-    const youtubeId =
-        obtenerIdYoutube(
-            urlVideo
-        );
-
-
-    if (!youtubeId) {
-
-        return;
-
-    }
-
-
-    video.src =
-        "https://www.youtube.com/embed/" +
-        encodeURIComponent(
-            youtubeId
-        ) +
-        "?rel=0";
-
-
-    contenedorVideo.classList.add(
-        "visible"
-    );
-
-    contenedorVideo.setAttribute(
-        "aria-hidden",
-        "false"
-    );
-
-    botonVideo.textContent =
-        "▲ CERRAR VIDEO";
-
-
-    window.setTimeout(
-        function() {
-
-            contenedorVideo.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-        },
-        80
-    );
-
-}
-
-
-
 /* ==================================================
-   PÁGINAS
+   PÁGINAS (GUÍA DE TRINCHERA)
    ================================================== */
 
 function actualizarAccionPagina() {

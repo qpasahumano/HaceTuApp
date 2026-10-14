@@ -1,11 +1,11 @@
 "use strict";
 
-/* CACHE-BUSTER-FORCE: 2026-10-14-1830 - FORZAR RECARGA TOTAL */
-const HM_JS_VERSION = "16.13";
+/* CACHE-BUSTER-FORCE: 2026-10-14-1915 - FORZAR RECARGA TOTAL */
+const HM_JS_VERSION = "16.14";
 
 
 /* ==================================================
-   CURSO 1: GUÍA DE TRINCHERA (IMÁGENES)
+   CURSO 1: GUÍA DE TRINCHERA (10 PÁGINAS)
    ================================================== */
 
 const paginas = {
@@ -43,33 +43,29 @@ let paginaActual = 1;
 
 
 /* ==================================================
-   CURSO 2: BLINDAJE DIGITAL (MATRIZ DE IMÁGENES PASO A PASO)
+   CURSO 2: BLINDAJE DIGITAL (77 PÁGINAS PASO A PASO)
    ================================================== */
 
-// Mapeo de páginas troceadas para el curso de Blindaje
-const paginasBlindaje = {
-    1: "blindaje_pagina_1.png",
-    2: "blindaje_pagina_2.png",
-    3: "blindaje_pagina_3.png"
-    // Aquí irás sumando blindaje_pagina_4.png, etc., a medida que trocees la guía.
-};
+const totalPaginasBlindaje = 77;
+const paginasBlindaje = {};
 
-const totalPaginasBlindaje = Object.keys(paginasBlindaje).length || 77;
+for (let i = 1; i <= totalPaginasBlindaje; i++) {
+    paginasBlindaje[i] = `Página ${i}.png`;
+}
 
 const videosBlindaje = {
-    // Ejemplo para cuando subas los videos complementarios:
-    // 1: "https://youtu.be/..."
+    // Ejemplo: 1: "https://youtu.be/..."
 };
 
 const subtitulosBlindaje = {
-    // 1: "Video demostrativo de la puerta de entrada"
+    // Ejemplo: 1: "Demostración práctica"
 };
 
 let paginaActualBlindaje = 1;
 
 
 /* ==================================================
-   SUPABASE Y CONFIGURACIÓN
+   SUPABASE Y SEGURIDAD DE SESIÓN
    ================================================== */
 
 const SUPABASE_URL = "https://zjviadsqbhqdjyomaoct.supabase.co";
@@ -113,11 +109,6 @@ async function obtenerSupabaseClient() {
     });
     return supabaseClient;
 }
-
-
-/* ==================================================
-   BLINDAJE DE SESIÓN ÚNICA
-   ================================================== */
 
 async function verificarYSellarSesion(cliente, userId) {
     let tokenDispositivo = localStorage.getItem('hm_token_dispositivo');
@@ -571,7 +562,6 @@ function alternarVideoComplementario() {
     const youtubeId = obtenerIdYoutube(urlVideo);
     if (!youtubeId) return;
 
-    // Se fuerza la carga con autoplay para que muestre la pantalla de portada oficial de YouTube
     video.src = "https://www.youtube.com/embed/" + encodeURIComponent(youtubeId) + "?autoplay=1&rel=0";
     contenedorVideo.classList.add("visible");
     contenedorVideo.setAttribute("aria-hidden", "false");
@@ -650,7 +640,7 @@ function cerrarModal() {
 
 
 /* ==================================================
-   LÓGICA BLINDAJE DIGITAL (CURSO 2 - PASO A PASO POR IMÁGENES)
+   LÓGICA BLINDAJE DIGITAL (77 PÁGINAS PASO A PASO)
    ================================================== */
 
 function resetearVideoBlindaje() {
@@ -722,9 +712,13 @@ function cargarPaginaBlindaje(num) {
 
     paginaActualBlindaje = num;
 
-    // Si aún no subiste las imágenes troceadas de blindaje, muestra el aviso progresivo de trinchera
-    visor.src = paginasBlindaje[num] || paginas[1]; 
+    visor.src = paginasBlindaje[num]; 
     visor.alt = "Página " + num + " del curso Blindaje Digital";
+
+    const botonAccion = document.getElementById("accionPaginaBlindaje");
+    if (botonAccion) {
+        botonAccion.textContent = (num >= totalPaginasBlindaje) ? "VOLVER A INTERFAZ" : "SIGUIENTE PÁGINA";
+    }
 
     resetearVideoBlindaje();
     prepararVideoBlindaje();

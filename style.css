@@ -518,7 +518,7 @@ body::before {
     width: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 48px 10px 26px;
+    padding: 38px 10px 26px;
 }
 
 .hoja-lectura {

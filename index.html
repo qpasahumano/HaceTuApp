@@ -19,7 +19,7 @@
 
     <link
         rel="stylesheet"
-        href="style.css?v=41"
+        href="style.css?v=42"
     >
 
 </head>
@@ -72,7 +72,7 @@
         </div>
 
 
-        <!-- TEXTO INDICADOR: CLIC PARA LEER EN PANTALLA COMPLETA (BLANCO Y LEGIBLE) -->
+        <!-- TEXTO INDICADOR: CLIC PARA LEER EN PANTALLA COMPLETA -->
         <div 
             class="indicador-texto-carta" 
             onclick="abrirZoomCarta()"
@@ -202,7 +202,7 @@
 
 <main id="contenidoPrincipal" style="position: relative;">
 
-    <!-- ÚNICO BOTÓN DE SALIR GENERAL LIMPIO Y SIN DUPLICADOS -->
+    <!-- ÚNICO BOTÓN DE SALIR GENERAL -->
     <button
         class="boton-salir-general"
         type="button"
@@ -296,7 +296,7 @@
                 </div>
 
                 <div class="contenedor-boton-curso">
-                    <button class="boton-curso-accion azul" onclick="abrirBlindaje()" type="button">
+                    <button class="boton-curso-accion azul" onclick="abrirPaginaBlindaje(1)" type="button">
                         ⚙️ INGRESAR A ESTA TEMÁTICA ›
                     </button>
                 </div>
@@ -312,9 +312,7 @@
 
         <section class="zona-silla" style="margin-top: 35px;">
 
-
             <div class="silla-real">
-
 
                 <img
                     src="respaldo_silla_hacetuapp.png"
@@ -323,9 +321,7 @@
                     draggable="false"
                 >
 
-
             </div>
-
 
         </section>
 
@@ -338,7 +334,7 @@
 
 
 <!-- ==================================================
-     MODAL 1: GUÍA DE TRINCHERA (ORIGINAL Y RESTAURADO)
+     MODAL 1: GUÍA DE TRINCHERA (ORIGINAL REPARADO)
      ================================================== -->
 
 <div
@@ -425,7 +421,7 @@
                             id="videoComplementario"
                             title="Video complementario del curso Humanómetro"
                             src=""
-                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowfullscreen>
                         </iframe>
 
@@ -448,48 +444,116 @@
 
 
 <!-- ==================================================
-     MODAL 2: BLINDAJE DIGITAL (DIRECTO EN VISOR DE NAVEGADOR)
+     MODAL 2: BLINDAJE DIGITAL (IMAGEN POR IMAGEN PASO A PASO)
      ================================================== -->
 
 <div
-    id="modalPdfBlindaje"
+    id="modalBlindaje"
     class="modal"
     aria-hidden="true"
 >
 
-    <div class="modal-contenido" style="padding: 10px;">
+
+    <div class="modal-contenido">
+
 
         <button
             class="cerrar-modal"
             type="button"
             onclick="cerrarModalBlindaje()"
             aria-label="Cerrar"
-            style="top: 10px; right: 15px;"
         >
             ×
         </button>
 
-        <div style="width: 100%; height: 100%; margin-top: 35px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-            <iframe
-                id="visorIframeBlindaje"
-                src=""
-                style="width: 100%; height: 85vh; border: 1px solid rgba(255,255,255,0.3); border-radius: 6px; background: #fff;"
-            ></iframe>
 
-            <!-- ZONA RESERVADA PARA CUANDO SUBAS EL VIDEO COMPLEMENTARIO -->
-            <div style="margin-top: 10px; text-align: center;">
-                <button
-                    id="botonVideoBlindajeFuture"
-                    type="button"
-                    onclick="alert('El video complementario de evidencias estará disponible próximamente.')"
-                    style="display: inline-block; padding: 6px 12px; background: linear-gradient(135deg, #00d2ff, #00838f); color: #fff; border: 1px solid rgba(255,255,255,0.6); border-radius: 12px; font-family: 'Courier New', monospace; font-size: 11px; font-weight: bold; cursor: pointer;"
+        <div class="carpeta-visor">
+
+            <div class="hoja-lectura">
+
+                <img
+                    id="paginaVisorBlindaje"
+                    src=""
+                    alt="Página del curso Blindaje Digital"
+                    draggable="false"
                 >
-                    🎬 VIDEO COMPLEMENTARIO (PRÓXIMAMENTE)
-                </button>
+
             </div>
+
+
+            <section
+                class="zona-complementaria"
+                aria-label="Contenido complementario del curso de blindaje"
+            >
+
+                <div class="fila-acciones">
+
+                    <button
+                        id="botonAnteriorBlindaje"
+                        class="accion-pagina"
+                        type="button"
+                        onclick="retrocederPaginaBlindaje()"
+                    >
+                        ANTERIOR
+                    </button>
+
+                    <button
+                        id="botonVideoComplementarioBlindaje"
+                        class="boton-video-complementario"
+                        type="button"
+                        onclick="alternarVideoBlindaje()"
+                    >
+                        ▶ VER VIDEO
+                    </button>
+
+                    <button
+                        id="accionPaginaBlindaje"
+                        class="accion-pagina"
+                        type="button"
+                        onclick="avanzarPaginaBlindaje()"
+                    >
+                        SIGUIENTE PÁGINA
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="subtituloVideoBlindaje"
+                    class="subtitulo-video"
+                    aria-live="polite"
+                ></div>
+
+
+                <div
+                    id="contenedorVideoBlindaje"
+                    class="contenedor-video-complementario"
+                    aria-hidden="true"
+                >
+
+                    <div class="video-responsive">
+
+                        <iframe
+                            id="videoBlindaje"
+                            title="Video complementario de Blindaje Digital"
+                            src=""
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                        </iframe>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
         </div>
 
+
     </div>
+
 
 </div>
 
@@ -523,7 +587,7 @@
 
 
 
-<script src="script.js?v=22"></script>
+<script src="script.js?v=23"></script>
 
 
 </body>

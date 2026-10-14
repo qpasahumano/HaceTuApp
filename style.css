@@ -89,7 +89,7 @@ body::before {
     align-items: center;
 }
 
-/* Banner principal (-5% de escala) */
+/* Banner principal de acceso (-5% de escala) */
 .acceso-pizarron-imagen {
     display: block;
     width: 95%;
@@ -221,7 +221,7 @@ body::before {
     right: 0;
 }
 
-/* PANEL DE INGRESO (Optimizado para no salir de la pantalla en móviles) */
+/* PANEL DE INGRESO */
 .panel-ingreso {
     position: fixed;
     z-index: 6000;
@@ -310,10 +310,10 @@ body::before {
 }
 
 #contenidoPrincipal {
-    display: none;
+    display: block;
 }
 
-/* ESCENA PRINCIPAL INTERNA (INTERFAZ 2) */
+/* ESCENA PRINCIPAL INTERNA (INTERFAZ 2 - SALÓN DE ESTUDIO) */
 .escena-pupitre {
     position: relative;
     width: 100%;
@@ -453,8 +453,9 @@ body::before {
     opacity: 0.9 !important;
 }
 
-/* PANTALLA YOUTUBE / IMAGEN DE VIDEO DENTRO DEL CRT */
-.bloque-curso-retro .pantalla-youtube {
+/* PANTALLA YOUTUBE / IMAGEN DE VIDEO DENTRO DEL CRT (Ajustado para mostrar la imagen con claridad) */
+.bloque-curso-retro .pantalla-youtube,
+.pantalla-youtube {
     position: absolute !important;
     z-index: 30 !important;
     left: 17% !important;
@@ -470,15 +471,18 @@ body::before {
 }
 
 .bloque-curso-retro .pantalla-youtube img,
-.bloque-curso-retro .pantalla-youtube iframe {
+.bloque-curso-retro .pantalla-youtube iframe,
+.pantalla-youtube img,
+.pantalla-youtube iframe {
+    display: block !important;
     width: 100% !important;
     height: 100% !important;
     object-fit: contain !important;
     pointer-events: none !important;
-    display: block !important;
+    background: #050505 !important;
 }
 
-/* SILLA (Compactada para entrar en pantalla) */
+/* SILLA */
 .zona-silla {
     position: relative;
     z-index: 22;
@@ -578,4 +582,4 @@ body::before {
         width: min(92vw, 260px);
         bottom: calc(10px + env(safe-area-inset-bottom, 0px));
     }
-    }
+}

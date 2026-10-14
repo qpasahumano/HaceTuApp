@@ -655,12 +655,6 @@ body::before {
 }
 
 
-/*
-   La interfaz principal permanece detrás
-   de la pantalla de acceso hasta que exista
-   autorización real.
-*/
-
 #contenidoPrincipal {
 
     display: none;
@@ -831,45 +825,16 @@ body::before {
 }
 
 
-.hoja-1 {
-    transform: rotate(-1deg);
-}
-
-.hoja-2 {
-    transform: rotate(.8deg);
-}
-
-.hoja-3 {
-    transform: rotate(-.7deg);
-}
-
-.hoja-4 {
-    transform: rotate(.7deg);
-}
-
-.hoja-5 {
-    transform: rotate(-.8deg);
-}
-
-.hoja-6 {
-    transform: rotate(.9deg);
-}
-
-.hoja-7 {
-    transform: rotate(-.7deg);
-}
-
-.hoja-8 {
-    transform: rotate(.6deg);
-}
-
-.hoja-9 {
-    transform: rotate(-.9deg);
-}
-
-.hoja-10 {
-    transform: rotate(.5deg);
-}
+.hoja-1 { transform: rotate(-1deg); }
+.hoja-2 { transform: rotate(.8deg); }
+.hoja-3 { transform: rotate(-.7deg); }
+.hoja-4 { transform: rotate(.7deg); }
+.hoja-5 { transform: rotate(-.8deg); }
+.hoja-6 { transform: rotate(.9deg); }
+.hoja-7 { transform: rotate(-.7deg); }
+.hoja-8 { transform: rotate(.6deg); }
+.hoja-9 { transform: rotate(-.9deg); }
+.hoja-10 { transform: rotate(.5deg); }
 
 
 .miniatura {
@@ -3798,8 +3763,6 @@ body::before {
     outline-offset: -7px;
 }
 
-/* Al mostrar el formulario, se ocultan las teclas como antes. */
-
 @media (max-width: 470px) {
     .pantalla-acceso .acceso-opciones {
         width: min(94vw, 430px);
@@ -3878,8 +3841,6 @@ body::before {
     transition: transform .14s ease;
 }
 
-/* Oculta cualquier span/texto de la versión anterior del botón,
-   para que solo se vea la tipografía dibujada dentro del PNG. */
 .pantalla-acceso .acceso-opcion,
 .pantalla-acceso .acceso-opcion * {
     color: transparent !important;
@@ -3906,11 +3867,8 @@ body::before {
 
 /* ==================================================
    CORRECCIÓN QUIRÚRGICA FINAL — TECLAS DE ACCESO
-   No modifica el resto de la interfaz ni agrega scroll a la carta.
    ================================================== */
 
-/* La imagen completa de las dos teclas se dibuja desde CSS.
-   Así no depende de agregar una etiqueta <img> al HTML. */
 .pantalla-acceso .acceso-opciones {
     position: fixed !important;
     z-index: 5005 !important;
@@ -3935,8 +3893,6 @@ body::before {
     background-size: 100% 100% !important;
 }
 
-/* Zonas de clic transparentes encima de cada tecla dibujada.
-   El texto viejo queda oculto y no puede aparecer en negro. */
 .pantalla-acceso .acceso-opcion,
 .pantalla-acceso .acceso-opcion:link,
 .pantalla-acceso .acceso-opcion:visited {
@@ -3997,7 +3953,6 @@ body::before {
     outline-offset: -7px !important;
 }
 
-/* Logo encima de las teclas, con separación visible entre ambos. */
 .pantalla-acceso .acceso-identidad {
     position: fixed !important;
     z-index: 5010 !important;
@@ -4023,8 +3978,6 @@ body::before {
     pointer-events: none !important;
 }
 
-/* Restaurar la carta tal como está definida en la matriz compartida:
-   sin caja de scroll, sin altura forzada y sin indicadores añadidos. */
 .pantalla-acceso .acceso-carta {
     position: relative !important;
     z-index: 25 !important;
@@ -4102,7 +4055,6 @@ body::before {
 
 /* ==================================================
    AJUSTE FINAL SOLICITADO — BLOQUEAR DESLIZAMIENTO VERTICAL
-   Se conserva el resto de la matriz y el comportamiento de los botones.
    ================================================== */
 html,
 body {
@@ -4135,12 +4087,8 @@ body {
     touch-action: none !important;
 }
 
-/* Las teclas conservan su tamaño y se levantan apenas 10 px. */
 .pantalla-acceso .acceso-opciones {
     bottom: calc(30px + env(safe-area-inset-bottom, 0px)) !important;
-}
-
-@media (max-width: 720px) {
 }
 
 @media (max-width: 470px) {
@@ -4151,11 +4099,8 @@ body {
 
 /* =========================================================
    ÚNICO AJUSTE SOLICITADO — LOGO DEBAJO DE LAS TECLAS
-   Conserva el tamaño actual de las teclas y de la carta.
-   El formulario oculta el logo para evitar superposiciones.
    ========================================================= */
 
-/* Logo centrado en la franja inferior, debajo de las teclas. */
 .pantalla-acceso .acceso-identidad {
     position: fixed !important;
     z-index: 5006 !important;
@@ -4182,8 +4127,6 @@ body {
     pointer-events: none !important;
 }
 
-/* Se suben las teclas mediante bottom; NO se cambia su ancho,
-   aspect-ratio ni altura, para conservar sus dimensiones actuales. */
 .pantalla-acceso .acceso-opciones {
     bottom: calc(88px + env(safe-area-inset-bottom, 0px)) !important;
 }
@@ -4225,20 +4168,14 @@ body {
     }
 }
 
-/* El logo desaparece mientras el formulario está abierto,
-   así no invade sus campos ni sus botones. */
 .pantalla-acceso:has(.panel-ingreso.visible) .acceso-identidad {
     display: none !important;
 }
 
 /* =========================================================
    AJUSTE FINAL QUIRÚRGICO — ORDEN DE LA PANTALLA DE ACCESO
-   Orden visual: pizarrón → carta → teclas → HACETUAPP.COM.
-   Solo afecta la pantalla previa de acceso.
-   El interior del curso y su funcionalidad permanecen intactos.
    ========================================================= */
 
-/* La escena usa el flujo normal para evitar superposiciones. */
 .pantalla-acceso .acceso-escena {
     display: flex !important;
     flex-direction: column !important;
@@ -4251,7 +4188,6 @@ body {
     overflow: hidden !important;
 }
 
-/* Orden visual sin modificar HTML ni JavaScript. */
 .pantalla-acceso .acceso-pizarron {
     order: 0 !important;
     flex: 0 0 auto !important;
@@ -4294,7 +4230,6 @@ body {
     pointer-events: none !important;
 }
 
-/* Teclas en el flujo, debajo de la carta, con un espacio visible. */
 .pantalla-acceso .acceso-opciones {
     order: 2 !important;
     position: relative !important;
@@ -4320,9 +4255,6 @@ body {
     background-size: 100% 100% !important;
 }
 
-/* Se conservan las zonas de clic y los identificadores originales. */
-
-/* Logo después de las teclas, centrado y con separación pequeña. */
 .pantalla-acceso .acceso-identidad {
     order: 3 !important;
     position: relative !important;
@@ -4355,13 +4287,11 @@ body {
     pointer-events: none !important;
 }
 
-/* El formulario queda después de los elementos de bienvenida. */
 .pantalla-acceso .panel-ingreso {
     order: 4 !important;
     flex: 0 0 auto !important;
 }
 
-/* Al abrir el formulario, se ocultan teclas y logo como antes. */
 .pantalla-acceso:has(.panel-ingreso.visible) .acceso-opciones,
 .pantalla-acceso:has(.panel-ingreso.visible) .acceso-identidad {
     display: none !important;
@@ -4420,8 +4350,6 @@ body {
 
 /* =========================================================
    AJUSTE QUIRÚRGICO — FORMULARIO MÓVIL Y TECLADO
-   Solo afecta al panel de acceso mientras está abierto.
-   El resto de la pantalla y el interior del curso quedan intactos.
    ========================================================= */
 
 .pantalla-acceso:has(.panel-ingreso.visible) {
@@ -4540,10 +4468,10 @@ body {
 .salon-estudio-doble {
     display: flex !important;
     flex-direction: row !important;
-    flex-wrap: nowrap !important; /* Fuerza a que ambas queden codo a codo en una sola línea */
+    flex-wrap: nowrap !important;
     justify-content: center !important;
     align-items: flex-start !important;
-    gap: 12px !important;         /* Espacio justo y equilibrado entre computadoras */
+    gap: 12px !important;
     width: 100% !important;
     max-width: 1100px !important;
     margin: 25px auto !important;
@@ -4553,8 +4481,8 @@ body {
 
 .bloque-curso-retro {
     flex: 1 1 50% !important;
-    min-width: 0 !important;      /* Impide desbordes en contenedores flexibles */
-    max-width: 240px !important;  /* Escala ideal para entrar juntas en pantallas chicas */
+    min-width: 0 !important;
+    max-width: 240px !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
@@ -4567,7 +4495,6 @@ body {
     margin: 0 auto !important;
 }
 
-/* Papelitos con tipografía ultra nítida y legible */
 .papel-descripcion-retro {
     background-color: #fdf6e3 !important;
     border: 1px solid #d3c6aa !important;
@@ -4598,7 +4525,6 @@ body {
     font-family: inherit !important;
 }
 
-/* Contenedor y botones con brillo (glow) intenso y legible */
 .contenedor-boton-curso {
     width: 100% !important;
     max-width: 220px !important;
@@ -4641,7 +4567,6 @@ body {
     opacity: 0.9 !important;
 }
 
-/* Ajuste optimizado de las pantallas CRT para contener perfectamente los nuevos stickers */
 .bloque-curso-retro .pantalla-youtube {
     position: absolute !important;
     z-index: 30 !important;
@@ -4662,4 +4587,43 @@ body {
     height: 100% !important;
     object-fit: contain !important;
     pointer-events: none !important;
+}
+
+
+/* ==================================================
+   OPTIMIZACIÓN FINAL DE ESPACIOS EN PANTALLA DE ACCESO
+   ================================================== */
+
+/* Elevamos el contenedor de la escena */
+.pantalla-acceso .acceso-escena {
+    justify-content: flex-start !important;
+    padding-top: 2px !important;
+    padding-bottom: 5px !important;
+}
+
+/* Achicamos espacio en el pizarrón */
+.pantalla-acceso .acceso-pizarron {
+    margin-bottom: 2px !important;
+}
+
+/* Achicamos el margen de la carta */
+.pantalla-acceso .acceso-carta {
+    margin: 0 auto 6px !important;
+}
+
+/* Agrandamos el logo de hacetuapp.com horizontalmente */
+.pantalla-acceso .acceso-identidad {
+    width: 135px !important;
+    max-width: 135px !important;
+    margin: 2px auto 6px auto !important;
+}
+
+.pantalla-acceso .acceso-logo-hacetuapp {
+    width: 100% !important;
+    max-width: 135px !important;
+}
+
+/* Elevamos las teclas para que despeguen del borde inferior */
+.pantalla-acceso .acceso-opciones {
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important;
 }

@@ -19,7 +19,7 @@
 
     <link
         rel="stylesheet"
-        href="style.css?v=35"
+        href="style.css?v=36"
     >
 
 </head>
@@ -42,7 +42,7 @@
     <div class="acceso-escena">
 
 
-        <!-- BANNER NUEVO EN EL ESPACIO EXACTO DEL PIZARRÓN -->
+        <!-- 1. BANNER SUPERIOR DE LADO A LADO -->
         <div class="acceso-pizarron">
 
             <img
@@ -55,97 +55,64 @@
         </div>
 
 
-        <!-- ==================================================
-             ZONA CARTA + IDENTIDAD CON ZOOM (COMPACTADA Y AGRANDADA)
-             ================================================== -->
+        <!-- 2. CARTA DE PRESENTACIÓN CENTRADA -->
+        <div 
+            class="acceso-carta" 
+            onclick="abrirZoomCarta()" 
+            title="Toca para ampliar la carta"
+        >
 
-        <div class="acceso-carta-zona">
-
-
-            <div 
-                class="acceso-carta" 
-                onclick="abrirZoomCarta()" 
-                title="Toca para ampliar la carta"
+            <img
+                src="hacetuapp_carta_presentacion.png"
+                class="acceso-carta-imagen"
+                alt="Carta de presentación de hacetuapp.com"
+                draggable="false"
             >
-
-                <img
-                    src="hacetuapp_carta_presentacion.png"
-                    class="acceso-carta-imagen"
-                    alt="Carta de presentación de hacetuapp.com"
-                    draggable="false"
-                >
-
-            </div>
-
-
-            <!-- Indicador sutil y compacto -->
-            <p 
-                onclick="abrirZoomCarta()" 
-                class="indicador-texto-carta"
-            >
-                🔍 <i>(Toca la carta para leerla en pantalla completa)</i>
-            </p>
-
-
-            <!-- Logo Hacé tu App integrado armónicamente -->
-            <div class="acceso-identidad">
-
-                <img
-                    src="hacetuapp_logo_blanco.png"
-                    class="acceso-logo-hacetuapp"
-                    alt="www.hacetuapp.com"
-                    draggable="false"
-                >
-
-            </div>
-
 
         </div>
 
 
-        <!-- ==================================================
-             OPCIONES DE ACCESO (BOTONES VISIBLES ADENTRO)
-             ================================================== -->
+        <!-- 3. OPCIONES DE ACCESO (TECLAS PNG UNIFICADAS) -->
+        <div class="acceso-opciones" style="background-image: url('a_clean_png_style_graphic_on_a_transparent_checker.png');">
 
-        <div class="acceso-opciones">
-
+            <img
+                src="a_clean_png_style_graphic_on_a_transparent_checker.png"
+                class="acceso-teclas-imagen"
+                alt="Teclas de acceso"
+                draggable="false"
+            >
 
             <button
                 id="botonYaAcceso"
-                class="acceso-opcion acceso-opcion-ingreso"
+                class="acceso-opcion"
                 type="button"
                 aria-label="Ya tenés acceso. Ingresar"
             >
-
-                <span class="tecla-texto">
-                    YA TENÉS ACCESO
-                    <span class="tecla-texto-secundario">
-                        INGRESAR
-                    </span>
-                </span>
-
+                YA TENÉS ACCESO INGRESAR
             </button>
 
 
             <button
                 id="botonNoAcceso"
-                class="acceso-opcion acceso-opcion-desbloqueo"
+                class="acceso-opcion"
                 type="button"
                 aria-label="No tenés acceso. Desbloquear conocimientos"
             >
-
-                <span class="tecla-texto">
-                    NO TENÉS ACCESO
-                    <span class="tecla-texto-secundario">
-                        DESBLOQUEAR
-                        <span class="tecla-texto-terciario">
-                            CONOCIMIENTOS
-                        </span>
-                    </span>
-                </span>
-
+                NO TENÉS ACCESO DESBLOQUEAR CONOCIMIENTOS
             </button>
 
+        </div>
+
+
+        <!-- 4. LOGO HACETUAPP.COM DEBAJO DE LAS TECLAS -->
+        <div class="acceso-identidad">
+
+            <img
+                src="hacetuapp_logo_blanco.png"
+                class="acceso-logo-hacetuapp"
+                alt="www.hacetuapp.com"
+                draggable="false"
+            >
 
         </div>
 

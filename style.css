@@ -89,7 +89,6 @@ body::before {
     align-items: center;
 }
 
-/* Banner principal de acceso (-5% de escala) */
 .acceso-pizarron-imagen {
     display: block;
     width: 95%;
@@ -100,7 +99,6 @@ body::before {
     filter: drop-shadow(3px 6px 6px rgba(0,0,0,.50));
 }
 
-/* CARTA DE PRESENTACIÓN (Con efecto 3D sutil) */
 .acceso-carta {
     position: relative;
     z-index: 25;
@@ -132,7 +130,6 @@ body::before {
     filter: drop-shadow(6px 12px 16px rgba(0,0,0,0.65)) drop-shadow(2px 3px 4px rgba(0,0,0,0.4));
 }
 
-/* TEXTO INDICADOR DE LECTURA */
 .indicador-texto-carta {
     position: relative;
     z-index: 25;
@@ -147,7 +144,6 @@ body::before {
     pointer-events: auto;
 }
 
-/* LOGO HACETUAPP.COM */
 .acceso-identidad {
     position: relative;
     z-index: 25;
@@ -168,7 +164,6 @@ body::before {
     pointer-events: none;
 }
 
-/* OPCIONES DE ACCESO / BOTONES TECLAS */
 .acceso-opciones {
     position: fixed;
     z-index: 5005;
@@ -213,15 +208,9 @@ body::before {
     text-indent: -9999px;
 }
 
-#botonYaAcceso {
-    left: 0;
-}
+#botonYaAcceso { left: 0; }
+#botonNoAcceso { right: 0; }
 
-#botonNoAcceso {
-    right: 0;
-}
-
-/* PANEL DE INGRESO */
 .panel-ingreso {
     position: fixed;
     z-index: 6000;
@@ -235,9 +224,7 @@ body::before {
     display: none;
 }
 
-.panel-ingreso.visible {
-    display: block;
-}
+.panel-ingreso.visible { display: block; }
 
 .panel-ingreso-contenido {
     width: 100%;
@@ -309,11 +296,8 @@ body::before {
     text-align: center;
 }
 
-#contenidoPrincipal {
-    display: block;
-}
+#contenidoPrincipal { display: block; }
 
-/* ESCENA PRINCIPAL INTERNA (INTERFAZ 2 - SALÓN DE ESTUDIO) */
 .escena-pupitre {
     position: relative;
     width: 100%;
@@ -345,7 +329,6 @@ body::before {
     filter: drop-shadow(5px 8px 7px rgba(0,0,0,.55));
 }
 
-/* DISPOSICIÓN DUAL: SALÓN DE ESTUDIO (Compacto para móviles) */
 .salon-estudio-doble {
     display: flex !important;
     flex-direction: row !important;
@@ -446,14 +429,6 @@ body::before {
     box-shadow: 0 0 8px rgba(0, 210, 255, 0.85), 0 2px 4px rgba(0, 0, 0, 0.4) !important;
 }
 
-.boton-curso-accion.deshabilitado {
-    background: #607d8b !important;
-    color: #eceff1 !important;
-    cursor: not-allowed !important;
-    opacity: 0.9 !important;
-}
-
-/* PANTALLA YOUTUBE / IMAGEN DE VIDEO DENTRO DEL CRT */
 .bloque-curso-retro .pantalla-youtube,
 .pantalla-youtube {
     position: absolute !important;
@@ -482,7 +457,6 @@ body::before {
     background: #050505 !important;
 }
 
-/* SILLA */
 .zona-silla {
     position: relative;
     z-index: 22;
@@ -503,7 +477,10 @@ body::before {
     filter: drop-shadow(5px 8px 7px rgba(0,0,0,.60));
 }
 
-/* VISOR MODAL */
+/* ==================================================
+   VISOR MODAL RESPONSIVO ORIGINAL (CORREGIDO)
+   ================================================== */
+
 .modal {
     position: fixed;
     z-index: 1000;
@@ -511,7 +488,7 @@ body::before {
     display: none;
     align-items: center;
     justify-content: center;
-    background: rgba(0,0,0,.90);
+    background: rgba(0,0,0,.92);
 }
 
 .modal-contenido {
@@ -548,36 +525,105 @@ body::before {
     padding: 48px 10px 26px;
 }
 
+/* CONTENEDOR DE LA HOJA: TAMAÑO PERFECTO Y RESPONSIVO */
 .hoja-lectura {
     position: relative;
     z-index: 5;
     width: 100%;
-    min-height: calc(100dvh - 150px);
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 12px;
 }
 
-#paginaVisor {
+/* AJUSTE EXACTO DE PANTALLA: NO MÁS IMÁGENES GIGANTES */
+#paginaVisor,
+#paginaVisorBlindaje {
     display: block;
-    width: auto;
-    max-width: calc(100vw - 20px);
-    max-height: calc(100dvh - 118px);
-    height: auto;
+    width: 100% !important;
+    max-width: 500px !important;
+    height: auto !important;
+    max-height: 70vh !important;
     margin: 0 auto;
     object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+}
+
+.zona-complementaria {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.fila-acciones {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.accion-pagina,
+.boton-video-complementario {
+    padding: 8px 12px;
+    border: 1px solid rgba(255,255,255,0.6);
+    border-radius: 4px;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.boton-video-complementario {
+    background: linear-gradient(135deg, #ff2a75, #c2185b);
+}
+
+.subtitulo-video {
+    color: #fdf6e3;
+    font-size: 11px;
+    text-align: center;
+    margin-bottom: 6px;
+}
+
+.contenedor-video-complementario {
+    display: none;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.contenedor-video-complementario.visible {
+    display: block;
+}
+
+.video-responsive {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    background: #000;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.4);
+}
+
+.video-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 
 @media (max-width: 470px) {
-    .acceso-pizarron-imagen {
-        width: 98%;
-    }
-    .acceso-carta-imagen {
-        width: min(100%, 195px);
-    }
-    .acceso-logo-hacetuapp {
-        width: min(100%, 105px);
-    }
+    .acceso-pizarron-imagen { width: 98%; }
+    .acceso-carta-imagen { width: min(100%, 195px); }
+    .acceso-logo-hacetuapp { width: min(100%, 105px); }
     .acceso-opciones {
         width: min(92vw, 260px);
         bottom: calc(10px + env(safe-area-inset-bottom, 0px));

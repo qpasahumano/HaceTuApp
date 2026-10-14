@@ -1,7 +1,7 @@
 "use strict";
 
 /* CACHE-BUSTER-FORCE: 2026-10-13-1215 - FORZAR RECARGA TOTAL */
-const HM_JS_VERSION = "16.10";
+const HM_JS_VERSION = "16.11";
 
 
 const paginas = {
@@ -345,71 +345,8 @@ const MODO_DESARROLLO = false;
 
 
 /* ==================================================
-   BOTÓN DE SALIR / CERRAR SESIÓN (SEGURO Y COMPACTO)
+   CONTROL DE VISIBILIDAD DE CONTENIDO Y SESIÓN
    ================================================== */
-function prepararBotonCerrarSesion() {
-    if (document.getElementById("botonCerrarSesionSeguro")) {
-        return;
-    }
-
-    const barraNavegacion = document.querySelector(".contenido-header") || 
-                            document.querySelector("header") || 
-                            contenidoPrincipal;
-
-    if (!barraNavegacion) {
-        return;
-    }
-
-    const botonSalir = document.createElement("button");
-    botonSalir.id = "botonCerrarSesionSeguro";
-    botonSalir.type = "button";
-    botonSalir.textContent = "SALIR";
-    
-    botonSalir.style.cssText = `
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        background-color: rgba(0, 0, 0, 0.6);
-        color: #ffffff;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        border-radius: 20px;
-        padding: 6px 12px;
-        font-size: 11px;
-        font-weight: bold;
-        cursor: pointer;
-        z-index: 1000;
-        transition: background-color 0.2s ease;
-    `;
-
-    botonSalir.addEventListener("mouseenter", function() {
-        botonSalir.style.backgroundColor = "rgba(180, 0, 0, 0.8)";
-    });
-
-    botonSalir.addEventListener("mouseleave", function() {
-        botonSalir.style.backgroundColor = "rgba(0, 0, 0, 0.6)";
-    });
-
-    botonSalir.addEventListener("click", async function(e) {
-        e.preventDefault();
-        try {
-            const cliente = await obtenerSupabaseClient();
-            await cliente.auth.signOut();
-            localStorage.removeItem('hm_token_dispositivo');
-            ocultarContenidoPrincipal();
-            mostrarPanelIngreso("ingreso");
-        } catch (err) {
-            window.location.reload();
-        }
-    });
-
-    if (window.getComputedStyle(barraNavegacion).position === "static") {
-        barraNavegacion.style.position = "relative";
-    }
-
-    barraNavegacion.appendChild(botonSalir);
-}
-
-
 
 function mostrarContenidoPrincipal() {
 
@@ -435,9 +372,6 @@ function mostrarContenidoPrincipal() {
 
     document.body.style.overflow =
         "";
-
-
-    prepararBotonCerrarSesion();
 
 }
 
@@ -1174,7 +1108,7 @@ async function abrirMercadoPago() {
             tieneAcceso
         ) {
 
-            const resultadoSesion = await verificarYSellarSesion(cliente, data.user.id);
+            const resultadoSesion = await verificarYSellarSesion(cliente, usuarioData.user.id);
             if (!resultadoSesion.permitido) {
                 if (mensajeIngreso) {
                     mensajeIngreso.textContent = resultadoSesion.mensaje;
@@ -2168,7 +2102,7 @@ function cerrarModal() {
 
 
 /* ==================================================
-   CIERRE DEL VISOR
+   CIERRE DEL VISOR DE CURSO
    ================================================== */
 
 window.addEventListener(
@@ -2399,6 +2333,26 @@ document.addEventListener(
         once: true
     }
 );
+
+
+
+/* ==================================================
+   FUNCIONES DE ZOOM PARA CARTA DE PRESENTACIÓN
+   ================================================== */
+
+function abrirZoomCarta() {
+    const modal = document.getElementById('modalCartaZoom');
+    if (modal) {
+        modal.style.display = 'flex';
+    }
+}
+
+function cerrarZoomCarta() {
+    const modal = document.getElementById('modalCartaZoom');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
 
 
 

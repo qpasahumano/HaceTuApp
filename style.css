@@ -4600,4 +4600,218 @@ body {
 /* Elevamos las teclas para que despeguen del borde inferior */
 .pantalla-acceso .acceso-opciones {
     bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important;
+} 
+
+/* =========================================================
+   AJUSTE QUIRÚRGICO — BANNER, CARTA Y ACCESO
+   Mantiene HTML, JavaScript y funciones existentes.
+   ========================================================= */
+
+.pantalla-acceso .acceso-escena {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    max-height: 100dvh !important;
+    padding: 4px 7px 8px !important;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+    gap: 0 !important;
 }
+
+/* Banner compacto: aproximadamente la mitad del ancho
+   que ocupaba el pizarrón original. */
+.pantalla-acceso .acceso-pizarron {
+    position: relative !important;
+    flex: 0 0 auto !important;
+    width: 50% !important;
+    max-width: 550px !important;
+    margin: 2px auto 4px !important;
+    padding: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.pantalla-acceso .acceso-pizarron-imagen {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    object-fit: contain !important;
+    filter: drop-shadow(2px 3px 4px rgba(0,0,0,.4)) !important;
+    pointer-events: none !important;
+}
+
+/* Zona agrupada: carta, indicación de ampliación y logo. */
+.pantalla-acceso .acceso-carta-zona {
+    position: relative !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    overflow: hidden !important;
+    gap: 3px !important;
+}
+
+/* Carta ampliada, aprovechando el espacio recuperado. */
+.pantalla-acceso .acceso-carta {
+    position: relative !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    overflow: hidden !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    clip-path: none !important;
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
+}
+
+.pantalla-acceso .acceso-carta-imagen {
+    display: block !important;
+    width: auto !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: 100% !important;
+    margin: 0 auto !important;
+    object-fit: contain !important;
+    filter: drop-shadow(2px 3px 4px rgba(0,0,0,.38)) !important;
+    pointer-events: none !important;
+}
+
+/* Indicador de ampliación compacto. */
+.pantalla-acceso .indicador-texto-carta {
+    flex: 0 0 auto !important;
+    margin: 2px auto !important;
+    padding: 0 !important;
+    color: #f8e9d0 !important;
+    font-size: clamp(9px, 2.5vw, 12px) !important;
+    line-height: 1.2 !important;
+    text-align: center !important;
+    text-shadow: 0 1px 3px #000 !important;
+    cursor: pointer !important;
+}
+
+/* Logo integrado en el conjunto, sin posición fija. */
+.pantalla-acceso .acceso-identidad {
+    position: relative !important;
+    inset: auto !important;
+    flex: 0 0 auto !important;
+    width: clamp(70px, 18vw, 105px) !important;
+    max-width: 105px !important;
+    margin: 2px auto 4px !important;
+    padding: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    transform: none !important;
+    pointer-events: none !important;
+}
+
+.pantalla-acceso .acceso-logo-hacetuapp {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    transform: none !important;
+    pointer-events: none !important;
+}
+
+/* Botones: conservan sus dos áreas de interacción y el
+   gráfico que ya tenga definido el repositorio. */
+.pantalla-acceso .acceso-opciones {
+    position: relative !important;
+    inset: auto !important;
+    flex: 0 0 auto !important;
+    width: min(94%, 430px) !important;
+    max-width: 430px !important;
+    height: auto !important;
+    aspect-ratio: 3 / 1 !important;
+    margin: 3px auto 2px !important;
+    padding: 0 !important;
+    transform: none !important;
+}
+
+/* No alterar el formulario ni el acceso cuando se abre. */
+.pantalla-acceso:has(.panel-ingreso.visible) {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    touch-action: pan-y !important;
+}
+
+.pantalla-acceso:has(.panel-ingreso.visible) .acceso-escena {
+    height: auto !important;
+    min-height: 100dvh !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+.pantalla-acceso:has(.panel-ingreso.visible) .acceso-opciones,
+.pantalla-acceso:has(.panel-ingreso.visible) .acceso-identidad {
+    display: none !important;
+}
+
+/* Adaptación para pantallas grandes. */
+@media (min-width: 768px) {
+    .pantalla-acceso .acceso-escena {
+        max-width: 500px !important;
+        margin: 0 auto !important;
+    }
+
+    .pantalla-acceso .acceso-pizarron {
+        width: 50% !important;
+    }
+
+    .pantalla-acceso .acceso-carta-imagen {
+        max-width: 360px !important;
+    }
+}
+
+/* Adaptación específica para celulares. */
+@media (max-width: 470px) {
+    .pantalla-acceso .acceso-escena {
+        padding: 3px 7px 5px !important;
+    }
+
+    .pantalla-acceso .acceso-pizarron {
+        width: 50% !important;
+        max-width: 220px !important;
+        margin: 2px auto 3px !important;
+    }
+
+    .pantalla-acceso .acceso-carta-zona {
+        gap: 2px !important;
+    }
+
+    .pantalla-acceso .acceso-carta-imagen {
+        max-width: 100% !important;
+        max-height: 100% !important;
+    }
+
+    .pantalla-acceso .acceso-identidad {
+        width: 74px !important;
+        max-width: 74px !important;
+        margin: 1px auto 2px !important;
+    }
+
+    .pantalla-acceso .acceso-opciones {
+        width: min(94%, 300px) !important;
+        margin: 2px auto 1px !important;
+    }
+}
+

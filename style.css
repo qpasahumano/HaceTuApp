@@ -5,64 +5,36 @@
 
 html,
 body {
-
     margin: 0;
     padding: 0;
-
     width: 100%;
     max-width: 100vw;
     min-height: 100%;
-
     overflow-x: hidden;
     overflow-y: auto !important;
-
 }
 
 
 html {
-
     background: #4a2918;
-
 }
 
 
 body {
-
-    font-family:
-        "Courier New",
-        Courier,
-        monospace;
-
+    font-family: "Courier New", Courier, monospace;
     color: #111;
-
     background-color: #4a2918;
-
-    background-image:
-        url("pupitre_humanometro_fondo.png");
-
-    background-size:
-        cover;
-
-    background-position:
-        center top;
-
-    background-repeat:
-        repeat-y;
-
-    background-attachment:
-        fixed;
-
+    background-image: url("pupitre_humanometro_fondo.png");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: repeat-y;
+    background-attachment: fixed;
     user-select: none;
-
     -webkit-user-select: none;
-
 }
 
 
-/* ==================================================
-   MARCA DE AGUA DISCRETA PARA CAPTURAS (HAZTUAPP.COM)
-   ================================================== */
-
+/* MARCA DE AGUA DISCRETA PARA CAPTURAS */
 body::before {
     content: "HAZTUAPP.COM  •  CONTENIDO EXCLUSIVO  •  HAZTUAPP.COM";
     position: fixed;
@@ -84,294 +56,142 @@ body::before {
 }
 
 
-/* ==================================================
-   PANTALLA PREVIA DE ACCESO
-   ================================================== */
-
+/* PANTALLA PREVIA DE ACCESO */
 .pantalla-acceso {
-
     position: fixed;
-
     z-index: 5000;
-
     inset: 0;
-
     width: 100%;
-
     height: 100dvh;
-
     overflow-x: hidden;
-
     overflow-y: auto;
-
-    background:
-        transparent;
-
+    background-image: url("pupitre_humanometro_fondo.png");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: repeat-y;
 }
 
 
 .acceso-escena {
-
     position: relative;
-
     width: 100%;
-
     max-width: 1100px;
-
     min-height: 100dvh;
-
     margin: 0 auto;
-
-    padding:
-        12px 28px 24px;
-
+    padding: 10px 18px 120px;
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     justify-content: flex-start;
-
 }
 
 
 .acceso-pizarron {
-
     position: relative;
-
     z-index: 20;
-
     width: 100%;
-
-    max-width: none;
-
-    margin:
-        0 auto 4px;
-
+    margin: 0 auto 6px;
     display: flex;
-
     justify-content: center;
-
     align-items: center;
-
 }
 
 
-/* Banner principal reducido un 5% */
+/* Banner principal (-5% de escala) */
 .acceso-pizarron-imagen {
-
     display: block;
-
     width: 95%;
-
-    max-width: none;
-
+    max-width: 520px;
     height: auto;
-
-    margin:
-        0 auto;
-
+    margin: 0 auto;
     pointer-events: none;
-
-    filter:
-        drop-shadow(
-            3px 6px 6px
-            rgba(0,0,0,.50)
-        );
-
+    filter: drop-shadow(3px 6px 6px rgba(0,0,0,.50));
 }
 
 
-/* ==================================================
-   CARTA DE PRESENTACIÓN
-   ================================================== */
-
+/* CARTA DE PRESENTACIÓN (-10% de escala) */
 .acceso-carta {
-
     position: relative;
-
     z-index: 25;
-
     width: 100%;
-
-    margin:
-        0 auto 6px;
-
+    margin: 0 auto 4px;
     display: flex;
-
     justify-content: center;
-
     align-items: center;
-
     pointer-events: auto;
-
     cursor: pointer;
-
 }
 
 
-/* Carta de presentación reducida un 10% */
 .acceso-carta-imagen {
-
     display: block;
-
-    width:
-        min(100%, 198px);
-
-    height:
-        auto;
-
-    margin:
-        0 auto;
-
-    padding:
-        0;
-
-    border:
-        none;
-
-    outline:
-        none;
-
-    background:
-        transparent;
-
-    filter:
-        drop-shadow(
-            3px 5px 6px
-            rgba(0,0,0,.45)
-        );
-
-    pointer-events:
-        none;
-
-}
-
-
-/* ==================================================
-   TEXTO INDICADOR DE LA CARTA (EN BLANCO LEGIBLE)
-   ================================================== */
-
-.indicador-texto-carta {
-
-    position: relative;
-
-    z-index: 25;
-
-    margin: 0 auto 8px;
-
-    font-family: "Courier New", Courier, monospace;
-
-    font-size: 11px;
-
-    font-weight: bold;
-
-    color: #ffffff;
-
-    text-align: center;
-
-    text-shadow: 0 1px 4px rgba(0,0,0,0.95);
-
-    cursor: pointer;
-
-    pointer-events: auto;
-
-}
-
-
-/* ==================================================
-   IDENTIDAD HACETUAPP.COM
-   ================================================== */
-
-.acceso-identidad {
-
-    position: relative;
-
-    z-index: 25;
-
-    width: auto;
-
-    margin: 0 auto 14px;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
+    width: min(100%, 210px);
+    height: auto;
+    margin: 0 auto;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    filter: drop-shadow(3px 5px 6px rgba(0,0,0,.45));
     pointer-events: none;
+}
 
+
+/* TEXTO INDICADOR DE LECTURA */
+.indicador-texto-carta {
+    position: relative;
+    z-index: 25;
+    margin: 2px auto 8px;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 11px;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.95);
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+
+/* LOGO HACETUAPP.COM (Restaurado a proporción armónica) */
+.acceso-identidad {
+    position: relative;
+    z-index: 25;
+    width: 100%;
+    margin: 2px auto 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
 }
 
 
 .acceso-logo-hacetuapp {
-
     display: block;
-
-    width:
-        min(100%, 85px);
-
+    width: min(100%, 115px);
     height: auto;
-
-    margin:
-        0 auto;
-
-    padding:
-        0;
-
-    border:
-        none;
-
-    outline:
-        none;
-
-    background:
-        transparent;
-
-    filter:
-        drop-shadow(
-            2px 3px 3px
-            rgba(0,0,0,.36)
-        );
-
-    transform:
-        rotate(7deg);
-
-    pointer-events:
-        none;
-
+    margin: 0 auto;
+    filter: drop-shadow(2px 3px 3px rgba(0,0,0,.36));
+    pointer-events: none;
 }
 
 
-/* ==================================================
-   OPCIONES DE ACCESO (TECLAS)
-   ================================================== */
-
+/* OPCIONES DE ACCESO / BOTONES TECLAS */
 .acceso-opciones {
-
-    position: relative;
-
+    position: fixed;
     z-index: 5005;
-
-    width:
-        min(94vw, 360px);
-
-    max-width: 360px;
-
+    left: 50%;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+    width: min(92vw, 290px);
+    max-width: 290px;
     aspect-ratio: 3 / 1;
-
-    margin:
-        0 auto;
-
-    padding:
-        0;
-
+    margin: 0;
+    padding: 0;
     display: block;
-
     background: transparent;
-
 }
+
 
 .acceso-teclas-imagen {
     position: absolute;
@@ -385,6 +205,7 @@ body::before {
     filter: drop-shadow(2px 4px 4px rgba(0,0,0,.34));
 }
 
+
 .acceso-opcion {
     position: absolute;
     z-index: 2;
@@ -395,718 +216,155 @@ body::before {
     margin: 0;
     padding: 0;
     border: 0;
-    background: transparent;
+    background: transparent !important;
     cursor: pointer;
-    color: transparent;
-    font-size: 0;
+    color: transparent !important;
+    font-size: 0 !important;
     text-indent: -9999px;
 }
+
 
 #botonYaAcceso {
     left: 0;
 }
+
 
 #botonNoAcceso {
     right: 0;
 }
 
 
-/* ==================================================
-   PANEL DE INGRESO
-   ================================================== */
-
+/* PANEL DE INGRESO */
 .panel-ingreso {
-
     position: relative;
-
-    z-index: 40;
-
-    width: min(100%, 360px);
-
-    margin:
-        0 auto 30px;
-
+    z-index: 6000;
+    width: min(100%, 340px);
+    margin: 10px auto 20px;
     display: none;
-
 }
 
 
 .panel-ingreso.visible {
-
     display: block;
-
 }
 
 
 .panel-ingreso-contenido {
-
     width: 100%;
-
-    padding:
-        18px 20px 20px;
-
-    background:
-        rgba(74,41,24,.94);
-
-    border:
-        2px solid rgba(255,255,255,.62);
-
-    border-radius:
-        5px;
-
-    box-shadow:
-        0 8px 18px rgba(0,0,0,.42);
-
+    padding: 16px 18px 18px;
+    background: rgba(74,41,24,.96);
+    border: 2px solid rgba(255,255,255,.62);
+    border-radius: 5px;
+    box-shadow: 0 8px 18px rgba(0,0,0,.42);
 }
 
 
 .panel-ingreso-contenido label {
-
     display: block;
-
-    margin:
-        0 0 5px;
-
-    color:
-        #fff;
-
-    font-family:
-        "Courier New",
-        Courier,
-        monospace;
-
-    font-size:
-        13px;
-
-    font-weight:
-        700;
-
-    letter-spacing:
-        .04em;
-
-    text-shadow:
-        0 1px 3px rgba(0,0,0,.85);
-
+    margin: 0 0 5px;
+    color: #fff;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-shadow: 0 1px 3px rgba(0,0,0,.85);
 }
 
 
 .panel-ingreso-contenido input {
-
     display: block;
-
     width: 100%;
-
-    height: 42px;
-
-    margin:
-        0 0 13px;
-
-    padding:
-        8px 11px;
-
-    border:
-        1px solid rgba(255,255,255,.55);
-
-    border-radius:
-        4px;
-
+    height: 40px;
+    margin: 0 0 12px;
+    padding: 8px 11px;
+    border: 1px solid rgba(255,255,255,.55);
+    border-radius: 4px;
     outline: none;
-
-    background:
-        rgba(255,255,255,.93);
-
-    color:
-        #111;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    font-size:
-        16px;
-
+    background: rgba(255,255,255,.93);
+    color: #111;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
     user-select: text;
-
     -webkit-user-select: text;
-
 }
 
 
 .boton-confirmar-ingreso,
 .boton-cerrar-ingreso {
-
     appearance: none;
-
     -webkit-appearance: none;
-
     width: 100%;
-
-    min-height: 40px;
-
-    margin:
-        4px 0 0;
-
-    border:
-        1px solid rgba(255,255,255,.65);
-
-    border-radius:
-        4px;
-
-    background:
-        rgba(0,0,0,.34);
-
-    color:
-        #fff;
-
-    font-family:
-        "Courier New",
-        Courier,
-        monospace;
-
-    font-size:
-        13px;
-
-    font-weight:
-        700;
-
-    letter-spacing:
-        .04em;
-
-    cursor:
-        pointer;
-
+    min-height: 38px;
+    margin: 4px 0 0;
+    border: 1px solid rgba(255,255,255,.65);
+    border-radius: 4px;
+    background: rgba(0,0,0,.34);
+    color: #fff;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    cursor: pointer;
 }
 
 
 .boton-cerrar-ingreso {
-
-    margin-top:
-        8px;
-
-    background:
-        rgba(255,255,255,.08);
-
+    margin-top: 8px;
+    background: rgba(255,255,255,.08);
 }
 
 
 .mensaje-ingreso {
-
-    min-height:
-        18px;
-
-    margin:
-        12px 0 0;
-
-    color:
-        rgba(255,255,255,.88);
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    font-size:
-        12px;
-
-    line-height:
-        1.35;
-
-    text-align:
-        center;
-
+    min-height: 18px;
+    margin: 12px 0 0;
+    color: rgba(255,255,255,.88);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    line-height: 1.35;
+    text-align: center;
 }
 
 
 #contenidoPrincipal {
-
     display: none;
-
 }
 
 
-/* ==================================================
-   ESCENA COMPLETA
-   ================================================== */
-
+/* ESCENA PRINCIPAL INTERNA */
 .escena-pupitre {
-
     position: relative;
-
     width: 100%;
-
     max-width: 1100px;
-
     min-height: 100vh;
-
     margin: 0 auto;
-
-    padding:
-        18px 28px 42px;
-
-    background:
-        transparent;
-
+    padding: 18px 28px 42px;
+    background: transparent;
     overflow-x: hidden;
-
 }
 
-
-/* ==================================================
-   PIZARRÓN / BANNER INTERNO
-   ================================================== */
 
 .zona-pizarron {
-
     position: relative;
-
     z-index: 20;
-
     width: 100%;
-
-    max-width: none;
-
-    margin:
-        0 auto 22px;
-
+    margin: 0 auto 22px;
     display: flex;
-
     justify-content: center;
-
     align-items: center;
-
-    overflow: visible;
-
 }
 
 
 .pizarron {
-
     display: block;
-
     width: 105%;
-
-    max-width: none;
-
     height: auto;
-
-    margin:
-        0 -2.5%;
-
+    margin: 0 -2.5%;
     pointer-events: none;
-
-    filter:
-        drop-shadow(
-            5px 8px 7px
-            rgba(0,0,0,.55)
-        );
-
+    filter: drop-shadow(5px 8px 7px rgba(0,0,0,.55));
 }
 
 
-/* ==================================================
-   COMPUTADORA
-   ================================================== */
-
-.zona-computadora {
-
-    position: relative;
-
-    z-index: 18;
-
-    width: 68%;
-
-    max-width: 680px;
-
-    margin:
-        8px auto 0;
-
-}
-
-
-.computadora-real {
-
-    position: relative;
-
-    width: 100%;
-
-    margin: 0 auto;
-
-    line-height: 0;
-
-}
-
-
-.computadora-imagen {
-
-    display: block;
-
-    width: 100%;
-
-    height: auto;
-
-    margin: 0 auto;
-
-    border: none;
-
-    outline: none;
-
-    pointer-events: none;
-
-    user-select: none;
-
-    -webkit-user-drag: none;
-
-    filter:
-        drop-shadow(
-            8px 13px 11px
-            rgba(0,0,0,.62)
-        );
-
-}
-
-
-/* ==================================================
-   YOUTUBE / PANTALLA DENTRO DEL CRT
-   ================================================== */
-
-.pantalla-youtube {
-
-    position: absolute;
-
-    z-index: 30;
-
-    left:
-        19%;
-
-    top:
-        11.5%;
-
-    width:
-        62%;
-
-    height:
-        35%;
-
-    overflow:
-        hidden;
-
-    background:
-        #050505;
-
-    border-radius:
-        9% / 11%;
-
-}
-
-
-.pantalla-youtube iframe {
-
-    display: block;
-
-    width:
-        100%;
-
-    height:
-        100%;
-
-    margin:
-        0;
-
-    padding:
-        0;
-
-    border:
-        0;
-
-    outline:
-        0;
-
-}
-
-
-/* ==================================================
-   SILLA
-   ================================================== */
-
-.zona-silla {
-
-    position: relative;
-
-    z-index: 22;
-
-    width: 72%;
-
-    max-width: 720px;
-
-    margin:
-        1px auto 0;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-}
-
-
-.silla-real {
-
-    position: relative;
-
-    width: 100%;
-
-    margin: 0 auto;
-
-    line-height: 0;
-
-}
-
-
-.respaldo-silla {
-
-    display: block;
-
-    width: 100%;
-
-    height: auto;
-
-    margin: 0 auto;
-
-    pointer-events: none;
-
-    user-select: none;
-
-    -webkit-user-drag: none;
-
-    filter:
-        drop-shadow(
-            7px 10px 9px
-            rgba(0,0,0,.60)
-        );
-
-}
-
-
-/* ==================================================
-   VISOR
-   ================================================== */
-
-.modal {
-
-    position: fixed;
-
-    z-index: 1000;
-
-    inset: 0;
-
-    display: none;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding:
-        0;
-
-    background:
-        rgba(0,0,0,.90);
-
-}
-
-
-.modal-contenido {
-
-    position: relative;
-
-    width:
-        100%;
-
-    max-width:
-        1100px;
-
-    height:
-        100dvh;
-
-    display: flex;
-
-    flex-direction: column;
-
-    padding:
-        0;
-
-    background:
-        transparent;
-
-    border:
-        none;
-
-    box-shadow:
-        none;
-
-}
-
-
-.cerrar-modal {
-
-    position: fixed;
-
-    z-index: 9999;
-
-    top:
-        6px;
-
-    right:
-        8px;
-
-    width:
-        42px;
-
-    height:
-        42px;
-
-    padding:
-        0;
-
-    border:
-        none;
-
-    background:
-        transparent;
-
-    color:
-        #fff;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    font-size:
-        2.3rem;
-
-    font-weight:
-        bold;
-
-    line-height:
-        42px;
-
-    cursor:
-        pointer;
-
-    text-shadow:
-        0 1px 4px
-        rgba(0,0,0,.95);
-
-}
-
-
-.carpeta-visor {
-
-    position: relative;
-
-    flex:
-        1 1 auto;
-
-    min-height:
-        0;
-
-    width:
-        100%;
-
-    overflow-y:
-        auto;
-
-    overflow-x:
-        hidden;
-
-    -webkit-overflow-scrolling:
-        touch;
-
-    touch-action:
-        pan-y pinch-zoom;
-
-    padding:
-        48px 10px 26px;
-
-    background:
-        transparent;
-
-    border:
-        none;
-
-    box-shadow:
-        none;
-
-}
-
-
-.hoja-lectura {
-
-    position:
-        relative;
-
-    z-index:
-        5;
-
-    width:
-        100%;
-
-    min-height:
-        calc(100dvh - 112px);
-
-    padding:
-        0;
-
-    margin:
-        0 auto;
-
-    background:
-        transparent;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-}
-
-
-#paginaVisor {
-
-    display:
-        block;
-
-    width:
-        auto;
-
-    max-width:
-        calc(100vw - 20px);
-
-    max-height:
-        calc(100dvh - 118px);
-
-    height:
-        auto;
-
-    margin:
-        0 auto;
-
-    object-fit:
-        contain;
-
-}
-
-
-/* ==================================================
-   DISPOSICIÓN DUAL: SALÓN DE ESTUDIO
-   ================================================== */
-
+/* DISPOSICIÓN DUAL: SALÓN DE ESTUDIO */
 .salon-estudio-doble {
     display: flex !important;
     flex-direction: row !important;
@@ -1121,6 +379,7 @@ body::before {
     box-sizing: border-box !important;
 }
 
+
 .bloque-curso-retro {
     flex: 1 1 50% !important;
     min-width: 0 !important;
@@ -1131,11 +390,25 @@ body::before {
     box-sizing: border-box !important;
 }
 
+
 .bloque-curso-retro .computadora-real {
+    position: relative !important;
     width: 100% !important;
     max-width: 220px !important;
     margin: 0 auto !important;
 }
+
+
+.computadora-imagen {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border: none;
+    pointer-events: none;
+    filter: drop-shadow(8px 13px 11px rgba(0,0,0,.62));
+}
+
 
 .papel-descripcion-retro {
     background-color: #fdf6e3 !important;
@@ -1149,12 +422,14 @@ body::before {
     text-align: left !important;
 }
 
+
 .papel-descripcion-retro h3 {
     margin: 0 0 4px 0 !important;
     color: #1a1a1a !important;
     font-size: 12.5px !important;
     font-weight: 800 !important;
 }
+
 
 .papel-descripcion-retro p {
     margin: 0 0 6px 0 !important;
@@ -1164,12 +439,14 @@ body::before {
     line-height: 1.3 !important;
 }
 
+
 .contenedor-boton-curso {
     width: 100% !important;
     max-width: 220px !important;
     text-align: center !important;
     margin-top: 5px !important;
 }
+
 
 .boton-curso-accion {
     width: 100% !important;
@@ -1182,12 +459,14 @@ body::before {
     border: 1px solid rgba(255, 255, 255, 0.4) !important;
 }
 
+
 .boton-curso-accion.fucsia {
     background: linear-gradient(135deg, #ff2a75, #c2185b) !important;
     color: #ffffff !important;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6) !important;
     box-shadow: 0 0 10px rgba(255, 42, 117, 0.85), 0 2px 5px rgba(0, 0, 0, 0.4) !important;
 }
+
 
 .boton-curso-accion.azul {
     background: linear-gradient(135deg, #00d2ff, #00838f) !important;
@@ -1196,12 +475,14 @@ body::before {
     box-shadow: 0 0 10px rgba(0, 210, 255, 0.85), 0 2px 5px rgba(0, 0, 0, 0.4) !important;
 }
 
+
 .boton-curso-accion.deshabilitado {
     background: #607d8b !important;
     color: #eceff1 !important;
     cursor: not-allowed !important;
     opacity: 0.9 !important;
 }
+
 
 .bloque-curso-retro .pantalla-youtube {
     position: absolute !important;
@@ -1218,9 +499,121 @@ body::before {
     justify-content: center !important;
 }
 
+
 .bloque-curso-retro .pantalla-youtube img {
     width: 100% !important;
     height: 100% !important;
     object-fit: contain !important;
     pointer-events: none !important;
+}
+
+
+/* SILLA */
+.zona-silla {
+    position: relative;
+    z-index: 22;
+    width: 72%;
+    max-width: 720px;
+    margin: 35px auto 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.respaldo-silla {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    pointer-events: none;
+    filter: drop-shadow(7px 10px 9px rgba(0,0,0,.60));
+}
+
+
+/* VISOR MODAL */
+.modal {
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,.90);
+}
+
+
+.modal-contenido {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+
+.cerrar-modal {
+    position: fixed;
+    z-index: 9999;
+    top: 6px;
+    right: 8px;
+    width: 42px;
+    height: 42px;
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-size: 2.3rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+.carpeta-visor {
+    position: relative;
+    flex: 1 1 auto;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 48px 10px 26px;
+}
+
+
+.hoja-lectura {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    min-height: calc(100dvh - 112px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+#paginaVisor {
+    display: block;
+    width: auto;
+    max-width: calc(100vw - 20px);
+    max-height: calc(100dvh - 118px);
+    height: auto;
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+
+@media (max-width: 470px) {
+    .acceso-pizarron-imagen {
+        width: 98%;
+    }
+    .acceso-carta-imagen {
+        width: min(100%, 195px);
+    }
+    .acceso-logo-hacetuapp {
+        width: min(100%, 105px);
+    }
+    .acceso-opciones {
+        width: min(92vw, 260px);
+        bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    }
 }

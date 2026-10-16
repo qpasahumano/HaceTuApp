@@ -623,3 +623,52 @@ body::before {
         bottom: calc(10px + env(safe-area-inset-bottom, 0px));
     }
 }
+
+/* ==================================================
+   ADAPTACIÓN FLUIDA PARA COMPUTADORAS (Escritorio / Pantallas Grandes)
+   ================================================== */
+@media (min-width: 1024px) {
+    /* Permitir mayor amplitud en las escenas principales para PC */
+    .acceso-escena,
+    .escena-pupitre {
+        max-width: 960px;
+    }
+
+    /* Escalar elegantemente las computadoras retro y sus bloques en monitor */
+    .bloque-curso-retro {
+        max-width: 310px !important;
+    }
+
+    .bloque-curso-retro .computadora-real {
+        max-width: 290px !important;
+    }
+
+    .papel-descripcion-retro,
+    .contenedor-boton-curso {
+        max-width: 290px !important;
+    }
+
+    .papel-descripcion-retro h3 {
+        font-size: 13.5px !important;
+    }
+
+    .papel-descripcion-retro p {
+        font-size: 11px !important;
+    }
+
+    .boton-curso-accion {
+        font-size: 10.5px !important;
+        padding: 8px 10px !important;
+    }
+
+    /* Ampliar ligeramente los visores y hojas en modales para PC */
+    #paginaVisor,
+    #paginaVisorBlindaje {
+        max-width: 650px !important;
+    }
+
+    .zona-complementaria {
+        max-width: 650px !important;
+    }
+    }
+                     

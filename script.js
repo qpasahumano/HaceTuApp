@@ -1,7 +1,7 @@
 "use strict";
 
 /* CACHE-BUSTER-FORCE: 2026-10-14-1945 - FORZAR RECARGA TOTAL */
-const HM_JS_VERSION = "16.15";
+const HM_JS_VERSION = "16.16";
 
 
 /* ==================================================
@@ -659,6 +659,28 @@ function cerrarModal() {
    LÓGICA BLINDAJE DIGITAL (76 PÁGINAS PASO A PASO)
    ================================================== */
 
+function gestionarAvisoRotacion(num) {
+    let aviso = document.getElementById("avisoRotacionCelular");
+    const visor = document.getElementById("paginaVisorBlindaje");
+    if (!visor || !visor.parentNode) return;
+
+    if (num >= 49) {
+        if (!aviso) {
+            aviso = document.createElement("div");
+            aviso.id = "avisoRotacionCelular";
+            aviso.style.cssText = "background: #111111; color: #ffffff; text-align: center; padding: 8px 12px; font-size: 13px; font-weight: bold; border-radius: 4px; margin: 6px auto; max-width: 90%; box-shadow: 0 2px 5px rgba(0,0,0,0.3); z-index: 10; display: flex; align-items: center; justify-content: center; gap: 8px;";
+            aviso.innerHTML = "<span>📱</span> <span>Girá el celular en horizontal para leer con mayor comodidad</span>";
+            visor.parentNode.insertBefore(aviso, visor);
+        } else {
+            aviso.style.display = "flex";
+        }
+    } else {
+        if (aviso) {
+            aviso.style.display = "none";
+        }
+    }
+}
+
 function resetearVideoBlindaje() {
     const botonVideo = document.getElementById("botonVideoComplementarioBlindaje");
     const subtitulo = document.getElementById("subtituloVideoBlindaje");
@@ -731,6 +753,8 @@ function cargarPaginaBlindaje(num) {
 
     visor.src = paginasBlindaje[num]; 
     visor.alt = "Página " + num + " del curso Blindaje Digital";
+
+    gestionarAvisoRotacion(num);
 
     const botonAccion = document.getElementById("accionPaginaBlindaje");
     if (botonAccion) {

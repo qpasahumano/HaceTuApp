@@ -43,14 +43,20 @@ let paginaActual = 1;
 
 
 /* ==================================================
-   CURSO 2: BLINDAJE DIGITAL (77 PÁGINAS PASO A PASO)
+   CURSO 2: BLINDAJE DIGITAL (76 PÁGINAS PASO A PASO)
    ================================================== */
 
-const totalPaginasBlindaje = 77;
+const totalPaginasBlindaje = 76;
 const paginasBlindaje = {};
 
 for (let i = 1; i <= totalPaginasBlindaje; i++) {
-    paginasBlindaje[i] = `Página ${i}.png`;
+    if (i === 75) {
+        paginasBlindaje[i] = "Página 75.png";
+    } else if (i === 76) {
+        paginasBlindaje[i] = "pagina76.png";
+    } else {
+        paginasBlindaje[i] = `Página ${i}.png`;
+    }
 }
 
 const videosBlindaje = {
@@ -456,19 +462,19 @@ function reproducirTimbreRecreo() {
 
             window.setTimeout(function() {
                 if (!audioContext) return;
-                const secondoToque = audioContext.currentTime;
+                const segundoToque = audioContext.currentTime;
                 const gananciaSegundo = audioContext.createGain();
-                gananciaSegundo.gain.setValueAtTime(0.0001, secondoToque);
-                gananciaSegundo.gain.exponentialRampToValueAtTime(0.055, secondoToque + 0.02);
-                gananciaSegundo.gain.exponentialRampToValueAtTime(0.0001, secondoToque + 0.85);
+                gananciaSegundo.gain.setValueAtTime(0.0001, segundoToque);
+                gananciaSegundo.gain.exponentialRampToValueAtTime(0.055, segundoToque + 0.02);
+                gananciaSegundo.gain.exponentialRampToValueAtTime(0.0001, segundoToque + 0.85);
                 gananciaSegundo.connect(audioContext.destination);
 
                 const osciladorSegundo = audioContext.createOscillator();
                 osciladorSegundo.type = "triangle";
-                osciladorSegundo.frequency.setValueAtTime(1047, secondoToque);
+                osciladorSegundo.frequency.setValueAtTime(1047, segundoToque);
                 osciladorSegundo.connect(gananciaSegundo);
-                osciladorSegundo.start(secondoToque);
-                osciladorSegundo.stop(secondoToque + 0.82);
+                osciladorSegundo.start(segundoToque);
+                osciladorSegundo.stop(segundoToque + 0.82);
             }, 480);
         };
 
@@ -650,7 +656,7 @@ function cerrarModal() {
 
 
 /* ==================================================
-   LÓGICA BLINDAJE DIGITAL (77 PÁGINAS PASO A PASO)
+   LÓGICA BLINDAJE DIGITAL (76 PÁGINAS PASO A PASO)
    ================================================== */
 
 function resetearVideoBlindaje() {

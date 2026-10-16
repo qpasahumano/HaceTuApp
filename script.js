@@ -660,24 +660,20 @@ function cerrarModal() {
    ================================================== */
 
 function gestionarAvisoRotacion(num) {
-    let aviso = document.getElementById("avisoRotacionCelular");
-    const visor = document.getElementById("paginaVisorBlindaje");
-    if (!visor || !visor.parentNode) return;
+    const aviso = document.getElementById("avisoGirarCelular");
 
-    if (num >= 49) {
-        if (!aviso) {
-            aviso = document.createElement("div");
-            aviso.id = "avisoRotacionCelular";
-            aviso.style.cssText = "background: #111111; color: #ffffff; text-align: center; padding: 8px 12px; font-size: 13px; font-weight: bold; border-radius: 4px; margin: 6px auto; max-width: 90%; box-shadow: 0 2px 5px rgba(0,0,0,0.3); z-index: 10; display: flex; align-items: center; justify-content: center; gap: 8px;";
-            aviso.innerHTML = "<span>📱</span> <span>Girá el celular en horizontal para leer con mayor comodidad</span>";
-            visor.parentNode.insertBefore(aviso, visor);
-        } else {
-            aviso.style.display = "flex";
-        }
+    if (!aviso) return;
+
+    if (num === 49) {
+        aviso.textContent =
+            "📱 Girá el celular a posición horizontal para leer las próximas páginas cuando sea necesario.";
+        aviso.style.cssText =
+            "display:block; color:#ffffff; background:transparent; border:0;" +
+            "box-shadow:none; border-radius:0; padding:0; margin:0 auto 8px;" +
+            "font-family:'Courier New',monospace; font-size:12px;" +
+            "line-height:1.4; text-align:center; max-width:95%;";
     } else {
-        if (aviso) {
-            aviso.style.display = "none";
-        }
+        aviso.style.display = "none";
     }
 }
 

@@ -34,29 +34,28 @@
 
 
 <!-- ==================================================
-     PANTALLA PREVIA DE ACCESO (Firme y sin scroll)
+     PANTALLA PREVIA DE ACCESO
      ================================================== -->
 
 <section
     id="pantallaAcceso"
     class="pantalla-acceso"
     aria-label="Acceso al contenido"
-    style="height: 100%; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; padding: 10px 0;"
+    style="height: 100%; overflow-y: auto;"
 >
 
 
-    <div class="acceso-escena" style="height: 100%; display: flex; flex-direction: column; justify-content: space-around; align-items: center; box-sizing: border-box; overflow: hidden;">
+    <div class="acceso-escena">
 
 
         <!-- 1. BANNER SUPERIOR DE LADO A LADO -->
-        <div class="acceso-pizarron" style="width: 100%; text-align: center;">
+        <div class="acceso-pizarron">
 
             <img
                 src="el_explorador_digital_banner_transparente.png"
                 class="acceso-pizarron-imagen"
                 alt="El Explorador Digital"
                 draggable="false"
-                style="max-height: 110px; width: auto; max-width: 95%;"
             >
 
         </div>
@@ -67,7 +66,6 @@
             class="acceso-carta" 
             onclick="abrirZoomCarta()" 
             title="Toca para ampliar la carta"
-            style="max-height: 32vh; display: flex; align-items: center; justify-content: center;"
         >
 
             <img
@@ -75,7 +73,6 @@
                 class="acceso-carta-imagen"
                 alt="Carta de presentación de hacetuapp.com"
                 draggable="false"
-                style="max-height: 30vh; width: auto; object-fit: contain;"
             >
 
         </div>
@@ -85,29 +82,27 @@
         <div 
             class="indicador-texto-carta" 
             onclick="abrirZoomCarta()"
-            style="font-size: 11px; margin: 2px 0;"
         >
             Clic para leer en pantalla completa
         </div>
 
 
-        <!-- 3. LOGO HACETUAPP.COM -->
-        <div class="acceso-identidad" style="text-align: center; margin: 2px 0;">
+        <!-- 3. LOGO HACETUAPP.COM DEBAJO DE LA CARTA -->
+        <div class="acceso-identidad">
 
             <img
                 src="hacetuapp_logo_blanco.png"
                 class="acceso-logo-hacetuapp"
                 alt="www.hacetuapp.com"
                 draggable="false"
-                style="max-height: 35px; width: auto;"
             >
 
         </div>
 
 
-        <!-- 4. RECUADRO DEL AVISO: UBICADO ENTRE EL LOGO Y LOS BOTONES -->
+        <!-- 4. RECUADRO DEL AVISO: SUBIDO CON SUFICIENTE AIRE RESPECTO A LAS TECLAS -->
         <div 
-            style="width: 82%; max-width: 380px; margin: 4px auto; padding: 5px 10px; background: rgba(0, 0, 0, 0.82); border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 4px; color: #e2e8f0; font-family: 'Courier New', Consolas, monospace; font-size: 9.5px; line-height: 1.3; text-align: left; box-shadow: inset 0 0 8px rgba(0,0,0,0.9);"
+            style="width: 82%; max-width: 380px; margin: 0 auto 18px auto; padding: 5px 10px; background: rgba(0, 0, 0, 0.82); border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 4px; color: #e2e8f0; font-family: 'Courier New', Consolas, monospace; font-size: 9.5px; line-height: 1.3; text-align: left; box-shadow: inset 0 0 8px rgba(0,0,0,0.9); max-height: 50px; overflow-y: auto;"
         >
             <span style="color: #f6ad55; font-weight: bold; display: block; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.5px; text-align: center;">
                 📌 AVISO SOBRE PLATAFORMAS
@@ -117,37 +112,33 @@
 
 
         <!-- 5. OPCIONES DE ACCESO (TECLAS PNG ORIGINALES Y CENTRADAS) -->
-        <div class="acceso-opciones" style="width: 100%; display: flex; flex-direction: column; align-items: center; margin-bottom: 5px;">
+        <div class="acceso-opciones">
 
             <img
                 src="a_clean_png_style_graphic_on_a_transparent_checker.png"
                 class="acceso-teclas-imagen"
                 alt="Teclas de acceso"
                 draggable="false"
-                style="max-height: 45px; width: auto; margin-bottom: 4px;"
             >
 
-            <div style="display: flex; gap: 10px; width: 90%; max-width: 400px; justify-content: center;">
-                <button
-                    id="botonYaAcceso"
-                    class="acceso-opcion"
-                    type="button"
-                    aria-label="Ya tenés acceso. Ingresar"
-                    style="flex: 1; font-size: 10px; padding: 8px 4px;"
-                >
-                    YA TENÉS ACCESO INGRESAR
-                </button>
+            <button
+                id="botonYaAcceso"
+                class="acceso-opcion"
+                type="button"
+                aria-label="Ya tenés acceso. Ingresar"
+            >
+                YA TENÉS ACCESO INGRESAR
+            </button>
 
-                <button
-                    id="botonNoAcceso"
-                    class="acceso-opcion"
-                    type="button"
-                    aria-label="No tenés acceso. Desbloquear conocimientos"
-                    style="flex: 1; font-size: 10px; padding: 8px 4px;"
-                >
-                    NO TENÉS ACCESO DESBLOQUEAR CONOCIMIENTOS
-                </button>
-            </div>
+
+            <button
+                id="botonNoAcceso"
+                class="acceso-opcion"
+                type="button"
+                aria-label="No tenés acceso. Desbloquear conocimientos"
+            >
+                NO TENÉS ACCESO DESBLOQUEAR CONOCIMIENTOS
+            </button>
 
         </div>
 
@@ -226,7 +217,7 @@
 
 
 
-<main id="contenidoPrincipal" style="position: relative; height: 100%; overflow-y: auto;">
+<main id="contenidoPrincipal" style="position: relative;">
 
     <!-- ÚNICO BOTÓN DE SALIR GENERAL -->
     <button
@@ -273,7 +264,7 @@
                         class="computadora-imagen"
                         alt="Computadora Guía de Trinchera"
                         draggable="false"
-                    />
+                    >
                     <div class="pantalla-youtube" style="background: #050505; display: flex; align-items: center; justify-content: center; overflow: hidden;">
                         <img
                             src="guia_trinchera_4x3_transparente.png"
@@ -305,7 +296,7 @@
                         class="computadora-imagen"
                         alt="Computadora Blindaje Digital"
                         draggable="false"
-                    />
+                    >
                     <div class="pantalla-youtube" style="background: #050505; display: flex; align-items: center; justify-content: center; overflow: hidden;">
                         <img
                             src="guia_blindaje_4x3_transparente.png"
@@ -513,10 +504,10 @@
                 🔍 Podés usar dos dedos para hacer zoom en los textos pequeños
             </div>
 
-            <!-- AVISO ELIMINADO DEL LATERAL (Se movió a la parte superior de la hoja o zona segura para evitar corrimientos) -->
+            <!-- AVISO EXCLUSIVO PARA LA PÁGINA 49 (GIRAR CELULAR) -->
             <div 
                 id="avisoGirarCelular" 
-                style="display: none; background: rgba(0, 0, 0, 0.85); color: #fff; padding: 4px 8px; margin: 0 auto 6px auto; border-radius: 4px; border: 1px solid rgba(255,255,255,0.4); font-family: 'Courier New', monospace; font-size: 9.5px; text-align: center; max-width: 280px; line-height: 1.25;"
+                style="display: none; background: rgba(0, 0, 0, 0.85); color: #fff; padding: 5px 10px; margin: 0 auto 6px auto; border-radius: 4px; border: 1px solid rgba(255,255,255,0.4); font-family: 'Courier New', monospace; font-size: 10px; text-align: center; max-width: 300px; line-height: 1.25;"
             >
                 📱 <strong>Girá el celular en horizontal</strong> para leer con mayor comodidad.
             </div>
@@ -644,4 +635,4 @@
 
 </body>
 
-</html>
+    </html>

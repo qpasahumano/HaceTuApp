@@ -330,6 +330,36 @@ body::before {
 }
 
 /* ==================================================
+   SEÑALIZACIÓN SUTIL DE SCROLL
+   ================================================== */
+.indicador-scroll-cursos {
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto 4px auto;
+    text-align: center;
+}
+
+.indicador-scroll-cursos span {
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.65);
+    color: #f6ad55;
+    border: 1px solid rgba(246, 173, 85, 0.4);
+    border-radius: 12px;
+    padding: 3px 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 9.5px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    animation: pulsoScroll 2s infinite ease-in-out;
+}
+
+@keyframes pulsoScroll {
+    0%, 100% { transform: translateY(0); opacity: 0.85; }
+    50% { transform: translateY(-2px); opacity: 1; }
+}
+
+/* ==================================================
    CONTENEDOR DE CURSOS CON SCROLL SUTIL Y PROLIJO
    ================================================== */
 .salon-estudio-doble {
@@ -342,7 +372,7 @@ body::before {
     width: 100% !important;
     max-width: 520px !important;
     max-height: 380px !important;
-    margin: 10px auto !important;
+    margin: 0 auto !important;
     padding: 12px 8px !important;
     box-sizing: border-box !important;
     overflow-y: auto !important;

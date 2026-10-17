@@ -1,7 +1,7 @@
 "use strict";
 
-/* CACHE-BUSTER-FORCE: 2026-10-14-1945 - FORZAR RECARGA TOTAL */
-const HM_JS_VERSION = "16.16";
+/* CACHE-BUSTER-FORCE: 2026-10-17-2000 - FORZAR RECARGA TOTAL */
+const HM_JS_VERSION = "16.17";
 
 
 /* ==================================================
@@ -59,15 +59,117 @@ for (let i = 1; i <= totalPaginasBlindaje; i++) {
     }
 }
 
-const videosBlindaje = {
-    // Ejemplo: 1: "https://youtu.be/..."
-};
-
-const subtitulosBlindaje = {
-    // Ejemplo: 1: "Demostración práctica"
-};
+const videosBlindaje = {};
+const subtitulosBlindaje = {};
 
 let paginaActualBlindaje = 1;
+
+
+/* ==================================================
+   CURSO 3: MÓDULO DE MAILS (5 PÁGINAS)
+   ================================================== */
+
+const totalPaginasMails = 5;
+let paginaActualMails = 1;
+const idVideoYouTubeMails = "bzpiH7dP_ek";
+
+function abrirPaginaMails(numeroPagina) {
+    paginaActualMails = numeroPagina;
+    const modal = document.getElementById("modalMails");
+    const imagenVisor = document.getElementById("paginaVisorMails");
+    const botonAnterior = document.getElementById("botonAnteriorMails");
+    const botonAccion = document.getElementById("accionPaginaMails");
+
+    if (modal && imagenVisor) {
+        imagenVisor.src = `modulo-mails/p%C3%A1gina%20${paginaActualMails}.png`;
+        imagenVisor.alt = `Página ${paginaActualMails} del Módulo de Mails`;
+
+        if (botonAnterior) {
+            botonAnterior.style.display = (paginaActualMails <= 1) ? "none" : "inline-block";
+        }
+        if (botonAccion) {
+            botonAccion.textContent = (paginaActualMails >= totalPaginasMails) ? "VOLVER A INTERFAZ" : "SIGUIENTE PÁGINA";
+        }
+
+        modal.style.display = "flex";
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+
+        actualizarVisibilidadVideoMails();
+    }
+}
+
+function cerrarModalMails() {
+    const modal = document.getElementById("modalMails");
+    const visor = document.getElementById("paginaVisorMails");
+    const iframeVideo = document.getElementById("videoMails");
+    const contenedorVideo = document.getElementById("contenedorVideoMails");
+
+    if (modal) {
+        modal.style.display = "none";
+        modal.setAttribute("aria-hidden", "true");
+    }
+    if (visor) visor.src = "";
+    if (iframeVideo) iframeVideo.src = "";
+    if (contenedorVideo) {
+        contenedorVideo.classList.remove("visible");
+        contenedorVideo.setAttribute("aria-hidden", "true");
+    }
+    document.body.style.overflow = "";
+}
+
+function avanzarPaginaMails() {
+    if (paginaActualMails >= totalPaginasMails) {
+        cerrarModalMails();
+        return;
+    }
+    abrirPaginaMails(paginaActualMails + 1);
+}
+
+function retrocederPaginaMails() {
+    if (paginaActualMails <= 1) return;
+    abrirPaginaMails(paginaActualMails - 1);
+}
+
+function actualizarVisibilidadVideoMails() {
+    const botonVideo = document.getElementById("botonVideoComplementarioMails");
+    const contenedorVideo = document.getElementById("contenedorVideoMails");
+    const iframeVideo = document.getElementById("videoMails");
+
+    if (paginaActualMails === 1) {
+        if (botonVideo) {
+            botonVideo.style.display = "inline-block";
+            botonVideo.textContent = "▶ VER VIDEO";
+        }
+    } else {
+        if (botonVideo) botonVideo.style.display = "none";
+        if (contenedorVideo) {
+            contenedorVideo.classList.remove("visible");
+            contenedorVideo.setAttribute("aria-hidden", "true");
+        }
+        if (iframeVideo) iframeVideo.src = "";
+    }
+}
+
+function alternarVideoMails() {
+    const botonVideo = document.getElementById("botonVideoComplementarioMails");
+    const contenedorVideo = document.getElementById("contenedorVideoMails");
+    const iframeVideo = document.getElementById("videoMails");
+
+    if (!contenedorVideo || !iframeVideo) return;
+
+    if (contenedorVideo.classList.contains("visible")) {
+        contenedorVideo.classList.remove("visible");
+        contenedorVideo.setAttribute("aria-hidden", "true");
+        iframeVideo.src = "";
+        if (botonVideo) botonVideo.textContent = "▶ VER VIDEO";
+    } else {
+        contenedorVideo.classList.add("visible");
+        contenedorVideo.setAttribute("aria-hidden", "false");
+        iframeVideo.src = `https://www.youtube.com/embed/${idVideoYouTubeMails}?autoplay=1&rel=0`;
+        if (botonVideo) botonVideo.textContent = "▲ CERRAR VIDEO";
+    }
+}
 
 
 /* ==================================================
@@ -818,15 +920,18 @@ function cerrarModalBlindaje() {
 window.addEventListener("click", function(event) {
     const modal = document.getElementById("modalPdf");
     const modalBlindaje = document.getElementById("modalBlindaje");
+    const modalMails = document.getElementById("modalMails");
 
     if (event.target === modal) cerrarModal();
     if (event.target === modalBlindaje) cerrarModalBlindaje();
+    if (event.target === modalMails) cerrarModalMails();
 });
 
 document.addEventListener("keydown", function(event) {
     if (event.key === "Escape") {
         cerrarModal();
         cerrarModalBlindaje();
+        cerrarModalMails();
     }
 });
 

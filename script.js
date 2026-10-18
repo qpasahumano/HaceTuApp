@@ -1,7 +1,7 @@
 "use strict";
 
-/* CACHE-BUSTER-FORCE: 2026-10-17-2000 - FORZAR RECARGA TOTAL */
-const HM_JS_VERSION = "16.17";
+/* CACHE-BUSTER-FORCE: 2026-10-18-2300 - FORZAR RECARGA TOTAL */
+const HM_JS_VERSION = "17.00";
 
 
 /* ==================================================
@@ -167,6 +167,113 @@ function alternarVideoMails() {
         contenedorVideo.classList.add("visible");
         contenedorVideo.setAttribute("aria-hidden", "false");
         iframeVideo.src = `https://www.youtube.com/embed/${idVideoYouTubeMails}?autoplay=1&rel=0`;
+        if (botonVideo) botonVideo.textContent = "▲ CERRAR VIDEO";
+    }
+}
+
+
+/* ==================================================
+   CURSO 4: GOOGLE PLAY CONSOLE (7 PÁGINAS)
+   ================================================== */
+
+const totalPaginasPlayConsole = 7;
+let paginaActualPlayConsole = 1;
+const idVideoYouTubePlayConsole = "REEMPLAZAR_CON_ID_VIDEO_PLAY_CONSOLE"; // Reemplazar cuando esté el video
+
+function abrirPaginaPlayConsole(numeroPagina) {
+    paginaActualPlayConsole = numeroPagina;
+    const modal = document.getElementById("modalPlayConsole");
+    const imagenVisor = document.getElementById("paginaVisorPlayConsole");
+    const botonAnterior = document.getElementById("botonAnteriorPlayConsole");
+    const botonAccion = document.getElementById("accionPaginaPlayConsole");
+
+    if (modal && imagenVisor) {
+        imagenVisor.src = `modulo-playconsole/p%C3%A1gina%20${paginaActualPlayConsole}.png`;
+        imagenVisor.alt = `Página ${paginaActualPlayConsole} de Google Play Console`;
+
+        if (botonAnterior) {
+            botonAnterior.style.display = (paginaActualPlayConsole <= 1) ? "none" : "inline-block";
+        }
+        if (botonAccion) {
+            botonAccion.textContent = (paginaActualPlayConsole >= totalPaginasPlayConsole) ? "VOLVER A INTERFAZ" : "SIGUIENTE PÁGINA";
+        }
+
+        modal.style.display = "flex";
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+
+        actualizarVisibilidadVideoPlayConsole();
+    }
+}
+
+function cerrarModalPlayConsole() {
+    const modal = document.getElementById("modalPlayConsole");
+    const visor = document.getElementById("paginaVisorPlayConsole");
+    const iframeVideo = document.getElementById("videoPlayConsole");
+    const contenedorVideo = document.getElementById("contenedorVideoPlayConsole");
+
+    if (modal) {
+        modal.style.display = "none";
+        modal.setAttribute("aria-hidden", "true");
+    }
+    if (visor) visor.src = "";
+    if (iframeVideo) iframeVideo.src = "";
+    if (contenedorVideo) {
+        contenedorVideo.classList.remove("visible");
+        contenedorVideo.setAttribute("aria-hidden", "true");
+    }
+    document.body.style.overflow = "";
+}
+
+function avanzarPaginaPlayConsole() {
+    if (paginaActualPlayConsole >= totalPaginasPlayConsole) {
+        cerrarModalPlayConsole();
+        return;
+    }
+    abrirPaginaPlayConsole(paginaActualPlayConsole + 1);
+}
+
+function retrocederPaginaPlayConsole() {
+    if (paginaActualPlayConsole <= 1) return;
+    abrirPaginaPlayConsole(paginaActualPlayConsole - 1);
+}
+
+function actualizarVisibilidadVideoPlayConsole() {
+    const botonVideo = document.getElementById("botonVideoComplementarioPlayConsole");
+    const contenedorVideo = document.getElementById("contenedorVideoPlayConsole");
+    const iframeVideo = document.getElementById("videoPlayConsole");
+
+    if (paginaActualPlayConsole === 1) {
+        if (botonVideo) {
+            botonVideo.style.display = "inline-block";
+            botonVideo.textContent = "▶ VER VIDEO";
+        }
+    } else {
+        if (botonVideo) botonVideo.style.display = "none";
+        if (contenedorVideo) {
+            contenedorVideo.classList.remove("visible");
+            contenedorVideo.setAttribute("aria-hidden", "true");
+        }
+        if (iframeVideo) iframeVideo.src = "";
+    }
+}
+
+function alternarVideoPlayConsole() {
+    const botonVideo = document.getElementById("botonVideoComplementarioPlayConsole");
+    const contenedorVideo = document.getElementById("contenedorVideoPlayConsole");
+    const iframeVideo = document.getElementById("videoPlayConsole");
+
+    if (!contenedorVideo || !iframeVideo) return;
+
+    if (contenedorVideo.classList.contains("visible")) {
+        contenedorVideo.classList.remove("visible");
+        contenedorVideo.setAttribute("aria-hidden", "true");
+        iframeVideo.src = "";
+        if (botonVideo) botonVideo.textContent = "▶ VER VIDEO";
+    } else {
+        contenedorVideo.classList.add("visible");
+        contenedorVideo.setAttribute("aria-hidden", "false");
+        iframeVideo.src = `https://www.youtube.com/embed/${idVideoYouTubePlayConsole}?autoplay=1&rel=0`;
         if (botonVideo) botonVideo.textContent = "▲ CERRAR VIDEO";
     }
 }
@@ -921,10 +1028,12 @@ window.addEventListener("click", function(event) {
     const modal = document.getElementById("modalPdf");
     const modalBlindaje = document.getElementById("modalBlindaje");
     const modalMails = document.getElementById("modalMails");
+    const modalPlayConsole = document.getElementById("modalPlayConsole");
 
     if (event.target === modal) cerrarModal();
     if (event.target === modalBlindaje) cerrarModalBlindaje();
     if (event.target === modalMails) cerrarModalMails();
+    if (event.target === modalPlayConsole) cerrarModalPlayConsole();
 });
 
 document.addEventListener("keydown", function(event) {
@@ -932,6 +1041,7 @@ document.addEventListener("keydown", function(event) {
         cerrarModal();
         cerrarModalBlindaje();
         cerrarModalMails();
+        cerrarModalPlayConsole();
     }
 });
 

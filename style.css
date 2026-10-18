@@ -57,7 +57,7 @@ body::before {
     z-index: 5000;
     inset: 0;
     width: 100%;
-    height: 100dvh;
+    height: 100%; /* CORREGIDO: Evita que la barra del navegador móvil rompa la altura */
     overflow-x: hidden;
     overflow-y: auto;
     background-image: url("pupitre_humanometro_fondo.png");
@@ -70,9 +70,9 @@ body::before {
     position: relative;
     width: 100%;
     max-width: 1100px;
-    min-height: 100dvh;
+    min-height: 100%;
     margin: 0 auto;
-    /* AJUSTADO: Se amplió el padding inferior a 180px para dar espacio limpio antes de las teclas flotantes */
+    /* Margen inferior amplio para garantizar aire limpio antes de las teclas flotantes */
     padding: 10px 18px 180px;
     display: flex;
     flex-direction: column;

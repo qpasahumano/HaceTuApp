@@ -72,7 +72,8 @@ body::before {
     max-width: 1100px;
     min-height: 100%;
     margin: 0 auto;
-    padding: 10px 18px 180px;
+    /* PADDING INFERIOR AMPLIADO PARA EVITAR SOLAPAMIENTO CON LAS TECLAS */
+    padding: 10px 18px 240px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -170,8 +171,9 @@ body::before {
     left: 50%;
     bottom: calc(12px + env(safe-area-inset-bottom, 0px));
     transform: translateX(-50%);
-    width: min(92vw, 290px);
-    max-width: 290px;
+    /* TECLAS SUTILMENTE ACHICADAS PARA PERFECTO RESPIRO */
+    width: min(90vw, 260px);
+    max-width: 260px;
     aspect-ratio: 3 / 1;
     margin: 0;
     padding: 0;
@@ -360,7 +362,7 @@ body::before {
 }
 
 /* ==================================================
-   CONTENEDOR DE GUÍAS CON ALINEACIÓN UNIFORME
+   CONTENEDOR DE GUÍAS
    ================================================== */
 .salon-estudio-doble {
     display: flex !important;
@@ -505,7 +507,6 @@ body::before {
     box-shadow: 0 0 8px rgba(46, 160, 67, 0.85), 0 2px 4px rgba(0, 0, 0, 0.4) !important;
 }
 
-/* NUEVO BOTÓN AMARILLO/NARANJA VIBRANTE PARA PLAY CONSOLE */
 .boton-curso-accion.amarillo {
     background: linear-gradient(135deg, #f59e0b, #d97706) !important;
     color: #ffffff !important;
@@ -705,7 +706,7 @@ body::before {
     .acceso-carta-imagen { width: min(100%, 195px); }
     .acceso-logo-hacetuapp { width: min(100%, 105px); }
     .acceso-opciones {
-        width: min(92vw, 260px);
+        width: min(90vw, 240px);
         bottom: calc(10px + env(safe-area-inset-bottom, 0px));
     }
 }

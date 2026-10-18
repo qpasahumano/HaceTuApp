@@ -36,7 +36,7 @@
 
     <link
         rel="stylesheet"
-        href="style.css?v=35"
+        href="style.css?v=37"
     >
 
 </head>
@@ -272,7 +272,7 @@
 
 
         <!-- ==================================================
-             SALÓN DE ESTUDIO CON SCROLL INTERNO
+             SALÓN DE ESTUDIO CON SCROLL INTERNO (4 COMPUTADORAS)
              ================================================== -->
 
         <div class="salon-estudio-doble">
@@ -368,6 +368,38 @@
                 <div class="contenedor-boton-curso">
                     <button class="boton-curso-accion verde" onclick="abrirPaginaMails(1)" type="button">
                         ✉️ INGRESAR AL MÓDULO ›
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- COMPUTADORA 4: GOOGLE PLAY CONSOLE -->
+            <div class="bloque-curso-retro">
+                <div class="computadora-real">
+                    <img
+                        src="computadora_retro_80_90.png"
+                        class="computadora-imagen"
+                        alt="Computadora Google Play Console"
+                        draggable="false"
+                    >
+                    <div class="pantalla-youtube" style="background: #050505; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                        <img
+                            src="modulo-playconsole/portada_play_console_43.png"
+                            alt="De tu proyecto web a Google Play"
+                            style="width: 100%; height: 100%; object-fit: contain; pointer-events: none;"
+                            draggable="false"
+                        />
+                    </div>
+                </div>
+
+                <div class="papel-descripcion-retro">
+                    <h3>Google Play Console</h3>
+                    <p>Aprendé a generar un archivo AAB con PWABuilder y subir una actualización de tu aplicación a Google Play Console, paso a paso y sin necesidad de ser programador.</p>
+                </div>
+
+                <div class="contenedor-boton-curso">
+                    <button class="boton-curso-accion amarillo" onclick="abrirPaginaPlayConsole(1)" type="button">
+                        🚀 INGRESAR AL MÓDULO ›
                     </button>
                 </div>
             </div>
@@ -780,6 +812,128 @@
 
 
 <!-- ==================================================
+     MODAL 4: GOOGLE PLAY CONSOLE (7 PÁGINAS)
+     ================================================== -->
+
+<div
+    id="modalPlayConsole"
+    class="modal"
+    aria-hidden="true"
+>
+
+
+    <div class="modal-contenido">
+
+
+        <button
+            class="cerrar-modal"
+            type="button"
+            onclick="cerrarModalPlayConsole()"
+            aria-label="Cerrar"
+        >
+            ×
+        </button>
+
+
+        <div class="carpeta-visor">
+
+            <!-- AVISO DE ZOOM TÁCTIL -->
+            <div style="color: #fdf6e3; font-size: 11px; text-align: center; margin-bottom: 6px; font-weight: bold; text-shadow: 0 1px 3px rgba(0,0,0,0.8);">
+                🔍 Podés usar dos dedos para hacer zoom en los textos pequeños
+            </div>
+
+            <div class="hoja-lectura">
+
+                <img
+                    id="paginaVisorPlayConsole"
+                    src=""
+                    alt="Página de Google Play Console"
+                    draggable="false"
+                />
+
+            </div>
+
+
+            <section
+                class="zona-complementaria"
+                aria-label="Contenido complementario de Play Console"
+            >
+
+                <div class="fila-acciones">
+
+                    <button
+                        id="botonAnteriorPlayConsole"
+                        class="accion-pagina"
+                        type="button"
+                        onclick="retrocederPaginaPlayConsole()"
+                    >
+                        ANTERIOR
+                    </button>
+
+                    <button
+                        id="botonVideoComplementarioPlayConsole"
+                        class="boton-video-complementario"
+                        type="button"
+                        onclick="alternarVideoPlayConsole()"
+                    >
+                        ▶ VER VIDEO
+                    </button>
+
+                    <button
+                        id="accionPaginaPlayConsole"
+                        class="accion-pagina"
+                        type="button"
+                        onclick="avanzarPaginaPlayConsole()"
+                    >
+                        SIGUIENTE PÁGINA
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="subtituloVideoPlayConsole"
+                    class="subtitulo-video"
+                    aria-live="polite"
+                ></div>
+
+
+                <div
+                    id="contenedorVideoPlayConsole"
+                    class="contenedor-video-complementario"
+                    aria-hidden="true"
+                >
+
+                    <div class="video-responsive">
+
+                        <iframe
+                            id="videoPlayConsole"
+                            title="Video complementario de Google Play Console"
+                            src=""
+                            loading="lazy"
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                        </iframe>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- ==================================================
      MODAL EMERGENTE PARA ZOOM DE CARTA
      ================================================== -->
 <div 
@@ -807,7 +961,7 @@
 
 
 
-<script src="script.js?v=35"></script>
+<script src="script.js?v=37"></script>
 
 
 </body>

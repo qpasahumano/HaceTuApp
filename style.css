@@ -72,7 +72,8 @@ body::before {
     max-width: 1100px;
     min-height: 100dvh;
     margin: 0 auto;
-    padding: 10px 18px 120px;
+    /* AJUSTADO: Se amplió el padding inferior a 180px para dar espacio limpio antes de las teclas flotantes */
+    padding: 10px 18px 180px;
     display: flex;
     flex-direction: column;
     align-items: center;

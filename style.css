@@ -100,11 +100,21 @@ body::before {
     filter: drop-shadow(3px 6px 6px rgba(0,0,0,.50));
 }
 
-.acceso-carta {
+/* CONTENEDOR RELATIVO PARA ALOJAR LA CARTA Y LA MANO LATERAL SIN DESPLAZAR */
+.acceso-carta-contenedor {
     position: relative;
     z-index: 25;
     width: 100%;
-    margin: 0 auto 4px;
+    max-width: 210px;
+    margin: 0 auto 6px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.acceso-carta {
+    position: relative;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -114,7 +124,7 @@ body::before {
 
 .acceso-carta-imagen {
     display: block;
-    width: min(100%, 210px);
+    width: 100%;
     height: auto;
     margin: 0 auto;
     padding: 0;
@@ -131,18 +141,22 @@ body::before {
     filter: drop-shadow(6px 12px 16px rgba(0,0,0,0.65)) drop-shadow(2px 3px 4px rgba(0,0,0,0.4));
 }
 
-.indicador-texto-carta {
-    position: relative;
-    z-index: 25;
-    margin: 2px auto 8px;
-    font-family: "Courier New", Courier, monospace;
-    font-size: 11px;
-    font-weight: bold;
-    color: #ffffff;
-    text-align: center;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.95);
+/* MANO LATERAL DERECHA APOYADA SOBRE EL BORDE DE LA CARTA */
+.indicador-mano-lateral {
+    position: absolute;
+    right: -24px;
+    top: 45%;
+    transform: translateY(-50%);
+    z-index: 30;
+    font-size: 26px;
     cursor: pointer;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.85));
     pointer-events: auto;
+    transition: transform 0.2s ease;
+}
+
+.indicador-mano-lateral:hover {
+    transform: translateY(-50%) scale(1.1);
 }
 
 .acceso-identidad {
@@ -537,7 +551,7 @@ body::before {
     display: block !important;
     width: 100% !important;
     height: 100% !important;
-    object-fit: contain !important;
+    object-fit: cover !important;
     pointer-events: none !important;
     background: #050505 !important;
 }
@@ -703,7 +717,7 @@ body::before {
 
 @media (max-width: 470px) {
     .acceso-pizarron-imagen { width: 98%; }
-    .acceso-carta-imagen { width: min(100%, 195px); }
+    .acceso-carta-contenedor { max-width: 195px; }
     .acceso-logo-hacetuapp { width: min(100%, 105px); }
     .acceso-opciones {
         width: min(90vw, 240px);

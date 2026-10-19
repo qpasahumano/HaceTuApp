@@ -774,6 +774,26 @@ body::before {
         max-width: 960px;
     }
 
+    /* ESCALADO ARMÓNICO DE LA PRIMERA INTERFAZ EN PC */
+    .acceso-pizarron-imagen {
+        max-width: 680px;
+    }
+
+    .acceso-carta-contenedor {
+        max-width: 320px;
+        margin-bottom: 12px;
+    }
+
+    .acceso-logo-hacetuapp {
+        width: min(100%, 150px);
+    }
+
+    .acceso-opciones {
+        width: min(90vw, 320px);
+        max-width: 320px;
+    }
+
+    /* ESCALADO ARMÓNICO DE LA SEGUNDA INTERFAZ EN PC */
     .salon-estudio-doble {
         max-width: 780px !important;
         max-height: 460px !important;

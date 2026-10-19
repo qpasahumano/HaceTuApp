@@ -372,7 +372,7 @@ body::before {
     position: relative;
     z-index: 20;
     width: 100%;
-    margin: 0 auto 12px;
+    margin: 0 auto 4px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -389,32 +389,32 @@ body::before {
 }
 
 /* ==================================================
-   SEÑALIZACIÓN SUTIL DE SCROLL
+   SEÑALIZACIÓN SUTIL DE SCROLL (MÁS CHICA Y SUTIL)
    ================================================== */
 .indicador-scroll-cursos {
     width: 100%;
     max-width: 520px;
-    margin: 0 auto 4px auto;
+    margin: 0 auto 2px auto;
     text-align: center;
 }
 
 .indicador-scroll-cursos span {
     display: inline-block;
-    background: rgba(0, 0, 0, 0.65);
+    background: rgba(0, 0, 0, 0.5);
     color: #f6ad55;
-    border: 1px solid rgba(246, 173, 85, 0.4);
-    border-radius: 12px;
-    padding: 3px 10px;
+    border: 1px solid rgba(246, 173, 85, 0.3);
+    border-radius: 10px;
+    padding: 2px 8px;
     font-family: 'Courier New', monospace;
-    font-size: 9.5px;
+    font-size: 8.5px;
     font-weight: bold;
     letter-spacing: 0.5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     animation: pulsoScroll 2s infinite ease-in-out;
 }
 
 @keyframes pulsoScroll {
-    0%, 100% { transform: translateY(0); opacity: 0.85; }
+    0%, 100% { transform: translateY(0); opacity: 0.8; }
     50% { transform: translateY(-2px); opacity: 1; }
 }
 
@@ -607,7 +607,7 @@ body::before {
     z-index: 22;
     width: 100%;
     max-width: 520px;
-    margin: 12px auto 6px auto;
+    margin: 10px auto 4px auto;
     padding: 0 12px;
     box-sizing: border-box;
 }
@@ -704,7 +704,7 @@ body::before {
     z-index: 22;
     width: 60%;
     max-width: 500px;
-    margin: 8px auto 0;
+    margin: 6px auto 0;
     display: flex;
     justify-content: center;
     align-items: center;

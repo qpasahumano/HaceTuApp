@@ -72,7 +72,6 @@ body::before {
     max-width: 1100px;
     min-height: 100%;
     margin: 0 auto;
-    /* PADDING INFERIOR AMPLIADO PARA EVITAR SOLAPAMIENTO CON LAS TECLAS */
     padding: 10px 18px 240px;
     display: flex;
     flex-direction: column;
@@ -154,7 +153,6 @@ body::before {
     cursor: pointer;
 }
 
-/* CÍRCULO ESTILO RIPPLE DE PANTALLA TÁCTIL */
 .circulo-touch {
     position: absolute;
     width: 26px;
@@ -166,7 +164,6 @@ body::before {
     animation: pulsoCirculo 1.8s infinite ease-out;
 }
 
-/* DEDO ROTADO APUNTANDO HACIA ARRIBA/IZQUIERDA SOBRE LA HOJA */
 .icono-dedo {
     position: relative;
     font-size: 20px;
@@ -177,29 +174,14 @@ body::before {
 }
 
 @keyframes pulsoCirculo {
-    0% {
-        transform: scale(0.6);
-        opacity: 0.8;
-    }
-    50% {
-        transform: scale(1.3);
-        opacity: 0.2;
-    }
-    100% {
-        transform: scale(1.6);
-        opacity: 0;
-    }
+    0% { transform: scale(0.6); opacity: 0.8; }
+    50% { transform: scale(1.3); opacity: 0.2; }
+    100% { transform: scale(1.6); opacity: 0; }
 }
 
 @keyframes tapDedito {
-    0%, 100% {
-        transform: rotate(-125deg) translate(0, 0);
-        opacity: 0.75;
-    }
-    50% {
-        transform: rotate(-125deg) translate(-3px, -3px);
-        opacity: 0.95;
-    }
+    0%, 100% { transform: rotate(-125deg) translate(0, 0); opacity: 0.75; }
+    50% { transform: rotate(-125deg) translate(-3px, -3px); opacity: 0.95; }
 }
 
 .acceso-identidad {
@@ -228,7 +210,6 @@ body::before {
     left: 50%;
     bottom: calc(12px + env(safe-area-inset-bottom, 0px));
     transform: translateX(-50%);
-    /* TECLAS SUTILMENTE ACHICADAS PARA PERFECTO RESPIRO */
     width: min(90vw, 260px);
     max-width: 260px;
     aspect-ratio: 3 / 1;
@@ -363,8 +344,7 @@ body::before {
     max-width: 1100px;
     min-height: 100vh;
     margin: 0 auto;
-    /* PADDING SUPERIOR REDUCIDO AL MÍNIMO PARA SUBIR TODO EL BLOQUE */
-    padding: 2px 14px 10px;
+    padding: 2px 14px 6px;
     background: transparent;
     overflow-x: hidden;
 }
@@ -390,7 +370,7 @@ body::before {
 }
 
 /* ==================================================
-   CONTENEDOR DE GUÍAS CON SCROLL Y ETIQUETA ADENTRO ARRIBA
+   CONTENEDOR DE GUÍAS CON SCROLL Y ETIQUETA ADENTRO ARRIBA (CENTRADA Y BLANCA NÍTIDA)
    ================================================== */
 .salon-estudio-doble {
     position: relative !important;
@@ -402,9 +382,8 @@ body::before {
     gap: 12px !important;
     width: 100% !important;
     max-width: 520px !important;
-    max-height: 360px !important;
+    max-height: 350px !important;
     margin: 0 auto !important;
-    /* PADDING SUPERIOR AUMENTADO PARA DAR ESPACIO A LA ETIQUETA INTERNA SIN PISAR LAS COMPUTADORAS */
     padding: 18px 12px 10px 12px !important;
     box-sizing: border-box !important;
     overflow-y: auto !important;
@@ -417,37 +396,36 @@ body::before {
     scrollbar-color: rgba(255, 255, 255, 0.4) rgba(0, 0, 0, 0.2);
 }
 
-/* ETIQUETA DE SCROLL DENTRO DEL RECUADRO EN LA PARTE SUPERIOR */
+/* ETIQUETA DE SCROLL CENTRADA EXACTAMENTE Y CON LETRA BLANCA NÍTIDA */
 .indicador-scroll-cursos {
     position: absolute;
-    top: 3px;
+    top: 4px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 35;
     pointer-events: none;
     margin: 0;
     width: auto;
-    max-width: none;
     text-align: center;
 }
 
 .indicador-scroll-cursos span {
     display: inline-block;
-    background: rgba(0, 0, 0, 0.75);
-    color: #f6ad55;
-    border: 1px solid rgba(246, 173, 85, 0.35);
+    background: rgba(0, 0, 0, 0.85);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 8px;
-    padding: 1px 6px;
+    padding: 1px 7px;
     font-family: 'Courier New', monospace;
-    font-size: 7.5px;
+    font-size: 8px;
     font-weight: bold;
     letter-spacing: 0.5px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
     animation: pulsoScroll 2s infinite ease-in-out;
 }
 
 @keyframes pulsoScroll {
-    0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.8; }
+    0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.85; }
     50% { transform: translateX(-50%) translateY(-1px); opacity: 1; }
 }
 
@@ -463,10 +441,6 @@ body::before {
 .salon-estudio-doble::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.35);
     border-radius: 4px;
-}
-
-.salon-estudio-doble::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.6);
 }
 
 .bloque-curso-retro {
@@ -496,9 +470,6 @@ body::before {
     filter: drop-shadow(8px 13px 11px rgba(0,0,0,.62));
 }
 
-/* ==================================================
-   PAPELITOS DE DESCRIPCIÓN
-   ================================================== */
 .papel-descripcion-retro {
     background-color: #fffef7 !important;
     border: 1px solid #c8b99c !important;
@@ -518,7 +489,6 @@ body::before {
     font-size: 11.5px !important;
     font-weight: 800 !important;
     letter-spacing: -0.2px !important;
-    text-shadow: 0.2px 0.2px 0px rgba(0,0,0,0.2) !important;
     border-bottom: 1px dashed rgba(0, 0, 0, 0.15) !important;
     padding-bottom: 2px !important;
 }
@@ -529,7 +499,6 @@ body::before {
     font-size: 9.5px !important;
     font-weight: 700 !important;
     line-height: 1.3 !important;
-    -webkit-font-smoothing: antialiased !important;
 }
 
 .contenedor-boton-curso {
@@ -553,28 +522,24 @@ body::before {
 .boton-curso-accion.fucsia {
     background: linear-gradient(135deg, #ff2a75, #c2185b) !important;
     color: #ffffff !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6) !important;
     box-shadow: 0 0 8px rgba(255, 42, 117, 0.85), 0 2px 4px rgba(0, 0, 0, 0.4) !important;
 }
 
 .boton-curso-accion.azul {
     background: linear-gradient(135deg, #00d2ff, #00838f) !important;
     color: #ffffff !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6) !important;
     box-shadow: 0 0 8px rgba(0, 210, 255, 0.85), 0 2px 4px rgba(0, 0, 0, 0.4) !important;
 }
 
 .boton-curso-accion.verde {
     background: linear-gradient(135deg, #2ea043, #1e7e34) !important;
     color: #ffffff !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6) !important;
     box-shadow: 0 0 8px rgba(46, 160, 67, 0.85), 0 2px 4px rgba(0, 0, 0, 0.4) !important;
 }
 
 .boton-curso-accion.amarillo {
     background: linear-gradient(135deg, #f59e0b, #d97706) !important;
     color: #ffffff !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6) !important;
     box-shadow: 0 0 8px rgba(245, 158, 11, 0.85), 0 2px 4px rgba(0, 0, 0, 0.4) !important;
 }
 
@@ -607,14 +572,14 @@ body::before {
 }
 
 /* ==================================================
-   ZONA DE PROYECTOS EN PRODUCCIÓN (PEN DRIVES AL LADO)
+   ZONA DE PROYECTOS EN PRODUCCIÓN (PEN DRIVES REDUCIDOS PARA VER SILLA)
    ================================================== */
 .zona-proyectos-produccion {
     position: relative;
     z-index: 22;
     width: 100%;
     max-width: 520px;
-    margin: 4px auto 2px auto;
+    margin: 2px auto 2px auto;
     padding: 0 12px;
     box-sizing: border-box;
 }
@@ -636,7 +601,7 @@ body::before {
     background: rgba(0, 0, 0, 0.35);
     border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 6px;
-    padding: 8px 6px;
+    padding: 6px 6px;
     box-sizing: border-box;
     text-decoration: none;
     display: flex;
@@ -652,13 +617,14 @@ body::before {
     border-color: rgba(110, 231, 183, 0.6);
 }
 
+/* TAMAÑO DE PEN DRIVES REDUCIDO PARA DEJAR ESPACIO VISIBLE AL RESPALDO */
 .imagen-pendrive {
     display: block;
     width: 100%;
     height: auto;
-    max-height: 115px;
+    max-height: 92px;
     object-fit: contain;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
     pointer-events: none;
     filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
 }
@@ -674,10 +640,9 @@ body::before {
     text-align: center;
 }
 
-/* INDICADOR TÁCTIL MINI SOBRE CADA PEN DRIVE */
 .indicador-pendrive-touch {
     position: absolute;
-    bottom: 24px;
+    bottom: 20px;
     right: 12px;
     z-index: 25;
     display: flex;
@@ -688,8 +653,8 @@ body::before {
 
 .circulo-touch-mini {
     position: absolute;
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.45);
     border: 1px solid rgba(255, 255, 255, 0.8);
@@ -699,7 +664,7 @@ body::before {
 
 .icono-dedo-mini {
     position: relative;
-    font-size: 16px;
+    font-size: 14px;
     opacity: 0.85;
     filter: drop-shadow(0 2px 3px rgba(0,0,0,0.7));
     transform: rotate(-125deg) translate(2px, 2px);
@@ -709,8 +674,8 @@ body::before {
 .zona-silla {
     position: relative;
     z-index: 22;
-    width: 60%;
-    max-width: 500px;
+    width: 55%;
+    max-width: 440px;
     margin: 2px auto 0;
     display: flex;
     justify-content: center;
@@ -880,71 +845,27 @@ body::before {
     .escena-pupitre {
         max-width: 960px;
     }
+    .acceso-pizarron-imagen { max-width: 680px; }
+    .acceso-carta-contenedor { max-width: 320px; margin-bottom: 12px; }
+    .acceso-logo-hacetuapp { width: min(100%, 150px); }
+    .acceso-opciones { width: min(90vw, 320px); max-width: 320px; }
 
-    /* ESCALADO ARMÓNICO DE LA PRIMERA INTERFAZ EN PC */
-    .acceso-pizarron-imagen {
-        max-width: 680px;
-    }
-
-    .acceso-carta-contenedor {
-        max-width: 320px;
-        margin-bottom: 12px;
-    }
-
-    .acceso-logo-hacetuapp {
-        width: min(100%, 150px);
-    }
-
-    .acceso-opciones {
-        width: min(90vw, 320px);
-        max-width: 320px;
-    }
-
-    /* ESCALADO ARMÓNICO DE LA SEGUNDA INTERFAZ EN PC */
     .salon-estudio-doble {
         max-width: 780px !important;
-        max-height: 460px !important;
+        max-height: 420px !important;
     }
-
-    .bloque-curso-retro {
-        max-width: 290px !important;
-    }
-
-    .bloque-curso-retro .computadora-real {
-        max-width: 270px !important;
-    }
-
+    .bloque-curso-retro { max-width: 290px !important; }
+    .bloque-curso-retro .computadora-real { max-width: 270px !important; }
     .papel-descripcion-retro,
-    .contenedor-boton-curso {
-        max-width: 270px !important;
-    }
+    .contenedor-boton-curso { max-width: 270px !important; }
+    .papel-descripcion-retro h3 { font-size: 13.5px !important; }
+    .papel-descripcion-retro p { font-size: 11px !important; }
+    .boton-curso-accion { font-size: 10.5px !important; padding: 8px 10px !important; }
 
-    .papel-descripcion-retro h3 {
-        font-size: 13.5px !important;
-    }
-
-    .papel-descripcion-retro p {
-        font-size: 11px !important;
-    }
-
-    .boton-curso-accion {
-        font-size: 10.5px !important;
-        padding: 8px 10px !important;
-    }
-
-    .zona-proyectos-produccion {
-        max-width: 780px;
-    }
-    .tarjeta-pendrive {
-        max-width: 280px;
-        padding: 10px;
-    }
-    .imagen-pendrive {
-        max-height: 140px;
-    }
-    .enlace-pendrive-texto {
-        font-size: 11.5px;
-    }
+    .zona-proyectos-produccion { max-width: 780px; }
+    .tarjeta-pendrive { max-width: 280px; padding: 8px; }
+    .imagen-pendrive { max-height: 110px; }
+    .enlace-pendrive-texto { font-size: 11.5px; }
 
     #paginaVisor,
     #paginaVisorBlindaje,
@@ -952,8 +873,5 @@ body::before {
     #paginaVisorPlayConsole {
         max-width: 650px !important;
     }
-
-    .zona-complementaria {
-        max-width: 650px !important;
-    }
+    .zona-complementaria { max-width: 650px !important; }
 }

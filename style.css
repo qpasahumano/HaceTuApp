@@ -367,7 +367,9 @@ body::before {
     filter: drop-shadow(5px 8px 7px rgba(0,0,0,.55));
 }
 
-/* SALÓN DE ESTUDIO CON SCROLL INTERNO Y ETIQUETA EXACTAMENTE CENTRADA */
+/* ==================================================
+   SALÓN DE ESTUDIO CON SCROLL INTERNO Y ETIQUETA EXACTAMENTE CENTRADA EN EL EJE
+   ================================================== */
 .salon-estudio-doble {
     position: relative !important;
     display: flex !important;
@@ -378,7 +380,7 @@ body::before {
     gap: 12px !important;
     width: 100% !important;
     max-width: 520px !important;
-    max-height: 330px !important; /* Altura optimizada para que entre todo de entrada */
+    max-height: 330px !important;
     margin: 0 auto !important;
     padding: 24px 12px 10px 12px !important;
     box-sizing: border-box !important;
@@ -584,12 +586,12 @@ body::before {
     border-color: rgba(110, 231, 183, 0.6);
 }
 
-/* TAMAÑO DE PEN DRIVES REDUCIDO CLAVE PARA QUE SE VEA EL RESPALDO DE LA SILLA */
+/* TAMAÑO DE PEN DRIVES REDUCIDO PARA LIBERAR ESPACIO AL RESPALDO DE LA SILLA */
 .imagen-pendrive {
     display: block;
     width: 100%;
     height: auto;
-    max-height: 70px !important; /* Reducido estrictamente */
+    max-height: 70px !important;
     object-fit: contain;
     margin-bottom: 2px;
     pointer-events: none;

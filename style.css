@@ -600,75 +600,48 @@ body::before {
 }
 
 /* ==================================================
-   SECCIÓN NUEVA: PROYECTOS EN PRODUCCIÓN (PEN DRIVES)
+   ZONA DE PROYECTOS EN PRODUCCIÓN (PEN DRIVES AL LADO)
    ================================================== */
 .zona-proyectos-produccion {
     position: relative;
     z-index: 22;
     width: 100%;
     max-width: 520px;
-    margin: 18px auto 10px auto;
+    margin: 12px auto 6px auto;
     padding: 0 12px;
     box-sizing: border-box;
-}
-
-.contenedor-proyectos-retro {
-    background: rgba(0, 0, 0, 0.35);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 8px;
-    padding: 14px 12px;
-    box-shadow: inset 0 0 12px rgba(0,0,0,0.6);
-    text-align: center;
-}
-
-.titulo-proyectos-retro {
-    margin: 0 0 4px 0;
-    color: #f6ad55;
-    font-family: 'Courier New', monospace;
-    font-size: 11.5px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
-}
-
-.subtitulo-proyectos-retro {
-    margin: 0 auto 14px auto;
-    color: #e2e8f0;
-    font-family: 'Courier New', monospace;
-    font-size: 9.5px;
-    line-height: 1.35;
-    max-width: 440px;
 }
 
 .grilla-pendrives {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
 }
 
 .tarjeta-pendrive {
-    flex: 0 0 calc(50% - 7px);
-    width: calc(50% - 7px);
-    max-width: 220px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px dashed rgba(255, 255, 255, 0.3);
+    position: relative;
+    flex: 0 0 calc(50% - 6px);
+    width: calc(50% - 6px);
+    max-width: 240px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 6px;
-    padding: 10px 8px;
+    padding: 8px 6px;
     box-sizing: border-box;
     text-decoration: none;
     display: flex;
     flex-direction: column;
     align-items: center;
     transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.6);
 }
 
 .tarjeta-pendrive:hover {
     transform: translateY(-3px);
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.5);
     border-color: rgba(110, 231, 183, 0.6);
 }
 
@@ -676,9 +649,9 @@ body::before {
     display: block;
     width: 100%;
     height: auto;
-    max-height: 110px;
+    max-height: 115px;
     object-fit: contain;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
     pointer-events: none;
     filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
 }
@@ -691,6 +664,39 @@ body::before {
     letter-spacing: 0.3px;
     text-shadow: 0 1px 2px rgba(0,0,0,0.8);
     display: block;
+    text-align: center;
+}
+
+/* INDICADOR TÁCTIL MINI SOBRE CADA PEN DRIVE */
+.indicador-pendrive-touch {
+    position: absolute;
+    bottom: 24px;
+    right: 12px;
+    z-index: 25;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.circulo-touch-mini {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+    animation: pulsoCirculo 1.8s infinite ease-out;
+}
+
+.icono-dedo-mini {
+    position: relative;
+    font-size: 16px;
+    opacity: 0.85;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.7));
+    transform: rotate(-125deg) translate(2px, 2px);
+    animation: tapDedito 1.8s infinite ease-in-out;
 }
 
 .zona-silla {
@@ -698,7 +704,7 @@ body::before {
     z-index: 22;
     width: 60%;
     max-width: 500px;
-    margin: 12px auto 0;
+    margin: 8px auto 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -922,19 +928,12 @@ body::before {
     .zona-proyectos-produccion {
         max-width: 780px;
     }
-    .titulo-proyectos-retro {
-        font-size: 13px;
-    }
-    .subtitulo-proyectos-retro {
-        font-size: 11px;
-        max-width: 600px;
-    }
     .tarjeta-pendrive {
-        max-width: 260px;
-        padding: 12px;
+        max-width: 280px;
+        padding: 10px;
     }
     .imagen-pendrive {
-        max-height: 130px;
+        max-height: 140px;
     }
     .enlace-pendrive-texto {
         font-size: 11.5px;

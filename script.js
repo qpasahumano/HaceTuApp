@@ -1,7 +1,7 @@
 "use strict";
 
-/* CACHE-BUSTER-FORCE: 2026-10-18-2300 - FORZAR RECARGA TOTAL */
-const HM_JS_VERSION = "17.00";
+/* CACHE-BUSTER-FORCE: 2026-10-18-2330 - FORZAR RECARGA TOTAL */
+const HM_JS_VERSION = "17.01";
 
 
 /* ==================================================

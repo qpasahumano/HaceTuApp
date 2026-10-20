@@ -178,7 +178,7 @@ function alternarVideoMails() {
 
 const totalPaginasPlayConsole = 7;
 let paginaActualPlayConsole = 1;
-const idVideoYouTubePlayConsole = "REEMPLAZAR_CON_ID_VIDEO_PLAY_CONSOLE"; // Reemplazar cuando esté el video
+const idVideoYouTubePlayConsole = "REEMPLAZAR_CON_ID_VIDEO_PLAY_CONSOLE";
 
 function abrirPaginaPlayConsole(numeroPagina) {
     paginaActualPlayConsole = numeroPagina;

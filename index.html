@@ -36,7 +36,7 @@
 
     <link
         rel="stylesheet"
-        href="style.css?v=57"
+        href="style.css?v=58"
     >
 
 </head>
@@ -274,7 +274,7 @@
 
 
         <!-- ==================================================
-             SALÓN DE ESTUDIO CON SCROLL INTERNO (4 COMPUTADORAS)
+             SALÓN DE ESTUDIO CON SCROLL INTERNO (5 COMPUTADORAS)
              ================================================== -->
 
         <div class="salon-estudio-doble">
@@ -412,12 +412,45 @@
                 </div>
             </div>
 
+
+            <!-- COMPUTADORA 5: GOOGLE SEARCH CONSOLE & SITEMAPS -->
+            <div class="bloque-curso-retro">
+                <div class="computadora-real">
+                    <img
+                        src="computadora_retro_80_90.png"
+                        class="computadora-imagen"
+                        alt="Computadora Google Search Console"
+                        draggable="false"
+                    >
+                    <div class="pantalla-youtube" style="background: #050505; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative;">
+                        <img
+                            src="guia-google-search-console/00-portada-notebook.png"
+                            onerror="this.onerror=null; this.src='00-portada-notebook.png';"
+                            alt="Google Search Console & Sitemaps"
+                            style="width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: cover; pointer-events: none; display: block;"
+                            draggable="false"
+                        />
+                    </div>
+                </div>
+
+                <div class="papel-descripcion-retro">
+                    <h3>Search Console & Sitemaps</h3>
+                    <p>Verificá tu dominio, configurá los DNS en Cloudflare/DonWeb y subí tu sitemap.xml a GitHub.</p>
+                </div>
+
+                <div class="contenedor-boton-curso">
+                    <button class="boton-curso-accion fucsia" onclick="abrirPaginaSearchConsole(1)" type="button">
+                        🔍 INGRESAR AL MÓDULO ›
+                    </button>
+                </div>
+            </div>
+
         </div>
 
 
 
         <!-- ==================================================
-             PROYECTOS EN PRODUCCIÓN (ENLACE CORREGIDO: SIN TILDE Y SIN WWW)
+             PROYECTOS EN PRODUCCIÓN
              ================================================== -->
         <section class="zona-proyectos-produccion">
             
@@ -989,6 +1022,128 @@
 
 
 <!-- ==================================================
+     MODAL 5: GOOGLE SEARCH CONSOLE & SITEMAPS (8 PÁGINAS)
+     ================================================== -->
+
+<div
+    id="modalSearchConsole"
+    class="modal"
+    aria-hidden="true"
+>
+
+
+    <div class="modal-contenido">
+
+
+        <button
+            class="cerrar-modal"
+            type="button"
+            onclick="cerrarModalSearchConsole()"
+            aria-label="Cerrar"
+        >
+            ×
+        </button>
+
+
+        <div class="carpeta-visor">
+
+            <!-- AVISO DE ZOOM TÁCTIL -->
+            <div style="color: #fdf6e3; font-size: 11px; text-align: center; margin-bottom: 6px; font-weight: bold; text-shadow: 0 1px 3px rgba(0,0,0,0.8);">
+                🔍 Podés usar dos dedos para hacer zoom en los textos pequeños
+            </div>
+
+            <div class="hoja-lectura">
+
+                <img
+                    id="paginaVisorSearchConsole"
+                    src=""
+                    alt="Página de Search Console & Sitemaps"
+                    draggable="false"
+                />
+
+            </div>
+
+
+            <section
+                class="zona-complementaria"
+                aria-label="Contenido complementario de Search Console"
+            >
+
+                <div class="fila-acciones">
+
+                    <button
+                        id="botonAnteriorSearchConsole"
+                        class="accion-pagina"
+                        type="button"
+                        onclick="retrocederPaginaSearchConsole()"
+                    >
+                        ANTERIOR
+                    </button>
+
+                    <button
+                        id="botonVideoComplementarioSearchConsole"
+                        class="boton-video-complementario"
+                        type="button"
+                        onclick="alternarVideoSearchConsole()"
+                    >
+                        ▶ VER VIDEO
+                    </button>
+
+                    <button
+                        id="accionPaginaSearchConsole"
+                        class="accion-pagina"
+                        type="button"
+                        onclick="avanzarPaginaSearchConsole()"
+                    >
+                        SIGUIENTE PÁGINA
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="subtituloVideoSearchConsole"
+                    class="subtitulo-video"
+                    aria-live="polite"
+                ></div>
+
+
+                <div
+                    id="contenedorVideoSearchConsole"
+                    class="contenedor-video-complementario"
+                    aria-hidden="true"
+                >
+
+                    <div class="video-responsive">
+
+                        <iframe
+                            id="videoSearchConsole"
+                            title="Video complementario de Search Console"
+                            src=""
+                            loading="lazy"
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                        </iframe>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- ==================================================
      MODAL EMERGENTE PARA ZOOM DE CARTA
      ================================================== -->
 <div 
@@ -1016,7 +1171,7 @@
 
 
 
-<script src="script.js?v=57"></script>
+<script src="script.js?v=58"></script>
 
 
 </body>

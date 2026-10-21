@@ -366,7 +366,6 @@ function actualizarVisibilidadVideoSearchConsole() {
             botonVideo.style.display = "inline-block";
             botonVideo.textContent = "▶ VER VIDEO";
         }
-        // El video queda listo y disponible para desplegarse exactamente debajo de la página 1 al hacer clic
     } else {
         if (botonVideo) botonVideo.style.display = "none";
         if (contenedorVideo) {
@@ -395,7 +394,6 @@ function alternarVideoSearchConsole() {
         iframeVideo.src = `https://www.youtube.com/embed/${idVideoYouTubeSearchConsole}?autoplay=1&rel=0`;
         if (botonVideo) botonVideo.textContent = "▲ CERRAR VIDEO";
 
-        // Desplazamiento suave opcional para enfocar el video debajo de la página
         window.setTimeout(function() {
             contenedorVideo.scrollIntoView({ behavior: "smooth", block: "start" });
         }, 80);

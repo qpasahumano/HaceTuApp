@@ -398,7 +398,7 @@ function alternarVideoSearchConsole() {
 
 
 /* ==================================================
-   SUPABASE Y SEGURIDAD DE SESIÓN (RESTAURADO INTANTO)
+   SUPABASE Y SEGURIDAD DE SESIÓN
    ================================================== */
 
 const SUPABASE_URL = "https://zjviadsqbhqdjyomaoct.supabase.co";

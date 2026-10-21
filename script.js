@@ -1,7 +1,7 @@
 "use strict";
 
-/* CACHE-BUSTER-FORCE: 2026-10-21-1400 - FORZAR RECARGA TOTAL */
-const HM_JS_VERSION = "18.00";
+/* CACHE-BUSTER-FORCE: 2026-10-21-1430 - FORZAR RECARGA TOTAL */
+const HM_JS_VERSION = "18.01";
 
 
 /* ==================================================
@@ -1135,6 +1135,124 @@ function cerrarModalBlindaje() {
         contenedorVideo.setAttribute("aria-hidden", "true");
     }
     document.body.style.overflow = "";
+}
+
+
+/* ==================================================
+   CURSO 5: GOOGLE SEARCH CONSOLE & SITEMAPS (8 PÁGINAS)
+   ================================================== */
+
+const totalPaginasSearchConsole = 8;
+let paginaActualSearchConsole = 1;
+const idVideoYouTubeSearchConsole = "OrExQjVndjI";
+
+const paginasSearchConsoleMap = {
+    1: "guia-google-search-console/00-portada-notebook.png",
+    2: "guia-google-search-console/01-portada-google-search-console.png",
+    3: "guia-google-search-console/02-herramientas-y-conceptos.png",
+    4: "guia-google-search-console/03-paso-1-alta-propiedad.png",
+    5: "guia-google-search-console/04-via-a-donweb-txt.png",
+    6: "guia-google-search-console/05-via-b-github-pages.png",
+    7: "guia-google-search-console/06-via-c-cloudflare-y-veri.png",
+    8: "guia-google-search-console/07-errores-frecuentes-y-sitemap.png"
+};
+
+function abrirPaginaSearchConsole(numeroPagina) {
+    paginaActualSearchConsole = numeroPagina;
+    const modal = document.getElementById("modalSearchConsole");
+    const imagenVisor = document.getElementById("paginaVisorSearchConsole");
+    const botonAnterior = document.getElementById("botonAnteriorSearchConsole");
+    const botonAccion = document.getElementById("accionPaginaSearchConsole");
+
+    if (modal && imagenVisor) {
+        imagenVisor.src = paginasSearchConsoleMap[paginaActualSearchConsole];
+        imagenVisor.alt = `Página ${paginaActualSearchConsole} de Google Search Console & Sitemaps`;
+
+        if (botonAnterior) {
+            botonAnterior.style.display = (paginaActualSearchConsole <= 1) ? "none" : "inline-block";
+        }
+        if (botonAccion) {
+            botonAccion.textContent = (paginaActualSearchConsole >= totalPaginasSearchConsole) ? "VOLVER A INTERFAZ" : "SIGUIENTE PÁGINA";
+        }
+
+        modal.style.display = "flex";
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+
+        actualizarVisibilidadVideoSearchConsole();
+    }
+}
+
+function cerrarModalSearchConsole() {
+    const modal = document.getElementById("modalSearchConsole");
+    const visor = document.getElementById("paginaVisorSearchConsole");
+    const iframeVideo = document.getElementById("videoSearchConsole");
+    const contenedorVideo = document.getElementById("contenedorVideoSearchConsole");
+
+    if (modal) {
+        modal.style.display = "none";
+        modal.setAttribute("aria-hidden", "true");
+    }
+    if (visor) visor.src = "";
+    if (iframeVideo) iframeVideo.src = "";
+    if (contenedorVideo) {
+        contenedorVideo.classList.remove("visible");
+        contenedorVideo.setAttribute("aria-hidden", "true");
+    }
+    document.body.style.overflow = "";
+}
+
+function avanzarPaginaSearchConsole() {
+    if (paginaActualSearchConsole >= totalPaginasSearchConsole) {
+        cerrarModalSearchConsole();
+        return;
+    }
+    abrirPaginaSearchConsole(paginaActualSearchConsole + 1);
+}
+
+function retrocederPaginaSearchConsole() {
+    if (paginaActualSearchConsole <= 1) return;
+    abrirPaginaSearchConsole(paginaActualSearchConsole - 1);
+}
+
+function actualizarVisibilidadVideoSearchConsole() {
+    const botonVideo = document.getElementById("botonVideoComplementarioSearchConsole");
+    const contenedorVideo = document.getElementById("contenedorVideoSearchConsole");
+    const iframeVideo = document.getElementById("videoSearchConsole");
+
+    if (paginaActualSearchConsole === 1) {
+        if (botonVideo) {
+            botonVideo.style.display = "inline-block";
+            botonVideo.textContent = "▶ VER VIDEO";
+        }
+    } else {
+        if (botonVideo) botonVideo.style.display = "none";
+        if (contenedorVideo) {
+            contenedorVideo.classList.remove("visible");
+            contenedorVideo.setAttribute("aria-hidden", "true");
+        }
+        if (iframeVideo) iframeVideo.src = "";
+    }
+}
+
+function alternarVideoSearchConsole() {
+    const botonVideo = document.getElementById("botonVideoComplementarioSearchConsole");
+    const contenedorVideo = document.getElementById("contenedorVideoSearchConsole");
+    const iframeVideo = document.getElementById("videoSearchConsole");
+
+    if (!contenedorVideo || !iframeVideo) return;
+
+    if (contenedorVideo.classList.contains("visible")) {
+        contenedorVideo.classList.remove("visible");
+        contenedorVideo.setAttribute("aria-hidden", "true");
+        iframeVideo.src = "";
+        if (botonVideo) botonVideo.textContent = "▶ VER VIDEO";
+    } else {
+        contenedorVideo.classList.add("visible");
+        contenedorVideo.setAttribute("aria-hidden", "false");
+        iframeVideo.src = `https://www.youtube.com/embed/${idVideoYouTubeSearchConsole}?autoplay=1&rel=0`;
+        if (botonVideo) botonVideo.textContent = "▲ CERRAR VIDEO";
+    }
 }
 
 

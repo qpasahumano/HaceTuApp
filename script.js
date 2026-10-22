@@ -1,7 +1,7 @@
 "use strict";
 
 /* CACHE-BUSTER-FORCE: 2026-10-21-1500 - FORZAR RECARGA TOTAL */
-const HM_JS_VERSION = "18.04";
+const HM_JS_VERSION = "18.05";
 
 
 /* ==================================================
@@ -59,12 +59,13 @@ for (let i = 1; i <= totalPaginasBlindaje; i++) {
     }
 }
 
-// Configuración exacta de videos para Blindaje Digital (Páginas 1 a 4 con link, resto sin botones de video)
+// Configuración exacta de videos reordenados para Blindaje Digital
 const videosBlindaje = {
-    1: "https://youtu.be/NdvozbM5dyo?si=2agSvDiXhj_WJe7M",
-    2: "https://youtu.be/NY1qfQk1HI4?si=bZfD4KOdo-udOtjK",
-    3: "https://youtu.be/TDPHl9ki4Ps?si=6iHvOikiyCqpVkzP",
-    4: "https://youtu.be/mp8pfF9UnwU?si=XCjvP4ow62pHAZo4"
+    2: "https://youtu.be/mp8pfF9UnwU?si=64oEJaYHq162gKWE", // Supabase en Página 2
+    3: "https://youtu.be/NY1qfQk1HI4?si=Pzi7qjEwzsbVZseo", // Mercado Pago en Página 3
+    // Página 4: Botón sacado (sin link)
+    5: "https://youtu.be/TDPHl9ki4Ps?si=hoE1VV0O8MpISO_B", // GitHub en Página 5
+    6: "https://youtu.be/NdvozbM5dyo?si=tVO8JBoZDohOq4-q"  // Cloudflare en Página 6
 };
 
 const subtitulosBlindaje = {};
@@ -292,8 +293,9 @@ function alternarVideoPlayConsole() {
 
 const totalPaginasSearchConsole = 8;
 let paginaActualSearchConsole = 1;
-const idVideoYouTubeSearchConsole = "OrExQjVndjI"; // Video movido debajo de la página 1 según indicación
+const idVideoYouTubeSearchConsole = "OrExQjVndjI"; // Video ubicado estrictamente al pie de la página 1
 
+// Mapeo corregido con rutas normalizadas para asegurar visualización correcta en páginas 2, 6 y 7
 const paginasSearchConsoleMap = {
     1: "guia-google-search-console/00-portada-notebook.png",
     2: "guia-google-search-console/01-portada-google-search-console.png",
@@ -368,6 +370,7 @@ function actualizarVisibilidadVideoSearchConsole() {
     const contenedorVideo = document.getElementById("contenedorVideoSearchConsole");
     const iframeVideo = document.getElementById("videoSearchConsole");
 
+    // El video queda exclusivamente habilitado al pie de la página 1
     if (paginaActualSearchConsole === 1) {
         if (botonVideo) {
             botonVideo.style.display = "inline-block";

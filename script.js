@@ -1,7 +1,7 @@
 "use strict";
 
 /* CACHE-BUSTER-FORCE: 2026-10-22-1200 - FORZAR RECARGA TOTAL */
-const HM_JS_VERSION = "18.06";
+const HM_JS_VERSION = "18.08";
 
 
 /* ==================================================
@@ -59,17 +59,14 @@ for (let i = 1; i <= totalPaginasBlindaje; i++) {
     }
 }
 
-// Configuración exacta de videos reordenados para Blindaje Digital
 const videosBlindaje = {
-    2: "https://youtu.be/mp8pfF9UnwU?si=64oEJaYHq162gKWE", // Supabase en Página 2
-    3: "https://youtu.be/NY1qfQk1HI4?si=Pzi7qjEwzsbVZseo", // Mercado Pago en Página 3
-    // Página 4: Botón sacado (sin link)
-    5: "https://youtu.be/TDPHl9ki4Ps?si=hoE1VV0O8MpISO_B", // GitHub en Página 5
-    6: "https://youtu.be/NdvozbM5dyo?si=tVO8JBoZDohOq4-q"  // Cloudflare en Página 6
+    2: "https://youtu.be/mp8pfF9UnwU?si=64oEJaYHq162gKWE",
+    3: "https://youtu.be/NY1qfQk1HI4?si=Pzi7qjEwzsbVZseo",
+    5: "https://youtu.be/TDPHl9ki4Ps?si=hoE1VV0O8MpISO_B",
+    6: "https://youtu.be/NdvozbM5dyo?si=tVO8JBoZDohOq4-q"
 };
 
 const subtitulosBlindaje = {};
-
 let paginaActualBlindaje = 1;
 
 
@@ -293,16 +290,16 @@ function alternarVideoPlayConsole() {
 
 const totalPaginasSearchConsole = 8;
 let paginaActualSearchConsole = 1;
-const idVideoYouTubeSearchConsole = "OrExQjVndjI"; // Video ubicado al pie de la página 1
+const idVideoYouTubeSearchConsole = "OrExQjVndjI"; // Video ubicado al pie de la página 1 únicamente
 
 const paginasSearchConsoleMap = {
     1: "guia-google-search-console/00-portada-notebook.png",
-    2: "guia-google-search-console/01-portada-google-search-console.png",
+    2: "guia-google-search-console/01-portada-google-search-console.png", // Página 2 agregada
     3: "guia-google-search-console/02-herramientas-y-conceptos.png",
     4: "guia-google-search-console/03-paso-1-alta-propiedad.png",
     5: "guia-google-search-console/04-via-a-donweb-txt.png",
-    6: "guia-google-search-console/05-via-b-github-pages.png",
-    7: "guia-google-search-console/06-via-c-cloudflare-y-veri.png",
+    6: "guia-google-search-console/05-via-b-github-pages.png", // Página 6 agregada
+    7: "guia-google-search-console/06-via-c-cloudflare-y-veri.png", // Página 7 agregada
     8: "guia-google-search-console/07-errores-frecuentes-y-sitemap.png"
 };
 
@@ -369,6 +366,7 @@ function actualizarVisibilidadVideoSearchConsole() {
     const contenedorVideo = document.getElementById("contenedorVideoSearchConsole");
     const iframeVideo = document.getElementById("videoSearchConsole");
 
+    // SOLUCIÓN: El video y su botón solo se muestran en la página 1, se ocultan en la 2, 3, 4, 5, 6, 7 y 8
     if (paginaActualSearchConsole === 1) {
         if (botonVideo) {
             botonVideo.style.display = "inline-block";

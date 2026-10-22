@@ -1,1222 +1,1185 @@
-"use strict";
-
-/* CACHE-BUSTER-FORCE: 2026-10-22-1200 - FORZAR RECARGA TOTAL */
-const HM_JS_VERSION = "18.06";
-
-
-/* ==================================================
-   CURSO 1: GUÍA DE TRINCHERA (10 PÁGINAS)
-   ================================================== */
-
-const paginas = {
-    1: "pagina_1.png",
-    2: "pagina_2.png",
-    3: "pagina_3.png",
-    4: "pagina_4.png",
-    5: "pagina_5.png",
-    6: "pagina_6.png",
-    7: "pagina_7.png",
-    8: "pagina_8.png",
-    9: "pagina_9.png",
-    10: "pagina_10.png"
-};
-
-const videosComplementarios = {
-    1: "https://youtu.be/PkNDkUbAATU?si=BG3NB_5aOFggDn3Y",
-    2: "https://youtu.be/I95gS70vAPg?si=BnhaDzNyJ397-6Y5",
-    3: "https://youtu.be/3TgsyUGaGmo?si=pEEJblCUj0GJcZHQ",
-    4: "https://youtu.be/RM6gJD6T2hs?si=4RiDAidkcyIAk7CA",
-    5: "https://youtu.be/NjUCNCCuooY?si=6tCWzhaVfM_oMrGY",
-    6: "https://youtu.be/fCXe7nWPwnI?si=okpMoERks_rMO3aL",
-    7: "https://youtu.be/SS5NcxjVFDg?si=AUSJN6uAlNPGoNqX",
-    8: "https://youtu.be/3XH0yOdORYQ?si=B9URc73_TJDXAZxj",
-    9: "https://youtu.be/jdDYxj2rlzU?si=tW2fi_ssXeQ3wukB"
-};
-
-const subtitulosVideos = {
-    7: "Cuerpo de la app (HTML/JS y CSS)",
-    8: "Ejemplos personales de Promos",
-    9: "Estructura para realizar juegos estilo retros."
-};
-
-let paginaActual = 1;
-
-
-/* ==================================================
-   CURSO 2: BLINDAJE DIGITAL (76 PÁGINAS PASO A PASO)
-   ================================================== */
-
-const totalPaginasBlindaje = 76;
-const paginasBlindaje = {};
-
-for (let i = 1; i <= totalPaginasBlindaje; i++) {
-    if (i === 75) {
-        paginasBlindaje[i] = "Página 75.png";
-    } else if (i === 76) {
-        paginasBlindaje[i] = "pagina76.png";
-    } else {
-        paginasBlindaje[i] = `Página ${i}.png`;
-    }
-}
-
-// Configuración exacta de videos reordenados para Blindaje Digital
-const videosBlindaje = {
-    2: "https://youtu.be/mp8pfF9UnwU?si=64oEJaYHq162gKWE", // Supabase en Página 2
-    3: "https://youtu.be/NY1qfQk1HI4?si=Pzi7qjEwzsbVZseo", // Mercado Pago en Página 3
-    // Página 4: Botón sacado (sin link)
-    5: "https://youtu.be/TDPHl9ki4Ps?si=hoE1VV0O8MpISO_B", // GitHub en Página 5
-    6: "https://youtu.be/NdvozbM5dyo?si=tVO8JBoZDohOq4-q"  // Cloudflare en Página 6
-};
-
-const subtitulosBlindaje = {};
-
-let paginaActualBlindaje = 1;
-
-
-/* ==================================================
-   CURSO 3: MÓDULO DE MAILS (5 PÁGINAS)
-   ================================================== */
-
-const totalPaginasMails = 5;
-let paginaActualMails = 1;
-const idVideoYouTubeMails = "bzpiH7dP_ek";
-
-function abrirPaginaMails(numeroPagina) {
-    paginaActualMails = numeroPagina;
-    const modal = document.getElementById("modalMails");
-    const imagenVisor = document.getElementById("paginaVisorMails");
-    const botonAnterior = document.getElementById("botonAnteriorMails");
-    const botonAccion = document.getElementById("accionPaginaMails");
-
-    if (modal && imagenVisor) {
-        imagenVisor.src = `modulo-mails/p%C3%A1gina%20${paginaActualMails}.png`;
-        imagenVisor.alt = `Página ${paginaActualMails} del Módulo de Mails`;
-
-        if (botonAnterior) {
-            botonAnterior.style.display = (paginaActualMails <= 1) ? "none" : "inline-block";
-        }
-        if (botonAccion) {
-            botonAccion.textContent = (paginaActualMails >= totalPaginasMails) ? "VOLVER A INTERFAZ" : "SIGUIENTE PÁGINA";
-        }
-
-        modal.style.display = "flex";
-        modal.setAttribute("aria-hidden", "false");
-        document.body.style.overflow = "hidden";
-
-        actualizarVisibilidadVideoMails();
-    }
-}
-
-function cerrarModalMails() {
-    const modal = document.getElementById("modalMails");
-    const visor = document.getElementById("paginaVisorMails");
-    const iframeVideo = document.getElementById("videoMails");
-    const contenedorVideo = document.getElementById("contenedorVideoMails");
-
-    if (modal) {
-        modal.style.display = "none";
-        modal.setAttribute("aria-hidden", "true");
-    }
-    if (visor) visor.src = "";
-    if (iframeVideo) iframeVideo.src = "";
-    if (contenedorVideo) {
-        contenedorVideo.classList.remove("visible");
-        contenedorVideo.setAttribute("aria-hidden", "true");
-    }
-    document.body.style.overflow = "";
-}
-
-function avanzarPaginaMails() {
-    if (paginaActualMails >= totalPaginasMails) {
-        cerrarModalMails();
-        return;
-    }
-    abrirPaginaMails(paginaActualMails + 1);
-}
-
-function retrocederPaginaMails() {
-    if (paginaActualMails <= 1) return;
-    abrirPaginaMails(paginaActualMails - 1);
-}
-
-function actualizarVisibilidadVideoMails() {
-    const botonVideo = document.getElementById("botonVideoComplementarioMails");
-    const contenedorVideo = document.getElementById("contenedorVideoMails");
-    const iframeVideo = document.getElementById("videoMails");
-
-    if (paginaActualMails === 1) {
-        if (botonVideo) {
-            botonVideo.style.display = "inline-block";
-            botonVideo.textContent = "▶ VER VIDEO";
-        }
-    } else {
-        if (botonVideo) botonVideo.style.display = "none";
-        if (contenedorVideo) {
-            contenedorVideo.classList.remove("visible");
-            contenedorVideo.setAttribute("aria-hidden", "true");
-        }
-        if (iframeVideo) iframeVideo.src = "";
-    }
-}
-
-function alternarVideoMails() {
-    const botonVideo = document.getElementById("botonVideoComplementarioMails");
-    const contenedorVideo = document.getElementById("contenedorVideoMails");
-    const iframeVideo = document.getElementById("videoMails");
-
-    if (!contenedorVideo || !iframeVideo) return;
-
-    if (contenedorVideo.classList.contains("visible")) {
-        contenedorVideo.classList.remove("visible");
-        contenedorVideo.setAttribute("aria-hidden", "true");
-        iframeVideo.src = "";
-        if (botonVideo) botonVideo.textContent = "▶ VER VIDEO";
-    } else {
-        contenedorVideo.classList.add("visible");
-        contenedorVideo.setAttribute("aria-hidden", "false");
-        iframeVideo.src = `https://www.youtube.com/embed/${idVideoYouTubeMails}?autoplay=1&rel=0`;
-        if (botonVideo) botonVideo.textContent = "▲ CERRAR VIDEO";
-    }
-}
-
-
-/* ==================================================
-   CURSO 4: GOOGLE PLAY CONSOLE (7 PÁGINAS)
-   ================================================== */
-
-const totalPaginasPlayConsole = 7;
-let paginaActualPlayConsole = 1;
-const idVideoYouTubePlayConsole = "REEMPLAZAR_CON_ID_VIDEO_PLAY_CONSOLE";
-
-function abrirPaginaPlayConsole(numeroPagina) {
-    paginaActualPlayConsole = numeroPagina;
-    const modal = document.getElementById("modalPlayConsole");
-    const imagenVisor = document.getElementById("paginaVisorPlayConsole");
-    const botonAnterior = document.getElementById("botonAnteriorPlayConsole");
-    const botonAccion = document.getElementById("accionPaginaPlayConsole");
-
-    if (modal && imagenVisor) {
-        imagenVisor.src = `modulo-playconsole/p%C3%A1gina%20${paginaActualPlayConsole}.png`;
-        imagenVisor.alt = `Página ${paginaActualPlayConsole} de Google Play Console`;
-
-        if (botonAnterior) {
-            botonAnterior.style.display = (paginaActualPlayConsole <= 1) ? "none" : "inline-block";
-        }
-        if (botonAccion) {
-            botonAccion.textContent = (paginaActualPlayConsole >= totalPaginasPlayConsole) ? "VOLVER A INTERFAZ" : "SIGUIENTE PÁGINA";
-        }
-
-        modal.style.display = "flex";
-        modal.setAttribute("aria-hidden", "false");
-        document.body.style.overflow = "hidden";
-
-        actualizarVisibilidadVideoPlayConsole();
-    }
-}
-
-function cerrarModalPlayConsole() {
-    const modal = document.getElementById("modalPlayConsole");
-    const visor = document.getElementById("paginaVisorPlayConsole");
-    const iframeVideo = document.getElementById("videoPlayConsole");
-    const contenedorVideo = document.getElementById("contenedorVideoPlayConsole");
-
-    if (modal) {
-        modal.style.display = "none";
-        modal.setAttribute("aria-hidden", "true");
-    }
-    if (visor) visor.src = "";
-    if (iframeVideo) iframeVideo.src = "";
-    if (contenedorVideo) {
-        contenedorVideo.classList.remove("visible");
-        contenedorVideo.setAttribute("aria-hidden", "true");
-    }
-    document.body.style.overflow = "";
-}
-
-function avanzarPaginaPlayConsole() {
-    if (paginaActualPlayConsole >= totalPaginasPlayConsole) {
-        cerrarModalPlayConsole();
-        return;
-    }
-    abrirPaginaPlayConsole(paginaActualPlayConsole + 1);
-}
-
-function retrocederPaginaPlayConsole() {
-    if (paginaActualPlayConsole <= 1) return;
-    abrirPaginaPlayConsole(paginaActualPlayConsole - 1);
-}
-
-function actualizarVisibilidadVideoPlayConsole() {
-    const botonVideo = document.getElementById("botonVideoComplementarioPlayConsole");
-    const contenedorVideo = document.getElementById("contenedorVideoPlayConsole");
-    const iframeVideo = document.getElementById("videoPlayConsole");
-
-    if (paginaActualPlayConsole === 1) {
-        if (botonVideo) {
-            botonVideo.style.display = "inline-block";
-            botonVideo.textContent = "▶ VER VIDEO";
-        }
-    } else {
-        if (botonVideo) botonVideo.style.display = "none";
-        if (contenedorVideo) {
-            contenedorVideo.classList.remove("visible");
-            contenedorVideo.setAttribute("aria-hidden", "true");
-        }
-        if (iframeVideo) iframeVideo.src = "";
-    }
-}
-
-function alternarVideoPlayConsole() {
-    const botonVideo = document.getElementById("botonVideoComplementarioPlayConsole");
-    const contenedorVideo = document.getElementById("contenedorVideoPlayConsole");
-    const iframeVideo = document.getElementById("videoPlayConsole");
-
-    if (!contenedorVideo || !iframeVideo) return;
-
-    if (contenedorVideo.classList.contains("visible")) {
-        contenedorVideo.classList.remove("visible");
-        contenedorVideo.setAttribute("aria-hidden", "true");
-        iframeVideo.src = "";
-        if (botonVideo) botonVideo.textContent = "▶ VER VIDEO";
-    } else {
-        contenedorVideo.classList.add("visible");
-        contenedorVideo.setAttribute("aria-hidden", "false");
-        iframeVideo.src = `https://www.youtube.com/embed/${idVideoYouTubePlayConsole}?autoplay=1&rel=0`;
-        if (botonVideo) botonVideo.textContent = "▲ CERRAR VIDEO";
-    }
-}
-
-
-/* ==================================================
-   CURSO 5: GOOGLE SEARCH CONSOLE & SITEMAPS (8 PÁGINAS CORREGIDAS)
-   ================================================== */
-
-const totalPaginasSearchConsole = 8;
-let paginaActualSearchConsole = 1;
-const idVideoYouTubeSearchConsole = "OrExQjVndjI"; // Video ubicado al pie de la página 1
-
-const paginasSearchConsoleMap = {
-    1: "guia-google-search-console/00-portada-notebook.png",
-    2: "guia-google-search-console/01-portada-google-search-console.png",
-    3: "guia-google-search-console/02-herramientas-y-conceptos.png",
-    4: "guia-google-search-console/03-paso-1-alta-propiedad.png",
-    5: "guia-google-search-console/04-via-a-donweb-txt.png",
-    6: "guia-google-search-console/05-via-b-github-pages.png",
-    7: "guia-google-search-console/06-via-c-cloudflare-y-veri.png",
-    8: "guia-google-search-console/07-errores-frecuentes-y-sitemap.png"
-};
-
-function abrirPaginaSearchConsole(numeroPagina) {
-    paginaActualSearchConsole = numeroPagina;
-    const modal = document.getElementById("modalSearchConsole");
-    const imagenVisor = document.getElementById("paginaVisorSearchConsole");
-    const botonAnterior = document.getElementById("botonAnteriorSearchConsole");
-    const botonAccion = document.getElementById("accionPaginaSearchConsole");
-
-    if (modal && imagenVisor) {
-        imagenVisor.src = paginasSearchConsoleMap[paginaActualSearchConsole];
-        imagenVisor.alt = `Página ${paginaActualSearchConsole} de Google Search Console & Sitemaps`;
-
-        if (botonAnterior) {
-            botonAnterior.style.display = (paginaActualSearchConsole <= 1) ? "none" : "inline-block";
-        }
-        if (botonAccion) {
-            botonAccion.textContent = (paginaActualSearchConsole >= totalPaginasSearchConsole) ? "VOLVER A INTERFAZ" : "SIGUIENTE PÁGINA";
-        }
-
-        modal.style.display = "flex";
-        modal.setAttribute("aria-hidden", "false");
-        document.body.style.overflow = "hidden";
-
-        actualizarVisibilidadVideoSearchConsole();
-    }
-}
-
-function cerrarModalSearchConsole() {
-    const modal = document.getElementById("modalSearchConsole");
-    const visor = document.getElementById("paginaVisorSearchConsole");
-    const iframeVideo = document.getElementById("videoSearchConsole");
-    const contenedorVideo = document.getElementById("contenedorVideoSearchConsole");
-
-    if (modal) {
-        modal.style.display = "none";
-        modal.setAttribute("aria-hidden", "true");
-    }
-    if (visor) visor.src = "";
-    if (iframeVideo) iframeVideo.src = "";
-    if (contenedorVideo) {
-        contenedorVideo.classList.remove("visible");
-        contenedorVideo.setAttribute("aria-hidden", "true");
-    }
-    document.body.style.overflow = "";
-}
-
-function avanzarPaginaSearchConsole() {
-    if (paginaActualSearchConsole >= totalPaginasSearchConsole) {
-        cerrarModalSearchConsole();
-        return;
-    }
-    abrirPaginaSearchConsole(paginaActualSearchConsole + 1);
-}
-
-function retrocederPaginaSearchConsole() {
-    if (paginaActualSearchConsole <= 1) return;
-    abrirPaginaSearchConsole(paginaActualSearchConsole - 1);
-}
-
-function actualizarVisibilidadVideoSearchConsole() {
-    const botonVideo = document.getElementById("botonVideoComplementarioSearchConsole");
-    const contenedorVideo = document.getElementById("contenedorVideoSearchConsole");
-    const iframeVideo = document.getElementById("videoSearchConsole");
-
-    if (paginaActualSearchConsole === 1) {
-        if (botonVideo) {
-            botonVideo.style.display = "inline-block";
-            botonVideo.textContent = "▶ VER VIDEO";
-        }
-    } else {
-        if (botonVideo) botonVideo.style.display = "none";
-        if (contenedorVideo) {
-            contenedorVideo.classList.remove("visible");
-            contenedorVideo.setAttribute("aria-hidden", "true");
-        }
-        if (iframeVideo) iframeVideo.src = "";
-    }
-}
-
-function alternarVideoSearchConsole() {
-    const botonVideo = document.getElementById("botonVideoComplementarioSearchConsole");
-    const contenedorVideo = document.getElementById("contenedorVideoSearchConsole");
-    const iframeVideo = document.getElementById("videoSearchConsole");
-
-    if (!contenedorVideo || !iframeVideo) return;
-
-    if (contenedorVideo.classList.contains("visible")) {
-        contenedorVideo.classList.remove("visible");
-        contenedorVideo.setAttribute("aria-hidden", "true");
-        iframeVideo.src = "";
-        if (botonVideo) botonVideo.textContent = "▶ VER VIDEO";
-    } else {
-        contenedorVideo.classList.add("visible");
-        contenedorVideo.setAttribute("aria-hidden", "false");
-        iframeVideo.src = `https://www.youtube.com/embed/${idVideoYouTubeSearchConsole}?autoplay=1&rel=0`;
-        if (botonVideo) botonVideo.textContent = "▲ CERRAR VIDEO";
-
-        window.setTimeout(function() {
-            contenedorVideo.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 80);
-    }
-}
-
-
-/* ==================================================
-   SUPABASE Y SEGURIDAD DE SESIÓN
-   ================================================== */
-
-const SUPABASE_URL = "https://zjviadsqbhqdjyomaoct.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_63lSHlN2SiggU_YsouSzaQ_Bis21lzw";
-const SUPABASE_FUNCTION_PAGO = "crear-pago";
-
-let supabaseClient = null;
-let supabaseLibraryPromise = null;
-
-function cargarLibreriaSupabase() {
-    if (window.supabase && typeof window.supabase.createClient === "function") {
-        return Promise.resolve();
-    }
-    if (supabaseLibraryPromise) {
-        return supabaseLibraryPromise;
-    }
-    supabaseLibraryPromise = new Promise(function(resolve, reject) {
-        const script = document.createElement("script");
-        script.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
-        script.async = true;
-        script.onload = function() {
-            if (window.supabase && typeof window.supabase.createClient === "function") {
-                resolve();
-                return;
-            }
-            reject(new Error("No se pudo cargar Supabase."));
-        };
-        script.onerror = function() {
-            reject(new Error("No se pudo cargar la librería de Supabase."));
-        };
-        document.head.appendChild(script);
-    });
-    return supabaseLibraryPromise;
-}
-
-async function obtenerSupabaseClient() {
-    if (supabaseClient) return supabaseClient;
-    await cargarLibreriaSupabase();
-    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
-        auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true }
-    });
-    return supabaseClient;
-}
-
-async function verificarYSellarSesion(cliente, userId) {
-    let tokenDispositivo = localStorage.getItem('hm_token_dispositivo');
-    if (!tokenDispositivo) {
-        tokenDispositivo = 'dev_' + Math.random().toString(36).substring(2) + Date.now();
-        localStorage.setItem('hm_token_dispositivo', tokenDispositivo);
-    }
-
-    try {
-        const { data, error } = await cliente.rpc('intentar_login_seguro', {
-            p_user_id: userId,
-            p_token_dispositivo: tokenDispositivo
-        });
-        if (error) return { permitido: false, mensaje: "Error de validación en el servidor." };
-        return { permitido: true, mensaje: "Acceso autorizado." };
-    } catch (e) {
-        return { permitido: false, mensaje: "Error de conexión." };
-    }
-}
-
-async function validarSesionUnica(cliente, userId) {
-    try {
-        const tokenDispositivo = localStorage.getItem('hm_token_dispositivo');
-        if (!tokenDispositivo) return true;
-
-        const { data, error } = await cliente
-            .from("user_access")
-            .select("active_session_id")
-            .eq("user_id", userId)
-            .maybeSingle();
-
-        if (error || !data) return true;
-
-        if (data.active_session_id && data.active_session_id !== tokenDispositivo) {
-            alert("Tu sesión ha sido cerrada porque se inició sesión en otro dispositivo.");
-            await cliente.auth.signOut();
-            localStorage.removeItem('hm_token_dispositivo');
-            ocultarContenidoPrincipal();
-            return false;
-        }
-        return true;
-    } catch (e) {
-        return true;
-    }
-}
-
-
-/* ==================================================
-   PANTALLA PREVIA Y CONTROL DE ACCESO
-   ================================================== */
-
-const pantallaAcceso = document.getElementById("pantallaAcceso");
-const contenidoPrincipal = document.getElementById("contenidoPrincipal");
-const botonYaAcceso = document.getElementById("botonYaAcceso");
-const botonNoAcceso = document.getElementById("botonNoAcceso");
-const panelIngreso = document.getElementById("panelIngreso");
-const botonConfirmarIngreso = document.getElementById("botonConfirmarIngreso");
-const botonCerrarIngreso = document.getElementById("botonCerrarIngreso");
-const mensajeIngreso = document.getElementById("mensajeIngreso");
-const usuarioAcceso = document.getElementById("usuarioAcceso");
-const claveAcceso = document.getElementById("claveAcceso");
-
-let botonCrearCuenta = null;
-let modoPanelIngreso = "ingreso";
-const MODO_DESARROLLO = false;
-
-function mostrarContenidoPrincipal() {
-    if (contenidoPrincipal) contenidoPrincipal.style.display = "block";
-    if (pantallaAcceso) pantallaAcceso.style.display = "none";
-    document.body.style.overflow = "";
-}
-
-function ocultarContenidoPrincipal() {
-    if (contenidoPrincipal) contenidoPrincipal.style.display = "none";
-    if (pantallaAcceso) pantallaAcceso.style.display = "block";
-}
-
-function prepararBotonCrearCuenta() {
-    if (botonCrearCuenta) return;
-    const contenedor = panelIngreso ? panelIngreso.querySelector(".panel-ingreso-contenido") : null;
-    if (!contenedor) return;
-
-    botonCrearCuenta = document.createElement("button");
-    botonCrearCuenta.id = "botonCrearCuenta";
-    botonCrearCuenta.type = "button";
-    botonCrearCuenta.className = "boton-confirmar-ingreso";
-    botonCrearCuenta.textContent = "CREAR CUENTA";
-    botonCrearCuenta.addEventListener("click", function() { crearCuenta(); });
-
-    if (botonConfirmarIngreso) {
-        botonConfirmarIngreso.insertAdjacentElement("afterend", botonCrearCuenta);
-    } else {
-        contenedor.appendChild(botonCrearCuenta);
-    }
-}
-
-function mostrarPanelIngreso(modo = "ingreso") {
-    if (!panelIngreso) return;
-    modoPanelIngreso = modo;
-    prepararBotonCrearCuenta();
-    panelIngreso.classList.add("visible");
-    panelIngreso.setAttribute("aria-hidden", "false");
-
-    if (usuarioAcceso) usuarioAcceso.placeholder = "Correo electrónico";
-    if (mensajeIngreso) {
-        mensajeIngreso.textContent = (modo === "compra") ? "Para continuar con la compra, ingresá a tu cuenta o creá una nueva." : "";
-    }
-    window.setTimeout(function() { if (usuarioAcceso) usuarioAcceso.focus(); }, 80);
-}
-
-function ocultarPanelIngreso() {
-    if (!panelIngreso) return;
-    panelIngreso.classList.remove("visible");
-    panelIngreso.setAttribute("aria-hidden", "true");
-    if (mensajeIngreso) mensajeIngreso.textContent = "";
-}
-
-async function consultarAccesoUsuario(cliente, userId) {
-    const resultado = await cliente.from("user_access").select("has_access").eq("user_id", userId).maybeSingle();
-    if (resultado.error) throw resultado.error;
-    return Boolean(resultado.data && resultado.data.has_access === true);
-}
-
-async function verificarAccesoActual(cliente) {
-    try {
-        const { data: usuarioData, error: usuarioError } = await cliente.auth.getUser();
-        if (usuarioError || !usuarioData || !usuarioData.user) {
-            ocultarContenidoPrincipal();
-            return false;
-        }
-
-        const sesionValida = await validarSesionUnica(cliente, usuarioData.user.id);
-        if (!sesionValida) {
-            ocultarContenidoPrincipal();
-            return false;
-        }
-
-        const tieneAcceso = await consultarAccesoUsuario(cliente, usuarioData.user.id);
-        if (tieneAcceso) {
-            mostrarContenidoPrincipal();
-            return true;
-        }
-        ocultarContenidoPrincipal();
-        return false;
-    } catch (error) {
-        ocultarContenidoPrincipal();
-        return false;
-    }
-}
-
-async function intentarIngreso() {
-    if (!usuarioAcceso || !claveAcceso) return;
-    const email = usuarioAcceso.value.trim().toLowerCase();
-    const password = claveAcceso.value;
-
-    if (!email || !password) {
-        if (mensajeIngreso) mensajeIngreso.textContent = "Ingresá tu correo y tu clave.";
-        return;
-    }
-    if (mensajeIngreso) mensajeIngreso.textContent = "Verificando acceso...";
-
-    try {
-        const cliente = await obtenerSupabaseClient();
-        const { data, error } = await cliente.auth.signInWithPassword({ email: email, password: password });
-
-        if (error) {
-            if (mensajeIngreso) {
-                const mensajeError = error.message || "";
-                if (mensajeError.includes("rate limit") || mensajeError.includes("52 seconds")) {
-                    mensajeIngreso.textContent = "Por seguridad, aguardá unos segundos antes de intentar nuevamente.";
-                } else {
-                    mensajeIngreso.textContent = "Correo o contraseña incorrectos.";
-                }
-            }
-            return;
-        }
-
-        if (!data || !data.user) {
-            if (mensajeIngreso) mensajeIngreso.textContent = "No se pudo validar la cuenta.";
-            return;
-        }
-
-        const tieneAcceso = await consultarAccesoUsuario(cliente, data.user.id);
-        if (tieneAcceso) {
-            const resultadoSesion = await verificarYSellarSesion(cliente, data.user.id);
-            if (!resultadoSesion.permitido) {
-                if (mensajeIngreso) mensajeIngreso.textContent = resultadoSesion.mensaje;
-                await cliente.auth.signOut();
-                return;
-            }
-            ocultarPanelIngreso();
-            mostrarContenidoPrincipal();
-            return;
-        }
-
-        if (mensajeIngreso) mensajeIngreso.textContent = "Este correo no registra un pago activo. Redirigiendo para adquirir el curso...";
-        await abrirMercadoPago();
-    } catch (error) {
-        if (mensajeIngreso) mensajeIngreso.textContent = "Error de conexión con Supabase.";
-    }
-}
-
-async function crearCuenta() {
-    if (!usuarioAcceso || !claveAcceso) return;
-    const email = usuarioAcceso.value.trim().toLowerCase();
-    const password = claveAcceso.value;
-
-    if (!email || !email.includes("@")) {
-        if (mensajeIngreso) mensajeIngreso.textContent = "Ingresá un correo electrónico válido.";
-        return;
-    }
-    if (password.length < 6) {
-        if (mensajeIngreso) mensajeIngreso.textContent = "La clave debe tener al menos 6 caracteres.";
-        return;
-    }
-    if (mensajeIngreso) mensajeIngreso.textContent = "Creando tu cuenta...";
-
-    try {
-        const cliente = await obtenerSupabaseClient();
-        const { data, error } = await cliente.auth.signUp({
-            email: email,
-            password: password,
-            options: { emailRedirectTo: "https://hacetuapp.com/" }
-        });
-
-        if (error) {
-            if (mensajeIngreso) {
-                const mensajeError = error.message || "";
-                if (mensajeError.includes("rate limit") || mensajeError.includes("52 seconds")) {
-                    mensajeIngreso.textContent = "Por seguridad, aguardá unos segundos antes de intentar nuevamente.";
-                } else {
-                    mensajeIngreso.textContent = "No se pudo crear la cuenta: " + mensajeError;
-                }
-            }
-            return;
-        }
-
-        if (data && data.session) {
-            const tieneAcceso = await consultarAccesoUsuario(cliente, data.user.id);
-            if (tieneAcceso) {
-                const resultadoSesion = await verificarYSellarSesion(cliente, data.user.id);
-                if (!resultadoSesion.permitido) {
-                    if (mensajeIngreso) mensajeIngreso.textContent = resultadoSesion.mensaje;
-                    await cliente.auth.signOut();
-                    return;
-                }
-                ocultarPanelIngreso();
-                mostrarContenidoPrincipal();
-                return;
-            }
-            if (mensajeIngreso) mensajeIngreso.textContent = "Cuenta creada. Redirigiendo al pago...";
-            await abrirMercadoPago();
-            return;
-        }
-
-        if (mensajeIngreso) mensajeIngreso.textContent = "Cuenta creada. Revisá tu correo.";
-    } catch (error) {
-        if (mensajeIngreso) mensajeIngreso.textContent = "Error al crear la cuenta.";
-    }
-}
-
-async function abrirMercadoPago() {
-    if (mensajeIngreso) mensajeIngreso.textContent = "Redirigiendo a Mercado Pago...";
-    try {
-        const cliente = await obtenerSupabaseClient();
-        const { data: usuarioData, error: usuarioError } = await cliente.auth.getUser();
-
-        if (usuarioError || !usuarioData || !usuarioData.user) {
-            mostrarPanelIngreso("compra");
-            return;
-        }
-
-        const tieneAcceso = await consultarAccesoUsuario(cliente, usuarioData.user.id);
-        if (tieneAcceso) {
-            const resultadoSesion = await verificarYSellarSesion(cliente, usuarioData.user.id);
-            if (!resultadoSesion.permitido) {
-                if (mensajeIngreso) mensajeIngreso.textContent = resultadoSesion.mensaje;
-                await cliente.auth.signOut();
-                return;
-            }
-            mostrarContenidoPrincipal();
-            return;
-        }
-
-        if (mensajeIngreso) mensajeIngreso.textContent = "Generando el enlace de pago...";
-        const { data, error } = await cliente.functions.invoke(SUPABASE_FUNCTION_PAGO, { body: {} });
-
-        if (error || !data || !data.payment_url) {
-            if (mensajeIngreso) mensajeIngreso.textContent = "No se pudo generar el pago.";
-            mostrarPanelIngreso("compra");
-            return;
-        }
-        window.location.href = data.payment_url;
-    } catch (error) {
-        if (mensajeIngreso) mensajeIngreso.textContent = "No se pudo conectar con el sistema de pago.";
-        mostrarPanelIngreso("compra");
-    }
-}
-
-if (botonYaAcceso) botonYaAcceso.addEventListener("click", function(e) { e.preventDefault(); mostrarPanelIngreso("ingreso"); });
-if (botonNoAcceso) botonNoAcceso.addEventListener("click", function(e) { e.preventDefault(); abrirMercadoPago(); });
-if (botonConfirmarIngreso) botonConfirmarIngreso.addEventListener("click", function(e) { e.preventDefault(); intentarIngreso(); });
-if (botonCerrarIngreso) botonCerrarIngreso.addEventListener("click", function(e) { e.preventDefault(); ocultarPanelIngreso(); });
-
-
-/* ==================================================
-   TIMBRE DE RECREO
-   ================================================== */
-
-let timbreIntentado = false;
-let timbreProgramado = false;
-let audioContext = null;
-
-function reproducirTimbreRecreo() {
-    if (timbreIntentado) return;
-    timbreIntentado = true;
-    try {
-        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-        if (!AudioContextClass) return;
-        if (!audioContext) audioContext = new AudioContextClass();
-
-        const iniciarTimbre = function() {
-            if (!audioContext) return;
-            const ahora = audioContext.currentTime;
-            const gananciaPrincipal = audioContext.createGain();
-            gananciaPrincipal.gain.setValueAtTime(0.0001, ahora);
-            gananciaPrincipal.gain.exponentialRampToValueAtTime(0.075, ahora + 0.025);
-            gananciaPrincipal.gain.exponentialRampToValueAtTime(0.0001, ahora + 1.15);
-            gananciaPrincipal.connect(audioContext.destination);
-
-            const frecuencias = [784, 988, 1319];
-            frecuencias.forEach(function(frecuencia, indice) {
-                const oscilador = audioContext.createOscillator();
-                const ganancia = audioContext.createGain();
-                oscilador.type = "triangle";
-                oscilador.frequency.setValueAtTime(frecuencia, ahora);
-                ganancia.gain.setValueAtTime(0.0001, ahora);
-                ganancia.gain.exponentialRampToValueAtTime(0.24 / (indice + 1), ahora + 0.018);
-                ganancia.gain.exponentialRampToValueAtTime(0.0001, ahora + 1.05);
-                oscilador.connect(ganancia);
-                ganancia.connect(gananciaPrincipal);
-                oscilador.start(ahora);
-                oscilador.stop(ahora + 1.12);
-            });
-
-            window.setTimeout(function() {
-                if (!audioContext) return;
-                const segundoToque = audioContext.currentTime;
-                const gananciaSegundo = audioContext.createGain();
-                gananciaSegundo.gain.setValueAtTime(0.0001, segundoToque);
-                gananciaSegundo.gain.exponentialRampToValueAtTime(0.055, segundoToque + 0.02);
-                gananciaSegundo.gain.exponentialRampToValueAtTime(0.0001, segundoToque + 0.85);
-                gananciaSegundo.connect(audioContext.destination);
-
-                const osciladorSegundo = audioContext.createOscillator();
-                osciladorSegundo.type = "triangle";
-                osciladorSegundo.frequency.setValueAtTime(1047, segundoToque);
-                osciladorSegundo.connect(gananciaSegundo);
-                osciladorSegundo.start(segundoToque);
-                osciladorSegundo.stop(segundoToque + 0.82);
-            }, 480);
-        };
-
-        const resultado = audioContext.resume();
-        if (resultado && typeof resultado.then === "function") {
-            resultado.then(iniciarTimbre).catch(function() {});
-        } else {
-            iniciarTimbre();
-        }
-    } catch (error) {}
-}
-
-function programarTimbreRecreo() {
-    if (timbreProgramado) return;
-    timbreProgramado = true;
-    window.setTimeout(function() { reproducirTimbreRecreo(); }, 4500);
-}
-
-function desbloquearTimbreConInteraccion() {
-    if (timbreIntentado) return;
-    reproducirTimbreRecreo();
-}
-
-
-/* ==================================================
-   YOUTUBE ID EXTRACTION
-   ================================================== */
-
-function obtenerIdYoutube(url) {
-    if (!url) return "";
-    const coincidencia = url.match(/youtu\.be\/([^?&#/]+)|youtube\.com\/watch\?v=([^&#]+)|youtube\.com\/embed\/([^?&#/]+)/i);
-    if (!coincidencia) return "";
-    return coincidencia[1] || coincidencia[2] || coincidencia[3] || "";
-}
-
-
-/* ==================================================
-   LÓGICA GUÍA DE TRINCHERA (CURSO 1)
-   ================================================== */
-
-function resetearVideoComplementario() {
-    const botonVideo = document.getElementById("botonVideoComplementario");
-    const subtitulo = document.getElementById("subtituloVideo");
-    const contenedorVideo = document.getElementById("contenedorVideoComplementario");
-    const video = document.getElementById("videoComplementario");
-
-    if (!botonVideo || !subtitulo || !contenedorVideo || !video) return;
-
-    video.src = "";
-    contenedorVideo.classList.remove("visible");
-    contenedorVideo.setAttribute("aria-hidden", "true");
-    botonVideo.classList.remove("oculto");
-    botonVideo.textContent = "▶ VER VIDEO";
-    subtitulo.textContent = subtitulosVideos[paginaActual] || "";
-}
-
-function prepararVideoComplementario() {
-    const botonVideo = document.getElementById("botonVideoComplementario");
-    const subtitulo = document.getElementById("subtituloVideo");
-    if (!botonVideo || !subtitulo) return;
-
-    const urlVideo = videosComplementarios[paginaActual];
-    if (!urlVideo) {
-        botonVideo.classList.add("oculto");
-        subtitulo.textContent = "";
-        return;
-    }
-    botonVideo.classList.remove("oculto");
-    subtitulo.textContent = subtitulosVideos[paginaActual] || "";
-}
-
-function alternarVideoComplementario() {
-    const botonVideo = document.getElementById("botonVideoComplementario");
-    const contenedorVideo = document.getElementById("contenedorVideoComplementario");
-    const video = document.getElementById("videoComplementario");
-
-    if (!botonVideo || !contenedorVideo || !video) return;
-
-    const urlVideo = videosComplementarios[paginaActual];
-    if (!urlVideo) return;
-
-    const videoVisible = contenedorVideo.classList.contains("visible");
-    if (videoVisible) {
-        video.src = "";
-        contenedorVideo.classList.remove("visible");
-        contenedorVideo.setAttribute("aria-hidden", "true");
-        botonVideo.textContent = "▶ VER VIDEO";
-        return;
-    }
-
-    const youtubeId = obtenerIdYoutube(urlVideo);
-    if (!youtubeId) return;
-
-    video.src = "https://www.youtube.com/embed/" + encodeURIComponent(youtubeId) + "?autoplay=1&rel=0";
-    contenedorVideo.classList.add("visible");
-    contenedorVideo.setAttribute("aria-hidden", "false");
-    botonVideo.textContent = "▲ CERRAR VIDEO";
-
-    window.setTimeout(function() {
-        contenedorVideo.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 80);
-}
-
-function actualizarAccionPagina() {
-    const botonAccion = document.getElementById("accionPagina");
-    const botonAnterior = document.getElementById("botonAnteriorTrinchera");
-    if (!botonAccion) return;
-
-    if (paginaActual >= 10) {
-        botonAccion.textContent = "VOLVER A INTERFAZ";
-    } else {
-        botonAccion.textContent = "SIGUIENTE PÁGINA";
-    }
-
-    if (botonAnterior) {
-        botonAnterior.style.display = (paginaActual <= 1) ? "none" : "inline-block";
-    }
-}
-
-function cargarPaginaEnVisor(numeroPagina) {
-    const visor = document.getElementById("paginaVisor");
-    const carpeta = document.querySelector("#modalPdf .carpeta-visor");
-
-    if (!paginas[numeroPagina] || !visor) return;
-
-    paginaActual = numeroPagina;
-    visor.src = paginas[numeroPagina];
-    visor.alt = "Hoja " + numeroPagina + " del curso Humanómetro";
-
-    resetearVideoComplementario();
-    prepararVideoComplementario();
-    actualizarAccionPagina();
-
-    if (carpeta) carpeta.scrollTop = 0;
-}
-
-function abrirPagina(numeroPagina) {
-    const modal = document.getElementById("modalPdf");
-    if (!paginas[numeroPagina] || !modal) return;
-
-    cargarPaginaEnVisor(numeroPagina);
-    modal.style.display = "flex";
-    modal.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
-}
-
-function avanzarPagina() {
-    if (paginaActual >= 10) {
-        cerrarModal();
-        return;
-    }
-    cargarPaginaEnVisor(paginaActual + 1);
-}
-
-function retrocederPagina() {
-    if (paginaActual <= 1) return;
-    cargarPaginaEnVisor(paginaActual - 1);
-}
-
-function cerrarModal() {
-    const modal = document.getElementById("modalPdf");
-    const visor = document.getElementById("paginaVisor");
-    const video = document.getElementById("videoComplementario");
-    const contenedorVideo = document.getElementById("contenedorVideoComplementario");
-
-    if (!modal) return;
-
-    modal.style.display = "none";
-    modal.setAttribute("aria-hidden", "true");
-
-    if (visor) visor.src = "";
-    if (video) video.src = "";
-    if (contenedorVideo) {
-        contenedorVideo.classList.remove("visible");
-        contenedorVideo.setAttribute("aria-hidden", "true");
-    }
-    document.body.style.overflow = "";
-}
-
-
-/* ==================================================
-   LÓGICA BLINDAJE DIGITAL (76 PÁGINAS PASO A PASO)
-   ================================================== */
-
-function gestionarAvisoRotacion(num) {
-    const aviso = document.getElementById("avisoGirarCelular");
-
-    if (!aviso) return;
-
-    if (num === 49) {
-        aviso.textContent =
-            "📱 Girá el celular a posición horizontal para leer las próximas páginas cuando sea necesario.";
-        aviso.style.cssText =
-            "display:block; color:#ffffff; background:transparent; border:0;" +
-            "box-shadow:none; border-radius:0; padding:0; margin:0 auto 8px;" +
-            "font-family:'Courier New',monospace; font-size:12px;" +
-            "line-height:1.4; text-align:center; max-width:95%;";
-    } else {
-        aviso.style.display = "none";
-    }
-}
-
-function resetearVideoBlindaje() {
-    const botonVideo = document.getElementById("botonVideoComplementarioBlindaje");
-    const subtitulo = document.getElementById("subtituloVideoBlindaje");
-    const contenedorVideo = document.getElementById("contenedorVideoBlindaje");
-    const video = document.getElementById("videoBlindaje");
-
-    if (!botonVideo || !subtitulo || !contenedorVideo || !video) return;
-
-    video.src = "";
-    contenedorVideo.classList.remove("visible");
-    contenedorVideo.setAttribute("aria-hidden", "true");
-    botonVideo.textContent = "▶ VER VIDEO";
-    subtitulo.textContent = subtitulosBlindaje[paginaActualBlindaje] || "";
-}
-
-function prepararVideoBlindaje() {
-    const botonVideo = document.getElementById("botonVideoComplementarioBlindaje");
-    const subtitulo = document.getElementById("subtituloVideoBlindaje");
-    if (!botonVideo || !subtitulo) return;
-
-    const urlVideo = videosBlindaje[paginaActualBlindaje];
-    if (!urlVideo) {
-        botonVideo.classList.add("oculto");
-        subtitulo.textContent = "";
-        return;
-    }
-    botonVideo.classList.remove("oculto");
-    subtitulo.textContent = subtitulosBlindaje[paginaActualBlindaje] || "";
-}
-
-function alternarVideoBlindaje() {
-    const botonVideo = document.getElementById("botonVideoComplementarioBlindaje");
-    const contenedorVideo = document.getElementById("contenedorVideoBlindaje");
-    const video = document.getElementById("videoBlindaje");
-
-    if (!botonVideo || !contenedorVideo || !video) return;
-
-    const urlVideo = videosBlindaje[paginaActualBlindaje];
-    if (!urlVideo) {
-        alert("El video complementario de esta página estará disponible próximamente.");
-        return;
-    }
-
-    const videoVisible = contenedorVideo.classList.contains("visible");
-    if (videoVisible) {
-        video.src = "";
-        contenedorVideo.classList.remove("visible");
-        contenedorVideo.setAttribute("aria-hidden", "true");
-        botonVideo.textContent = "▶ VER VIDEO";
-        return;
-    }
-
-    const youtubeId = obtenerIdYoutube(urlVideo);
-    if (!youtubeId) return;
-
-    video.src = "https://www.youtube.com/embed/" + encodeURIComponent(youtubeId) + "?autoplay=1&rel=0";
-    contenedorVideo.classList.add("visible");
-    contenedorVideo.setAttribute("aria-hidden", "false");
-    botonVideo.textContent = "▲ CERRAR VIDEO";
-}
-
-function cargarPaginaBlindaje(num) {
-    const visor = document.getElementById("paginaVisorBlindaje");
-    const carpeta = document.querySelector("#modalBlindaje .carpeta-visor");
-    const botonAnterior = document.getElementById("botonAnteriorBlindaje");
-
-    if (!visor) return;
-
-    paginaActualBlindaje = num;
-
-    visor.src = paginasBlindaje[num]; 
-    visor.alt = "Página " + num + " del curso Blindaje Digital";
-
-    gestionarAvisoRotacion(num);
-
-    const botonAccion = document.getElementById("accionPaginaBlindaje");
-    if (botonAccion) {
-        botonAccion.textContent = (num >= totalPaginasBlindaje) ? "VOLVER A INTERFAZ" : "SIGUIENTE PÁGINA";
-    }
-
-    if (botonAnterior) {
-        botonAnterior.style.display = (num <= 1) ? "none" : "inline-block";
-    }
-
-    resetearVideoBlindaje();
-    prepararVideoBlindaje();
-
-    if (carpeta) carpeta.scrollTop = 0;
-}
-
-function abrirPaginaBlindaje(num = 1) {
-    const modal = document.getElementById("modalBlindaje");
-    if (!modal) return;
-
-    cargarPaginaBlindaje(num);
-    modal.style.display = "flex";
-    modal.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
-}
-
-function avanzarPaginaBlindaje() {
-    if (paginaActualBlindaje >= totalPaginasBlindaje) {
-        cerrarModalBlindaje();
-        return;
-    }
-    cargarPaginaBlindaje(paginaActualBlindaje + 1);
-}
-
-function retrocederPaginaBlindaje() {
-    if (paginaActualBlindaje <= 1) return;
-    cargarPaginaBlindaje(paginaActualBlindaje - 1);
-}
-
-function cerrarModalBlindaje() {
-    const modal = document.getElementById("modalBlindaje");
-    const visor = document.getElementById("paginaVisorBlindaje");
-    const video = document.getElementById("videoBlindaje");
-    const contenedorVideo = document.getElementById("contenedorVideoBlindaje");
-
-    if (!modal) return;
-
-    modal.style.display = "none";
-    modal.setAttribute("aria-hidden", "true");
-
-    if (visor) visor.src = "";
-    if (video) video.src = "";
-    if (contenedorVideo) {
-        contenedorVideo.classList.remove("visible");
-        contenedorVideo.setAttribute("aria-hidden", "true");
-    }
-    document.body.style.overflow = "";
-}
-
-
-/* ==================================================
-   CIERRES Y PROTECCIONES
-   ================================================== */
-
-window.addEventListener("click", function(event) {
-    const modal = document.getElementById("modalPdf");
-    const modalBlindaje = document.getElementById("modalBlindaje");
-    const modalMails = document.getElementById("modalMails");
-    const modalPlayConsole = document.getElementById("modalPlayConsole");
-    const modalSearchConsole = document.getElementById("modalSearchConsole");
-
-    if (event.target === modal) cerrarModal();
-    if (event.target === modalBlindaje) cerrarModalBlindaje();
-    if (event.target === modalMails) cerrarModalMails();
-    if (event.target === modalPlayConsole) cerrarModalPlayConsole();
-    if (event.target === modalSearchConsole) cerrarModalSearchConsole();
-});
-
-document.addEventListener("keydown", function(event) {
-    if (event.key === "Escape") {
-        cerrarModal();
-        cerrarModalBlindaje();
-        cerrarModalMails();
-        cerrarModalPlayConsole();
-        cerrarModalSearchConsole();
-    }
-});
-
-document.addEventListener("contextmenu", function(event) { event.preventDefault(); });
-document.addEventListener("dragstart", function(event) { if (event.target.tagName === "IMG") event.preventDefault(); });
-
-document.addEventListener("keydown", function(event) {
-    const key = event.key.toLowerCase();
-    if (event.ctrlKey && (key === "s" || key === "p" || key === "u" || key === "i")) event.preventDefault();
-    if (event.ctrlKey && event.shiftKey && (key === "i" || key === "j" || key === "c")) event.preventDefault();
-});
-
-document.querySelectorAll("img").forEach(function(imagen) { imagen.setAttribute("draggable", "false"); });
-
-
-/* ==================================================
-   ZOOM DE CARTA Y EVENTOS
-   ================================================== */
-
-function abrirZoomCarta() {
-    const modal = document.getElementById('modalCartaZoom');
-    if (modal) modal.style.display = 'flex';
-}
-
-function cerrarZoomCarta() {
-    const modal = document.getElementById('modalCartaZoom');
-    if (modal) modal.style.display = 'none';
-}
-
-document.addEventListener("pointerdown", function() { desbloquearTimbreConInteraccion(); }, { passive: true, once: true });
-
-window.addEventListener("load", async function() {
-    programarTimbreRecreo();
-    if (MODO_DESARROLLO) {
-        mostrarContenidoPrincipal();
-        return;
-    }
-    try {
-        const cliente = await obtenerSupabaseClient();
-        await verificarAccesoActual(cliente);
-        window.setTimeout(function() { verificarAccesoActual(cliente); }, 3000);
-    } catch (error) {
-        ocultarContenidoPrincipal();
-    }
-});
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"
+    >
+
+    <!-- TÍTULO Y DESCRIPCIÓN ACTUALIZADOS -->
+    <title>Hacé tu App · Plataforma de Transferencia de Conocimiento Digital</title>
+
+    <meta
+        name="description"
+        content="Plataforma digital para aprender a crear, publicar y proteger tus propias aplicaciones paso a paso, sin conocimientos previos de programación ni tecnología."
+    >
+
+    <meta
+        name="keywords"
+        content="hacetuapp, transferencia digital, crear apps sin experiencia, desarrollo web sin programar"
+    >
+
+    <!-- ETIQUETAS OPEN GRAPH PARA REDES Y BUSCADORES -->
+    <meta property="og:title" content="Hacé tu App · Plataforma de Transferencia de Conocimiento Digital">
+    <meta property="og:description" content="Plataforma digital para aprender a crear, publicar y proteger tus propias aplicaciones paso a paso, sin conocimientos previos de programación ni tecnología.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hacetuapp.com/">
+
+    <meta
+        name="theme-color"
+        content="#4a2918"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css?v=62"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- ==================================================
+     PANTALLA PREVIA DE ACCESO
+     ================================================== -->
+
+<section
+    id="pantallaAcceso"
+    class="pantalla-acceso"
+    aria-label="Acceso al contenido"
+>
+
+
+    <div class="acceso-escena">
+
+
+        <!-- 1. BANNER SUPERIOR DE LADO A LADO -->
+        <div class="acceso-pizarron">
+
+            <img
+                src="el_explorador_digital_banner_transparente.png"
+                class="acceso-pizarron-imagen"
+                alt="El Explorador Digital"
+                draggable="false"
+            >
+
+        </div>
+
+
+        <!-- 2. CARTA DE PRESENTACIÓN CON DEDO APOYANDO DIRECTAMENTE SOBRE EL PAPEL -->
+        <div 
+            class="acceso-carta-contenedor"
+        >
+
+            <div 
+                class="acceso-carta" 
+                onclick="abrirZoomCarta()" 
+                title="Toca para ampliar la carta"
+            >
+
+                <img
+                    src="hacetuapp_carta_presentacion.png"
+                    class="acceso-carta-imagen"
+                    alt="Carta de presentación de hacetuapp.com"
+                    draggable="false"
+                />
+
+                <!-- INDICADOR DE TOUCH MONTADO Y APUNTANDO A LA HOJA -->
+                <div 
+                    class="indicador-mano-tocando" 
+                    onclick="abrirZoomCarta()"
+                    title="Toca para ampliar la carta"
+                >
+                    <span class="circulo-touch"></span>
+                    <span class="icono-dedo">👆</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 3. LOGO HACETUAPP.COM DEBAJO DE LA CARTA -->
+        <div class="acceso-identidad">
+
+            <img
+                src="hacetuapp_logo_blanco.png"
+                class="acceso-logo-hacetuapp"
+                alt="www.hacetuapp.com"
+                draggable="false"
+            >
+
+        </div>
+
+
+        <!-- 4. RECUADRO DEL AVISO -->
+        <div 
+            style="width: 82%; max-width: 380px; margin: 0 auto 24px auto; padding: 6px 10px; background: rgba(0, 0, 0, 0.85); border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 4px; color: #e2e8f0; font-family: 'Courier New', Consolas, monospace; font-size: 9.5px; line-height: 1.35; text-align: left; box-shadow: inset 0 0 8px rgba(0,0,0,0.9); max-height: 52px; overflow-y: auto;"
+        >
+            <span style="color: #f6ad55; font-weight: bold; display: block; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.5px; text-align: center;">
+                📌 AVISO Y FORMATO DE LECTURA
+            </span>
+            <div style="text-align: center; color: #f6ad55; font-weight: bold; font-size: 9px; margin-bottom: 6px; border-bottom: 1px dashed rgba(255,255,255,0.2); padding-bottom: 3px;">
+                ▼ DESPLAZÁ AQUÍ DENTRO PARA LEER MÁS ▼
+            </div>
+            Las plataformas, aplicaciones y herramientas digitales actualizan sus interfaces con frecuencia. El recorrido mostrado es real a la fecha. Si alguna opción cambia de lugar, apoyate en la IA para encontrar el nuevo recorrido. <br><br>
+            <strong style="color: #6ee7b7; display: block; text-align: center;">🌐 MATERIAL 100% ONLINE EN PLATAFORMA</strong>
+            Todo el contenido se lee de manera exclusiva dentro de la plataforma para garantizar que siempre tengas la versión más actualizada (no incluye descargas ni archivos PDF). <br><br>
+            <strong style="color: #fff; font-weight: bold; display: block; text-align: center;">Aquí no te vas a llevar ningún diploma, solo te vas a llevar conocimientos.</strong>
+        </div>
+
+
+        <!-- 5. OPCIONES DE ACCESO (TECLAS PNG ORIGINALES Y CENTRADAS) -->
+        <div class="acceso-opciones">
+
+            <img
+                src="a_clean_png_style_graphic_on_a_transparent_checker.png"
+                class="acceso-teclas-imagen"
+                alt="Teclas de acceso"
+                draggable="false"
+            >
+
+            <button
+                id="botonYaAcceso"
+                class="acceso-opcion"
+                type="button"
+                aria-label="Ya tenés acceso. Ingresar"
+            >
+                YA TENÉS ACCESO INGRESAR
+            </button>
+
+
+            <button
+                id="botonNoAcceso"
+                class="acceso-opcion"
+                type="button"
+                aria-label="No tenés acceso. Desbloquear conocimientos"
+            >
+                NO TENÉS ACCESO DESBLOQUEAR CONOCIMIENTOS
+            </button>
+
+        </div>
+
+
+        <!-- ==================================================
+             PANEL DE INGRESO
+             ================================================== -->
+
+        <div
+            id="panelIngreso"
+            class="panel-ingreso"
+            aria-hidden="true"
+        >
+
+            <div class="panel-ingreso-contenido">
+
+
+                <label for="usuarioAcceso">
+                    USUARIO
+                </label>
+
+                <input
+                    id="usuarioAcceso"
+                    type="text"
+                    autocomplete="username"
+                    inputmode="email"
+                    placeholder="Usuario o correo"
+                >
+
+
+                <label for="claveAcceso">
+                    CLAVE
+                </label>
+
+                <input
+                    id="claveAcceso"
+                    type="password"
+                    autocomplete="current-password"
+                    placeholder="Contraseña"
+                >
+
+
+                <button
+                    id="botonConfirmarIngreso"
+                    type="button"
+                    class="boton-confirmar-ingreso"
+                >
+                    INGRESAR
+                </button>
+
+
+                <button
+                    id="botonCerrarIngreso"
+                    type="button"
+                    class="boton-cerrar-ingreso"
+                >
+                    VOLVER
+                </button>
+
+
+                <p
+                    id="mensajeIngreso"
+                    class="mensaje-ingreso"
+                    aria-live="polite"
+                ></p>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<main id="contenidoPrincipal" style="position: relative;">
+
+    <!-- ÚNICO BOTÓN DE SALIR GENERAL -->
+    <button
+        class="boton-salir-general"
+        type="button"
+        onclick="location.reload()"
+        aria-label="Salir de la sesión"
+        style="position: absolute; top: 12px; right: 15px; z-index: 100; background: rgba(0,0,0,0.75); color: #fff; border: 1px solid rgba(255,255,255,0.7); padding: 5px 10px; border-radius: 5px; font-family: 'Courier New', monospace; font-size: 11px; font-weight: bold; cursor: pointer; text-shadow: 0 1px 2px rgba(0,0,0,0.8);"
+    >
+        SALIR ⮑
+    </button>
+
+    <section class="escena-pupitre">
+
+
+        <!-- ==================================================
+             BANNER PRINCIPAL EN CONTENIDO INTERNO
+             ================================================== -->
+
+        <div class="zona-pizarron">
+
+            <img
+                src="el_explorador_digital_banner_transparente.png"
+                class="pizarron"
+                alt="Banner El Explorador Digital"
+                draggable="false"
+            >
+
+        </div>
+
+
+        <!-- ==================================================
+             SALÓN DE ESTUDIO CON SCROLL INTERNO (5 COMPUTADORAS)
+             ================================================== -->
+
+        <div class="salon-estudio-doble">
+
+            <!-- ETIQUETA DE SCROLL CENTRADA ENTRE LAS 2 PRIMERAS COMPUTADORAS CON EFECTO DE MOVIMIENTO -->
+            <div class="indicador-scroll-cursos">
+                <span>scroll ↕</span>
+            </div>
+
+            <!-- COMPUTADORA 1: GUÍA DE TRINCHERA -->
+            <div class="bloque-curso-retro">
+                <div class="computadora-real">
+                    <img
+                        src="computadora_retro_80_90.png"
+                        class="computadora-imagen"
+                        alt="Computadora Guía de Trinchera"
+                        draggable="false"
+                    >
+                    <div class="pantalla-youtube" style="background: #050505; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                        <img
+                            src="guia_trinchera_4x3_transparente.png"
+                            alt="Guía de Trinchera"
+                            style="width: 100%; height: 100%; object-fit: contain; pointer-events: none;"
+                            draggable="false"
+                        />
+                    </div>
+                </div>
+
+                <div class="papel-descripcion-retro">
+                    <h3>Guía de Trinchera</h3>
+                    <p>De la idea a una app real, sin saber programar. Un recorrido paso a paso, práctico y simple para crear tu propia app.</p>
+                </div>
+
+                <div class="contenedor-boton-curso">
+                    <button class="boton-curso-accion fucsia" onclick="abrirPagina(1)" type="button">
+                        📖 INGRESAR AL MÓDULO ›
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- COMPUTADORA 2: BLINDAJE DIGITAL -->
+            <div class="bloque-curso-retro">
+                <div class="computadora-real">
+                    <img
+                        src="computadora_retro_80_90.png"
+                        class="computadora-imagen"
+                        alt="Computadora Blindaje Digital"
+                        draggable="false"
+                    >
+                    <div class="pantalla-youtube" style="background: #050505; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                        <img
+                            src="guia_blindaje_4x3_transparente.png"
+                            alt="Blindaje Digital"
+                            style="width: 100%; height: 100%; object-fit: contain; pointer-events: none;"
+                            draggable="false"
+                        />
+                    </div>
+                </div>
+
+                <div class="papel-descripcion-retro">
+                    <h3>Blindaje Digital</h3>
+                    <p>Protegé tu proyecto y preparalo para generar ingresos. Todo lo que necesitás para publicar, resguardar y hacer crecer tu app.</p>
+                </div>
+
+                <div class="contenedor-boton-curso">
+                    <button class="boton-curso-accion azul" onclick="abrirPaginaBlindaje(1)" type="button">
+                        ⚙️ INGRESAR AL MÓDULO ›
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- COMPUTADORA 3: MÓDULO DE MAILS -->
+            <div class="bloque-curso-retro">
+                <div class="computadora-real">
+                    <img
+                        src="computadora_retro_80_90.png"
+                        class="computadora-imagen"
+                        alt="Computadora Módulo de Mails"
+                        draggable="false"
+                    >
+                    <div class="pantalla-youtube" style="background: #050505; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                        <img
+                            src="modulo_mails_4x3_transparente.png"
+                            alt="Módulo de Mails"
+                            style="width: 100%; height: 100%; object-fit: contain; pointer-events: none;"
+                            draggable="false"
+                        />
+                    </div>
+                </div>
+
+                <div class="papel-descripcion-retro">
+                    <h3>Módulo de Mails</h3>
+                    <p>Configuración de envíos, autenticación de dominio y comunicación masiva efectiva para tu plataforma.</p>
+                </div>
+
+                <div class="contenedor-boton-curso">
+                    <button class="boton-curso-accion verde" onclick="abrirPaginaMails(1)" type="button">
+                        ✉️ INGRESAR AL MÓDULO ›
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- COMPUTADORA 4: GOOGLE PLAY CONSOLE -->
+            <div class="bloque-curso-retro">
+                <div class="computadora-real">
+                    <img
+                        src="computadora_retro_80_90.png"
+                        class="computadora-imagen"
+                        alt="Computadora Google Play Console"
+                        draggable="false"
+                    >
+                    <div class="pantalla-youtube" style="background: #050505; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative;">
+                        <img
+                            src="modulo-playconsole/portada_play_console_4x3.png"
+                            onerror="this.onerror=null; this.src='portada_play_console_4x3.png';"
+                            alt="Google Play Console"
+                            style="width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: cover; pointer-events: none; display: block;"
+                            draggable="false"
+                        />
+                    </div>
+                </div>
+
+                <div class="papel-descripcion-retro">
+                    <h3>Google Play Console</h3>
+                    <p>Aprendé a generar tu archivo AAB con PWABuilder y subir tu aplicación a Google Play Console.</p>
+                </div>
+
+                <div class="contenedor-boton-curso">
+                    <button class="boton-curso-accion amarillo" onclick="abrirPaginaPlayConsole(1)" type="button">
+                        🚀 INGRESAR AL MÓDULO ›
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- COMPUTADORA 5: GOOGLE SEARCH CONSOLE & SITEMAPS -->
+            <div class="bloque-curso-retro">
+                <div class="computadora-real">
+                    <img
+                        src="computadora_retro_80_90.png"
+                        class="computadora-imagen"
+                        alt="Computadora Google Search Console"
+                        draggable="false"
+                    >
+                    <div class="pantalla-youtube" style="background: #050505; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative;">
+                        <img
+                            src="guia-google-search-console/00-portada-notebook.png"
+                            onerror="this.onerror=null; this.src='00-portada-notebook.png';"
+                            alt="Google Search Console & Sitemaps"
+                            style="width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: cover; pointer-events: none; display: block;"
+                            draggable="false"
+                        />
+                    </div>
+                </div>
+
+                <div class="papel-descripcion-retro">
+                    <h3>Search Console & Sitemaps</h3>
+                    <p>Verificá tu dominio, configurá los DNS en Cloudflare/DonWeb y subí tu sitemap.xml a GitHub.</p>
+                </div>
+
+                <div class="contenedor-boton-curso">
+                    <button class="boton-curso-accion fucsia" onclick="abrirPaginaSearchConsole(1)" type="button">
+                        🔍 INGRESAR AL MÓDULO ›
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <!-- ==================================================
+             PROYECTOS EN PRODUCCIÓN (CON ETIQUETAS VERDES ABAJO)
+             ================================================== -->
+        <section class="zona-proyectos-produccion">
+            
+            <div class="grilla-pendrives">
+                
+                <!-- PROYECTO 1 (IZQUIERDA) - www.humanómetro.com -->
+                <div class="contenedor-tarjeta-pendrive" style="display: flex; flex-direction: column; align-items: center;">
+                    <a href="https://www.humanómetro.com" target="_blank" rel="noopener noreferrer" class="tarjeta-pendrive" title="www.humanómetro.com">
+                        <img 
+                            src="Proyecto1.png" 
+                            onerror="this.onerror=null; this.src='Proyecto 01.png'; this.onerror=function(){this.src='Proyecto01.png';};" 
+                            alt="Proyecto 1 - www.humanómetro.com" 
+                            class="imagen-pendrive"
+                            draggable="false"
+                        />
+                        <!-- INDICADOR DE TOUCH SOBRE EL PEN DRIVE -->
+                        <div class="indicador-pendrive-touch">
+                            <span class="circulo-touch-mini"></span>
+                            <span class="icono-dedo-mini">👆</span>
+                        </div>
+                    </a>
+                    <span style="color: #6ee7b7; font-family: 'Courier New', monospace; font-weight: bold; font-size: 13px; margin-top: 6px; text-shadow: 0 0 6px rgba(110,231,183,0.6); letter-spacing: 1px;">proyecto 01</span>
+                </div>
+
+                <!-- PROYECTO 2 (DERECHA) - humanometroparejas.com -->
+                <div class="contenedor-tarjeta-pendrive" style="display: flex; flex-direction: column; align-items: center;">
+                    <a href="https://humanometroparejas.com" target="_blank" rel="noopener noreferrer" class="tarjeta-pendrive" title="humanometroparejas.com">
+                        <img 
+                            src="Proyecto2.png" 
+                            onerror="this.onerror=null; this.src='Proyecto%2002.png'; this.onerror=function(){this.src='Proyecto02.png';};" 
+                            alt="Proyecto 2 - humanometroparejas.com" 
+                            class="imagen-pendrive"
+                            draggable="false"
+                        />
+                        <!-- INDICADOR DE TOUCH SOBRE EL PEN DRIVE -->
+                        <div class="indicador-pendrive-touch">
+                            <span class="circulo-touch-mini"></span>
+                            <span class="icono-dedo-mini">👆</span>
+                        </div>
+                    </a>
+                    <span style="color: #6ee7b7; font-family: 'Courier New', monospace; font-weight: bold; font-size: 13px; margin-top: 6px; text-shadow: 0 0 6px rgba(110,231,183,0.6); letter-spacing: 1px;">proyecto 02</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             RESPALDO DE SILLA
+             ================================================== -->
+
+        <section class="zona-silla">
+
+            <div class="silla-real">
+
+                <img
+                    src="respaldo_silla_hacetuapp.png"
+                    class="respaldo-silla"
+                    alt="Silla de hacetuapp.com"
+                    draggable="false"
+                />
+
+            </div>
+
+        </section>
+
+
+    </section>
+
+
+</main>
+
+
+
+<!-- ==================================================
+     MODAL 1: GUÍA DE TRINCHERA (10 PÁGINAS)
+     ================================================== -->
+
+<div
+    id="modalPdf"
+    class="modal"
+    aria-hidden="true"
+>
+
+
+    <div class="modal-contenido">
+
+
+        <button
+            class="cerrar-modal"
+            type="button"
+            onclick="cerrarModal()"
+            aria-label="Cerrar"
+        >
+            ×
+        </button>
+
+
+        <div class="carpeta-visor">
+
+            <!-- AVISO DE ZOOM TÁCTIL -->
+            <div style="color: #fdf6e3; font-size: 11px; text-align: center; margin-bottom: 6px; font-weight: bold; text-shadow: 0 1px 3px rgba(0,0,0,0.8);">
+                🔍 Podés usar dos dedos para hacer zoom en los textos pequeños
+            </div>
+
+            <div class="hoja-lectura">
+
+                <img
+                    id="paginaVisor"
+                    src=""
+                    alt="Página del curso"
+                    draggable="false"
+                />
+
+            </div>
+
+
+            <section
+                class="zona-complementaria"
+                aria-label="Contenido complementario de la página"
+            >
+
+                <div class="fila-acciones">
+
+                    <button
+                        id="botonAnteriorTrinchera"
+                        class="accion-pagina"
+                        type="button"
+                        onclick="retrocederPagina()"
+                    >
+                        ANTERIOR
+                    </button>
+
+                    <button
+                        id="botonVideoComplementario"
+                        class="boton-video-complementario"
+                        type="button"
+                        onclick="alternarVideoComplementario()"
+                    >
+                        ▶ VER VIDEO
+                    </button>
+
+
+                    <button
+                        id="accionPagina"
+                        class="accion-pagina"
+                        type="button"
+                        onclick="avanzarPagina()"
+                    >
+                        SIGUIENTE PÁGINA
+                    </button>
+
+
+                </div>
+
+
+                <div
+                    id="subtituloVideo"
+                    class="subtitulo-video"
+                    aria-live="polite"
+                ></div>
+
+
+                <div
+                    id="contenedorVideoComplementario"
+                    class="contenedor-video-complementario"
+                    aria-hidden="true"
+                >
+
+                    <div class="video-responsive">
+
+                        <iframe
+                            id="videoComplementario"
+                            title="Video complementario del curso"
+                            src=""
+                            loading="lazy"
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                        </iframe>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- ==================================================
+     MODAL 2: BLINDAJE DIGITAL (76 PÁGINAS PASO A PASO)
+     ================================================== -->
+
+<div
+    id="modalBlindaje"
+    class="modal"
+    aria-hidden="true"
+>
+
+
+    <div class="modal-contenido">
+
+
+        <button
+            class="cerrar-modal"
+            type="button"
+            onclick="cerrarModalBlindaje()"
+            aria-label="Cerrar"
+        >
+            ×
+        </button>
+
+
+        <div class="carpeta-visor">
+
+            <!-- AVISO DE ZOOM TÁCTIL -->
+            <div style="color: #fdf6e3; font-size: 11px; text-align: center; margin-bottom: 6px; font-weight: bold; text-shadow: 0 1px 3px rgba(0,0,0,0.8);">
+                🔍 Podés usar dos dedos para hacer zoom en los textos pequeños
+            </div>
+
+            <!-- AVISO EXCLUSIVO PARA LA PÁGINA 49 (GIRAR CELULAR) -->
+            <div 
+                id="avisoGirarCelular" 
+                style="display: none; background: rgba(0, 0, 0, 0.85); color: #fff; padding: 5px 10px; margin: 0 auto 6px auto; border-radius: 4px; border: 1px solid rgba(255,255,255,0.4); font-family: 'Courier New', monospace; font-size: 10px; text-align: center; max-width: 300px; line-height: 1.25;"
+            >
+                📱 <strong>Girá el celular en horizontal</strong> para leer con mayor comodidad.
+            </div>
+
+            <div class="hoja-lectura">
+
+                <img
+                    id="paginaVisorBlindaje"
+                    src=""
+                    alt="Página del curso Blindaje Digital"
+                    draggable="false"
+                />
+
+            </div>
+
+
+            <section
+                class="zona-complementaria"
+                aria-label="Contenido complementario del curso de blindaje"
+            >
+
+                <div class="fila-acciones">
+
+                    <button
+                        id="botonAnteriorBlindaje"
+                        class="accion-pagina"
+                        type="button"
+                        onclick="retrocederPaginaBlindaje()"
+                    >
+                        ANTERIOR
+                    </button>
+
+                    <button
+                        id="botonVideoComplementarioBlindaje"
+                        class="boton-video-complementario"
+                        type="button"
+                        onclick="alternarVideoBlindaje()"
+                    >
+                        ▶ VER VIDEO
+                    </button>
+
+                    <button
+                        id="accionPaginaBlindaje"
+                        class="accion-pagina"
+                        type="button"
+                        onclick="avanzarPaginaBlindaje()"
+                    >
+                        SIGUIENTE PÁGINA
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="subtituloVideoBlindaje"
+                    class="subtitulo-video"
+                    aria-live="polite"
+                ></div>
+
+
+                <div
+                    id="contenedorVideoBlindaje"
+                    class="contenedor-video-complementario"
+                    aria-hidden="true"
+                >
+
+                    <div class="video-responsive">
+
+                        <iframe
+                            id="videoBlindaje"
+                            title="Video complementario de Blindaje Digital"
+                            src=""
+                            loading="lazy"
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                        </iframe>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- ==================================================
+     MODAL 3: MÓDULO DE MAILS (5 PÁGINAS)
+     ================================================== -->
+
+<div
+    id="modalMails"
+    class="modal"
+    aria-hidden="true"
+>
+
+
+    <div class="modal-contenido">
+
+
+        <button
+            class="cerrar-modal"
+            type="button"
+            onclick="cerrarModalMails()"
+            aria-label="Cerrar"
+        >
+            ×
+        </button>
+
+
+        <div class="carpeta-visor">
+
+            <!-- AVISO DE ZOOM TÁCTIL -->
+            <div style="color: #fdf6e3; font-size: 11px; text-align: center; margin-bottom: 6px; font-weight: bold; text-shadow: 0 1px 3px rgba(0,0,0,0.8);">
+                🔍 Podés usar dos dedos para hacer zoom en los textos pequeños
+            </div>
+
+            <div class="hoja-lectura">
+
+                <img
+                    id="paginaVisorMails"
+                    src=""
+                    alt="Página del Módulo de Mails"
+                    draggable="false"
+                />
+
+            </div>
+
+
+            <section
+                class="zona-complementaria"
+                aria-label="Contenido complementario del módulo de mails"
+            >
+
+                <div class="fila-acciones">
+
+                    <button
+                        id="botonAnteriorMails"
+                        class="accion-pagina"
+                        type="button"
+                        onclick="retrocederPaginaMails()"
+                    >
+                        ANTERIOR
+                    </button>
+
+                    <button
+                        id="botonVideoComplementarioMails"
+                        class="boton-video-complementario"
+                        type="button"
+                        onclick="alternarVideoMails()"
+                    >
+                        ▶ VER VIDEO
+                    </button>
+
+                    <button
+                        id="accionPaginaMails"
+                        class="accion-pagina"
+                        type="button"
+                        onclick="avanzarPaginaMails()"
+                    >
+                        SIGUIENTE PÁGINA
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="subtituloVideoMails"
+                    class="subtitulo-video"
+                    aria-live="polite"
+                ></div>
+
+
+                <div
+                    id="contenedorVideoMails"
+                    class="contenedor-video-complementario"
+                    aria-hidden="true"
+                >
+
+                    <div class="video-responsive">
+
+                        <iframe
+                            id="videoMails"
+                            title="Video complementario de Módulo de Mails"
+                            src=""
+                            loading="lazy"
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                        </iframe>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- ==================================================
+     MODAL 4: GOOGLE PLAY CONSOLE (7 PÁGINAS)
+     ================================================== -->
+
+<div
+    id="modalPlayConsole"
+    class="modal"
+    aria-hidden="true"
+>
+
+
+    <div class="modal-contenido">
+
+
+        <button
+            class="cerrar-modal"
+            type="button"
+            onclick="cerrarModalPlayConsole()"
+            aria-label="Cerrar"
+        >
+            ×
+        </button>
+
+
+        <div class="carpeta-visor">
+
+            <!-- AVISO DE ZOOM TÁCTIL -->
+            <div style="color: #fdf6e3; font-size: 11px; text-align: center; margin-bottom: 6px; font-weight: bold; text-shadow: 0 1px 3px rgba(0,0,0,0.8);">
+                🔍 Podés usar dos dedos para hacer zoom en los textos pequeños
+            </div>
+
+            <div class="hoja-lectura">
+
+                <img
+                    id="paginaVisorPlayConsole"
+                    src=""
+                    alt="Página de Google Play Console"
+                    draggable="false"
+                />
+
+            </div>
+
+
+            <section
+                class="zona-complementaria"
+                aria-label="Contenido complementario de Play Console"
+            >
+
+                <div class="fila-acciones">
+
+                    <button
+                        id="botonAnteriorPlayConsole"
+                        class="accion-pagina"
+                        type="button"
+                        onclick="retrocederPaginaPlayConsole()"
+                    >
+                        ANTERIOR
+                    </button>
+
+                    <button
+                        id="botonVideoComplementarioPlayConsole"
+                        class="boton-video-complementario"
+                        type="button"
+                        onclick="alternarVideoPlayConsole()"
+                    >
+                        ▶ VER VIDEO
+                    </button>
+
+                    <button
+                        id="accionPaginaPlayConsole"
+                        class="accion-pagina"
+                        type="button"
+                        onclick="avanzarPaginaPlayConsole()"
+                    >
+                        SIGUIENTE PÁGINA
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="subtituloVideoPlayConsole"
+                    class="subtitulo-video"
+                    aria-live="polite"
+                ></div>
+
+
+                <div
+                    id="contenedorVideoPlayConsole"
+                    class="contenedor-video-complementario"
+                    aria-hidden="true"
+                >
+
+                    <div class="video-responsive">
+
+                        <iframe
+                            id="videoPlayConsole"
+                            title="Video complementario de Google Play Console"
+                            src=""
+                            loading="lazy"
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                        </iframe>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- ==================================================
+     MODAL 5: GOOGLE SEARCH CONSOLE & SITEMAPS (8 PÁGINAS)
+     ================================================== -->
+
+<div
+    id="modalSearchConsole"
+    class="modal"
+    aria-hidden="true"
+>
+
+
+    <div class="modal-contenido">
+
+
+        <button
+            class="cerrar-modal"
+            type="button"
+            onclick="cerrarModalSearchConsole()"
+            aria-label="Cerrar"
+        >
+            ×
+        </button>
+
+
+        <div class="carpeta-visor">
+
+            <!-- AVISO DE ZOOM TÁCTIL -->
+            <div style="color: #fdf6e3; font-size: 11px; text-align: center; margin-bottom: 6px; font-weight: bold; text-shadow: 0 1px 3px rgba(0,0,0,0.8);">
+                🔍 Podés usar dos dedos para hacer zoom en los textos pequeños
+            </div>
+
+            <!-- Hoja de lectura -->
+            <div class="hoja-lectura">
+
+                <img
+                    id="paginaVisorSearchConsole"
+                    src=""
+                    alt="Página de Search Console & Sitemaps"
+                    draggable="false"
+                />
+
+            </div>
+
+
+            <section
+                class="zona-complementaria"
+                aria-label="Contenido complementario de Search Console"
+            >
+
+                <div class="fila-acciones">
+
+                    <button
+                        id="botonAnteriorSearchConsole"
+                        class="accion-pagina"
+                        type="button"
+                        onclick="retrocederPaginaSearchConsole()"
+                    >
+                        ANTERIOR
+                    </button>
+
+                    <button
+                        id="botonVideoComplementarioSearchConsole"
+                        class="boton-video-complementario"
+                        type="button"
+                        onclick="alternarVideoSearchConsole()"
+                    >
+                        ▶ VER VIDEO
+                    </button>
+
+                    <button
+                        id="accionPaginaSearchConsole"
+                        class="accion-pagina"
+                        type="button"
+                        onclick="avanzarPaginaSearchConsole()"
+                    >
+                        SIGUIENTE PÁGINA
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="subtituloVideoSearchConsole"
+                    class="subtitulo-video"
+                    aria-live="polite"
+                ></div>
+
+
+                <!-- ZONA DEL VIDEO INCORPORADO EXCLUSIVAMENTE DEBAJO DE LA PÁGINA 1 -->
+                <div
+                    id="contenedorVideoSearchConsole"
+                    class="contenedor-video-complementario"
+                    aria-hidden="true"
+                >
+
+                    <div class="video-responsive">
+
+                        <iframe
+                            id="videoSearchConsole"
+                            title="Video complementario de Search Console"
+                            src=""
+                            loading="lazy"
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                        </iframe>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- ==================================================
+     MODAL EMERGENTE PARA ZOOM DE CARTA
+     ================================================== -->
+<div 
+    id="modalCartaZoom" 
+    class="modal" 
+    onclick="cerrarZoomCarta()" 
+    style="display: none; background: rgba(0,0,0,0.92); z-index: 10000; padding: 15px; cursor: pointer;"
+>
+    <button 
+        type="button" 
+        onclick="cerrarZoomCarta()" 
+        style="position: fixed; top: 15px; right: 20px; background: transparent; border: none; color: #fff; font-size: 2.5rem; font-weight: bold; cursor: pointer; z-index: 10001;"
+    >
+        ×
+    </button>
+
+    <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+        <img 
+            src="hacetuapp_carta_presentacion.png" 
+            alt="Carta de presentación ampliada" 
+            style="max-width: 95vw; max-height: 90vh; object-fit: contain; filter: drop-shadow(0 0 15px rgba(0,0,0,0.8));"
+        />
+    </div>
+</div>
+
+
+
+<script src="script.js?v=65"></script>
+
+
+</body>
+
+</html>

@@ -1,7 +1,7 @@
 "use strict";
 
 /* CACHE-BUSTER-FORCE: 2026-10-21-1500 - FORZAR RECARGA TOTAL */
-const HM_JS_VERSION = "18.03";
+const HM_JS_VERSION = "18.04";
 
 
 /* ==================================================
@@ -59,7 +59,14 @@ for (let i = 1; i <= totalPaginasBlindaje; i++) {
     }
 }
 
-const videosBlindaje = {};
+// Configuración exacta de videos para Blindaje Digital (Páginas 1 a 4 con link, resto sin botones de video)
+const videosBlindaje = {
+    1: "https://youtu.be/NdvozbM5dyo?si=2agSvDiXhj_WJe7M",
+    2: "https://youtu.be/NY1qfQk1HI4?si=bZfD4KOdo-udOtjK",
+    3: "https://youtu.be/TDPHl9ki4Ps?si=6iHvOikiyCqpVkzP",
+    4: "https://youtu.be/mp8pfF9UnwU?si=XCjvP4ow62pHAZo4"
+};
+
 const subtitulosBlindaje = {};
 
 let paginaActualBlindaje = 1;
@@ -280,12 +287,12 @@ function alternarVideoPlayConsole() {
 
 
 /* ==================================================
-   CURSO 5: GOOGLE SEARCH CONSOLE & SITEMAPS (8 PÁGINAS)
+   CURSO 5: GOOGLE SEARCH CONSOLE & SITEMAPS (8 PÁGINAS CORREGIDAS)
    ================================================== */
 
 const totalPaginasSearchConsole = 8;
 let paginaActualSearchConsole = 1;
-const idVideoYouTubeSearchConsole = "OrExQjVndjI";
+const idVideoYouTubeSearchConsole = "OrExQjVndjI"; // Video movido debajo de la página 1 según indicación
 
 const paginasSearchConsoleMap = {
     1: "guia-google-search-console/00-portada-notebook.png",

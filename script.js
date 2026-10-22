@@ -1,7 +1,7 @@
 "use strict";
 
 /* CACHE-BUSTER-FORCE: 2026-10-22-1200 - FORZAR RECARGA TOTAL */
-const HM_JS_VERSION = "18.08";
+const HM_JS_VERSION = "18.09";
 
 
 /* ==================================================
@@ -30,7 +30,7 @@ const videosComplementarios = {
     6: "https://youtu.be/fCXe7nWPwnI?si=okpMoERks_rMO3aL",
     7: "https://youtu.be/SS5NcxjVFDg?si=AUSJN6uAlNPGoNqX",
     8: "https://youtu.be/3XH0yOdORYQ?si=B9URc73_TJDXAZxj",
-    9: "https://youtu.be/jdDYxj2rlzU?si=tW2fi_ssXeQ3wukB"
+    9: "https://youtu.be/tW2fi_ssXeQ3wukB"
 };
 
 const subtitulosVideos = {
@@ -294,13 +294,13 @@ const idVideoYouTubeSearchConsole = "OrExQjVndjI"; // Video ubicado al pie de la
 
 const paginasSearchConsoleMap = {
     1: "guia-google-search-console/00-portada-notebook.png",
-    2: "guia-google-search-console/01-portada-google-search-console.png", // Página 2 agregada
-    3: "guia-google-search-console/02-herramientas-y-conceptos.png",
+    2: "guia-google-search-console/01-portada-google-search-console.png",
+    3: "guia-google-search-console/02-herramientas-y-concepto.png",
     4: "guia-google-search-console/03-paso-1-alta-propiedad.png",
     5: "guia-google-search-console/04-via-a-donweb-txt.png",
-    6: "guia-google-search-console/05-via-b-github-pages.png", // Página 6 agregada
-    7: "guia-google-search-console/06-via-c-cloudflare-y-veri.png", // Página 7 agregada
-    8: "guia-google-search-console/07-errores-frecuentes-y-sitemap.png"
+    6: "guia-google-search-console/05-via-b-github-pages.png",
+    7: "guia-google-search-console/06-via-c-cloudflare-y-verificacion.png",
+    8: "guia-google-search-console/07-errores-frecuentes-y-alertas.png"
 };
 
 function abrirPaginaSearchConsole(numeroPagina) {
@@ -366,7 +366,6 @@ function actualizarVisibilidadVideoSearchConsole() {
     const contenedorVideo = document.getElementById("contenedorVideoSearchConsole");
     const iframeVideo = document.getElementById("videoSearchConsole");
 
-    // SOLUCIÓN: El video y su botón solo se muestran en la página 1, se ocultan en la 2, 3, 4, 5, 6, 7 y 8
     if (paginaActualSearchConsole === 1) {
         if (botonVideo) {
             botonVideo.style.display = "inline-block";

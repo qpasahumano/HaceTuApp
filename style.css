@@ -1,5 +1,5 @@
 /* ==================================================
-   HAZTUAPP.COM - ESTYLOS GENERALES (v=62-force-refresh)
+   HAZTUAPP.COM - ESTYLOS GENERALES (v=63-force-refresh-cs)
    ================================================== */
 
 * {
@@ -398,7 +398,6 @@ body::before {
     scrollbar-color: rgba(255, 255, 255, 0.4) rgba(0, 0, 0, 0.2);
 }
 
-/* ETIQUETA DE SCROLL CENTRADA EXACTAMENTE ENTRE LAS DOS PRIMERAS COMPUTADORAS CON EFECTO DE MOVIMIENTO */
 .indicador-scroll-cursos {
     position: absolute;
     top: 6px;
@@ -544,9 +543,6 @@ body::before {
     background: #050505 !important;
 }
 
-/* ==================================================
-   ZONA DE PROYECTOS EN PRODUCCIÓN (PEN DRIVES TAMAÑO ARMÓNICO Y VISIBLE)
-   ================================================== */
 .zona-proyectos-produccion {
     position: relative;
     z-index: 22;
@@ -632,7 +628,6 @@ body::before {
     animation: tapDedito 1.8s infinite ease-in-out;
 }
 
-/* ZONA DE SILLA VISIBLE Y PRESERVADA EN PANTALLA PRINCIPAL */
 .zona-silla {
     position: relative;
     z-index: 22;

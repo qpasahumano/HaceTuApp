@@ -36,7 +36,7 @@
 
     <link
         rel="stylesheet"
-        href="style.css?v=63"
+        href="style.css?v=64"
     >
 
 </head>
@@ -751,14 +751,7 @@
                         ANTERIOR
                     </button>
 
-                    <button
-                        id="botonVideoComplementarioBlindaje"
-                        class="boton-video-complementario"
-                        type="button"
-                        onclick="alternarVideoBlindaje()"
-                    >
-                        ▶ VER VIDEO
-                    </button>
+                    <!-- Botón de video de blindaje eliminado por estar huérfano -->
 
                     <button
                         id="accionPaginaBlindaje"
@@ -995,14 +988,7 @@
                         ANTERIOR
                     </button>
 
-                    <button
-                        id="botonVideoComplementarioPlayConsole"
-                        class="boton-video-complementario"
-                        type="button"
-                        onclick="alternarVideoPlayConsole()"
-                    >
-                        ▶ VER VIDEO
-                    </button>
+                    <!-- Botón de video de Play Console huérfano eliminado -->
 
                     <button
                         id="accionPaginaPlayConsole"
@@ -1242,8 +1228,14 @@
                         ANTERIOR
                     </button>
 
-                    <!-- Sin video complementario para este curso por ahora -->
-                    <div style="width: 1px;"></div>
+                    <button
+                        id="botonVideoComplementarioCache"
+                        class="boton-video-complementario"
+                        type="button"
+                        onclick="alternarVideoCache()"
+                    >
+                        ▶ VER VIDEO
+                    </button>
 
                     <button
                         id="accionPaginaCache"
@@ -1253,6 +1245,35 @@
                     >
                         SIGUIENTE PÁGINA
                     </button>
+
+                </div>
+
+
+                <div
+                    id="subtituloVideoCache"
+                    class="subtitulo-video"
+                    aria-live="polite"
+                ></div>
+
+
+                <div
+                    id="contenedorVideoCache"
+                    class="contenedor-video-complementario"
+                    aria-hidden="true"
+                >
+
+                    <div class="video-responsive">
+
+                        <iframe
+                            id="videoCache"
+                            title="Video complementario de Guía de Caché"
+                            src=""
+                            loading="lazy"
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                        </iframe>
+
+                    </div>
 
                 </div>
 
@@ -1298,7 +1319,7 @@
 
 
 
-<script src="script.js?v=66"></script>
+<script src="script.js?v=67"></script>
 
 
 </body>

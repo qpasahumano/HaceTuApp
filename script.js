@@ -1,7 +1,7 @@
 "use strict";
 
 /* CACHE-BUSTER-FORCE: 2026-10-23-1530 - FORZAR RECARGA TOTAL CON PRELOADER */
-const HM_JS_VERSION = "18.13";
+const HM_JS_VERSION = "18.14";
 
 
 /* ==================================================
@@ -90,6 +90,14 @@ for (let i = 1; i <= totalPaginasBlindaje; i++) {
     }
 }
 
+// IDs de YouTube específicos para Blindaje Digital (Páginas 2, 3, 5 y 6)
+const videosBlindajeMap = {
+    2: "YOUR_SUPABASE_VIDEO_ID",
+    3: "YOUR_MERCADOPAGO_VIDEO_ID",
+    5: "YOUR_GITHUB_VIDEO_ID",
+    6: "YOUR_CLOUDFLARE_VIDEO_ID"
+};
+
 let paginaActualBlindaje = 1;
 
 function abrirPaginaBlindaje(numeroPagina) {
@@ -119,17 +127,27 @@ function abrirPaginaBlindaje(numeroPagina) {
         modal.style.display = "flex";
         modal.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
+
+        actualizarVisibilidadVideoBlindaje();
     }
 }
 
 function cerrarModalBlindaje() {
     const modal = document.getElementById("modalBlindaje");
     const visor = document.getElementById("paginaVisorBlindaje");
+    const iframeVideo = document.getElementById("videoBlindaje");
+    const contenedorVideo = document.getElementById("contenedorVideoBlindaje");
+
     if (modal) {
         modal.style.display = "none";
         modal.setAttribute("aria-hidden", "true");
     }
     if (visor) visor.src = "";
+    if (iframeVideo) iframeVideo.src = "";
+    if (contenedorVideo) {
+        contenedorVideo.classList.remove("visible");
+        contenedorVideo.setAttribute("aria-hidden", "true");
+    }
     document.body.style.overflow = "";
 }
 
@@ -144,6 +162,53 @@ function avanzarPaginaBlindaje() {
 function retrocederPaginaBlindaje() {
     if (paginaActualBlindaje <= 1) return;
     abrirPaginaBlindaje(paginaActualBlindaje - 1);
+}
+
+function actualizarVisibilidadVideoBlindaje() {
+    const botonVideo = document.getElementById("botonVideoComplementarioBlindaje");
+    const contenedorVideo = document.getElementById("contenedorVideoBlindaje");
+    const iframeVideo = document.getElementById("videoBlindaje");
+
+    if (videosBlindajeMap[paginaActualBlindaje]) {
+        if (botonVideo) {
+            botonVideo.style.display = "inline-block";
+            botonVideo.textContent = "▶ VER VIDEO";
+        }
+    } else {
+        if (botonVideo) botonVideo.style.display = "none";
+        if (contenedorVideo) {
+            contenedorVideo.classList.remove("visible");
+            contenedorVideo.setAttribute("aria-hidden", "true");
+        }
+        if (iframeVideo) iframeVideo.src = "";
+    }
+}
+
+function alternarVideoBlindaje() {
+    const botonVideo = document.getElementById("botonVideoComplementarioBlindaje");
+    const contenedorVideo = document.getElementById("contenedorVideoBlindaje");
+    const iframeVideo = document.getElementById("videoBlindaje");
+
+    if (!contenedorVideo || !iframeVideo) return;
+
+    const videoId = videosBlindajeMap[paginaActualBlindaje];
+    if (!videoId) return;
+
+    if (contenedorVideo.classList.contains("visible")) {
+        contenedorVideo.classList.remove("visible");
+        contenedorVideo.setAttribute("aria-hidden", "true");
+        iframeVideo.src = "";
+        if (botonVideo) botonVideo.textContent = "▶ VER VIDEO";
+    } else {
+        contenedorVideo.classList.add("visible");
+        contenedorVideo.setAttribute("aria-hidden", "false");
+        iframeVideo.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+        if (botonVideo) botonVideo.textContent = "▲ CERRAR VIDEO";
+
+        window.setTimeout(function() {
+            contenedorVideo.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 80);
+    }
 }
 
 

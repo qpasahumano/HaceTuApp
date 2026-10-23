@@ -1,7 +1,38 @@
 "use strict";
 
-/* CACHE-BUSTER-FORCE: 2026-10-23-1500 - FORZAR RECARGA TOTAL */
-const HM_JS_VERSION = "18.12";
+/* CACHE-BUSTER-FORCE: 2026-10-23-1530 - FORZAR RECARGA TOTAL CON PRELOADER */
+const HM_JS_VERSION = "18.13";
+
+
+/* ==================================================
+   CONTROLADOR DE PRELOADER UNÍSONO
+   ================================================== */
+window.addEventListener("DOMContentLoaded", function() {
+    const preloader = document.getElementById("preloaderPlataforma");
+    const barra = document.getElementById("barraProgresoPreloader");
+    const textoPorcentaje = document.getElementById("textoPorcentajePreloader");
+
+    if (!preloader) return;
+
+    let progreso = 0;
+    const intervalo = setInterval(function() {
+        progreso += Math.floor(Math.random() * 15) + 10;
+        if (progreso > 100) progreso = 100;
+
+        if (barra) barra.style.width = progreso + "%";
+        if (textoPorcentaje) textoPorcentaje.textContent = progreso + "%";
+
+        if (progreso === 100) {
+            clearInterval(intervalo);
+            window.setTimeout(function() {
+                preloader.style.opacity = "0";
+                window.setTimeout(function() {
+                    preloader.style.display = "none";
+                }, 500);
+            }, 300);
+        }
+    }, 100);
+});
 
 
 /* ==================================================
@@ -229,7 +260,7 @@ function alternarVideoMails() {
 
 const totalPaginasPlayConsole = 7;
 let paginaActualPlayConsole = 1;
-const idVideoYouTubePlayConsole = "YF1otO4tfvk"; // Video asignado a la página 2
+const idVideoYouTubePlayConsole = "YF1otO4tfvk";
 
 function abrirPaginaPlayConsole(numeroPagina) {
     paginaActualPlayConsole = numeroPagina;

@@ -711,7 +711,8 @@ body::before {
 #paginaVisorBlindaje,
 #paginaVisorMails,
 #paginaVisorPlayConsole,
-#paginaVisorSearchConsole {
+#paginaVisorSearchConsole,
+#paginaVisorCache {
     display: block;
     width: 100% !important;
     max-width: 500px !important;
@@ -833,7 +834,8 @@ body::before {
     #paginaVisorBlindaje,
     #paginaVisorMails,
     #paginaVisorPlayConsole,
-    #paginaVisorSearchConsole {
+    #paginaVisorSearchConsole,
+    #paginaVisorCache {
         max-width: 650px !important;
     }
     .zona-complementaria { max-width: 650px !important; }

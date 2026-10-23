@@ -36,7 +36,7 @@
 
     <link
         rel="stylesheet"
-        href="style.css?v=62"
+        href="style.css?v=63"
     >
 
 </head>
@@ -274,7 +274,7 @@
 
 
         <!-- ==================================================
-             SALÓN DE ESTUDIO CON SCROLL INTERNO (5 COMPUTADORAS)
+             SALÓN DE ESTUDIO CON SCROLL INTERNO (6 COMPUTADORAS)
              ================================================== -->
 
         <div class="salon-estudio-doble">
@@ -441,6 +441,39 @@
                 <div class="contenedor-boton-curso">
                     <button class="boton-curso-accion fucsia" onclick="abrirPaginaSearchConsole(1)" type="button">
                         🔍 INGRESAR AL MÓDULO ›
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- COMPUTADORA 6: GUÍA DE CACHÉ Y PLATAFORMA DIGITAL -->
+            <div class="bloque-curso-retro">
+                <div class="computadora-real">
+                    <img
+                        src="computadora_retro_80_90.png"
+                        class="computadora-imagen"
+                        alt="Computadora Guía de Caché"
+                        draggable="false"
+                    >
+                    <div class="pantalla-youtube" style="background: #050505; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative;">
+                        <img
+                            src="guia-cache-plataforma-digital/portada-pantalla.png"
+                            onerror="this.onerror=null; this.src='portada-pantalla.png';"
+                            alt="Guía de Caché y Plataforma Digital"
+                            style="width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: cover; pointer-events: none; display: block;"
+                            draggable="false"
+                        />
+                    </div>
+                </div>
+
+                <div class="papel-descripcion-retro">
+                    <h3>Guía de Caché</h3>
+                    <p>Dominá la configuración de Cloudflare, la gestión de versiones y el rendimiento óptimo de tu plataforma web.</p>
+                </div>
+
+                <div class="contenedor-boton-curso">
+                    <button class="boton-curso-accion verde" onclick="abrirPaginaCache(1)" type="button">
+                        ⚡ INGRESAR AL MÓDULO ›
                     </button>
                 </div>
             </div>
@@ -1150,6 +1183,94 @@
 
 
 <!-- ==================================================
+     MODAL 6: GUÍA DE CACHÉ Y PLATAFORMA DIGITAL (6 PÁGINAS)
+     ================================================== -->
+
+<div
+    id="modalCache"
+    class="modal"
+    aria-hidden="true"
+>
+
+
+    <div class="modal-contenido">
+
+
+        <button
+            class="cerrar-modal"
+            type="button"
+            onclick="cerrarModalCache()"
+            aria-label="Cerrar"
+        >
+            ×
+        </button>
+
+
+        <div class="carpeta-visor">
+
+            <!-- AVISO DE ZOOM TÁCTIL -->
+            <div style="color: #fdf6e3; font-size: 11px; text-align: center; margin-bottom: 6px; font-weight: bold; text-shadow: 0 1px 3px rgba(0,0,0,0.8);">
+                🔍 Podés usar dos dedos para hacer zoom en los textos pequeños
+            </div>
+
+            <!-- Hoja de lectura -->
+            <div class="hoja-lectura">
+
+                <img
+                    id="paginaVisorCache"
+                    src=""
+                    alt="Página de Guía de Caché y Plataforma Digital"
+                    draggable="false"
+                />
+
+            </div>
+
+
+            <section
+                class="zona-complementaria"
+                aria-label="Contenido complementario de Guía de Caché"
+            >
+
+                <div class="fila-acciones">
+
+                    <button
+                        id="botonAnteriorCache"
+                        class="accion-pagina"
+                        type="button"
+                        onclick="retrocederPaginaCache()"
+                    >
+                        ANTERIOR
+                    </button>
+
+                    <!-- Sin video complementario para este curso por ahora -->
+                    <div style="width: 1px;"></div>
+
+                    <button
+                        id="accionPaginaCache"
+                        class="accion-pagina"
+                        type="button"
+                        onclick="avanzarPaginaCache()"
+                    >
+                        SIGUIENTE PÁGINA
+                    </button>
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- ==================================================
      MODAL EMERGENTE PARA ZOOM DE CARTA
      ================================================== -->
 <div 
@@ -1177,7 +1298,7 @@
 
 
 
-<script src="script.js?v=65"></script>
+<script src="script.js?v=66"></script>
 
 
 </body>

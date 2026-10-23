@@ -36,13 +36,34 @@
 
     <link
         rel="stylesheet"
-        href="style.css?v=65"
+        href="style.css?v=66"
     >
 
 </head>
 
 
 <body>
+
+
+<!-- ==================================================
+     PANTALLA DE CARGA UNÍSONA (PRELOADER)
+     ================================================== -->
+<div id="preloaderPlataforma" style="position: fixed; inset: 0; z-index: 99999; background: #4a2918; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Courier New', monospace; color: #fff; transition: opacity 0.5s ease;">
+    <div style="text-align: center; padding: 20px; max-width: 320px;">
+        <div style="font-size: 14px; font-weight: bold; margin-bottom: 12px; letter-spacing: 1px; color: #f6ad55; text-shadow: 0 2px 4px rgba(0,0,0,0.8);">
+            [ CARGANDO PLATAFORMA ]
+        </div>
+        <div style="font-size: 11px; color: #e2e8f0; margin-bottom: 20px; line-height: 1.4;">
+            Sincronizando conocimientos y preparando el aula digital...
+        </div>
+        <div style="width: 100%; height: 6px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; overflow: hidden; position: relative;">
+            <div id="barraProgresoPreloader" style="position: absolute; top: 0; left: 0; bottom: 0; width: 0%; background: linear-gradient(90deg, #ff2a75, #6ee7b7); transition: width 0.3s ease;"></div>
+        </div>
+        <div id="textoPorcentajePreloader" style="font-size: 10px; color: #6ee7b7; margin-top: 8px; font-weight: bold;">
+            0%
+        </div>
+    </div>
+</div>
 
 
 <!-- ==================================================
@@ -1326,7 +1347,7 @@
 
 
 
-<script src="script.js?v=68"></script>
+<script src="script.js?v=69"></script>
 
 
 </body>

@@ -1,7 +1,7 @@
 "use strict";
 
-/* CACHE-BUSTER-FORCE: 2026-10-22-1200 - FORZAR RECARGA TOTAL */
-const HM_JS_VERSION = "18.09";
+/* CACHE-BUSTER-FORCE: 2026-10-23-1400 - FORZAR RECARGA TOTAL */
+const HM_JS_VERSION = "18.10";
 
 
 /* ==================================================
@@ -285,12 +285,12 @@ function alternarVideoPlayConsole() {
 
 
 /* ==================================================
-   CURSO 5: GOOGLE SEARCH CONSOLE & SITEMAPS (8 PÁGINAS CORREGIDAS)
+   CURSO 5: GOOGLE SEARCH CONSOLE & SITEMAPS (8 PÁGINAS)
    ================================================== */
 
 const totalPaginasSearchConsole = 8;
 let paginaActualSearchConsole = 1;
-const idVideoYouTubeSearchConsole = "OrExQjVndjI"; // Video ubicado al pie de la página 1 únicamente
+const idVideoYouTubeSearchConsole = "OrExQjVndjI";
 
 const paginasSearchConsoleMap = {
     1: "guia-google-search-console/00-portada-notebook.png",
@@ -403,6 +403,72 @@ function alternarVideoSearchConsole() {
             contenedorVideo.scrollIntoView({ behavior: "smooth", block: "start" });
         }, 80);
     }
+}
+
+
+/* ==================================================
+   CURSO 6: GUÍA DE CACHÉ Y PLATAFORMA DIGITAL (6 PÁGINAS)
+   ================================================== */
+
+const totalPaginasCache = 6;
+let paginaActualCache = 1;
+
+const paginasCacheMap = {
+    1: "guia-cache-plataforma-digital/01-portada.png",
+    2: "guia-cache-plataforma-digital/02-la-interfaz-puede-variar.png",
+    3: "guia-cache-plataforma-digital/03-la-opcion-omitir.png",
+    4: "guia-cache-plataforma-digital/04-no-garantiza-actualizacion.png",
+    5: "guia-cache-plataforma-digital/05-la-version-en-los-archivos.png",
+    6: "guia-cache-plataforma-digital/06-aclaracion-importante.png"
+};
+
+function abrirPaginaCache(numeroPagina) {
+    paginaActualCache = numeroPagina;
+    const modal = document.getElementById("modalCache");
+    const imagenVisor = document.getElementById("paginaVisorCache");
+    const botonAnterior = document.getElementById("botonAnteriorCache");
+    const botonAccion = document.getElementById("accionPaginaCache");
+
+    if (modal && imagenVisor) {
+        imagenVisor.src = paginasCacheMap[paginaActualCache];
+        imagenVisor.alt = `Página ${paginaActualCache} de Guía de Caché`;
+
+        if (botonAnterior) {
+            botonAnterior.style.display = (paginaActualCache <= 1) ? "none" : "inline-block";
+        }
+        if (botonAccion) {
+            botonAccion.textContent = (paginaActualCache >= totalPaginasCache) ? "VOLVER A INTERFAZ" : "SIGUIENTE PÁGINA";
+        }
+
+        modal.style.display = "flex";
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+    }
+}
+
+function cerrarModalCache() {
+    const modal = document.getElementById("modalCache");
+    const visor = document.getElementById("paginaVisorCache");
+
+    if (modal) {
+        modal.style.display = "none";
+        modal.setAttribute("aria-hidden", "true");
+    }
+    if (visor) visor.src = "";
+    document.body.style.overflow = "";
+}
+
+function avanzarPaginaCache() {
+    if (paginaActualCache >= totalPaginasCache) {
+        cerrarModalCache();
+        return;
+    }
+    abrirPaginaCache(paginaActualCache + 1);
+}
+
+function retrocederPaginaCache() {
+    if (paginaActualCache <= 1) return;
+    abrirPaginaCache(paginaActualCache - 1);
 }
 
 
@@ -646,7 +712,8 @@ async function intentarIngreso() {
             return;
         }
 
-        if (mensajeIngreso) mensajeIngreso.textContent = "Este correo no registra un pago activo. Redirigiendo para adquirir el curso...";
+        // CORRECCIÓN QUIRÚRGICA DEL FLUJO DE PAGO: REDIRECCIÓN OBLIGATORIA E INMEDIATA
+        if (mensajeIngreso) mensajeIngreso.textContent = "Redirigiendo a Mercado Pago...";
         await abrirMercadoPago();
     } catch (error) {
         if (mensajeIngreso) mensajeIngreso.textContent = "Error de conexión con Supabase.";
@@ -1152,12 +1219,14 @@ window.addEventListener("click", function(event) {
     const modalMails = document.getElementById("modalMails");
     const modalPlayConsole = document.getElementById("modalPlayConsole");
     const modalSearchConsole = document.getElementById("modalSearchConsole");
+    const modalCache = document.getElementById("modalCache");
 
     if (event.target === modal) cerrarModal();
     if (event.target === modalBlindaje) cerrarModalBlindaje();
     if (event.target === modalMails) cerrarModalMails();
     if (event.target === modalPlayConsole) cerrarModalPlayConsole();
     if (event.target === modalSearchConsole) cerrarModalSearchConsole();
+    if (event.target === modalCache) cerrarModalCache();
 });
 
 document.addEventListener("keydown", function(event) {
@@ -1167,6 +1236,7 @@ document.addEventListener("keydown", function(event) {
         cerrarModalMails();
         cerrarModalPlayConsole();
         cerrarModalSearchConsole();
+        cerrarModalCache();
     }
 });
 

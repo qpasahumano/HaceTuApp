@@ -1,7 +1,7 @@
 "use strict";
 
-/* CACHE-BUSTER-FORCE: 2026-10-23-1400 - FORZAR RECARGA TOTAL */
-const HM_JS_VERSION = "18.10";
+/* CACHE-BUSTER-FORCE: 2026-10-23-1430 - FORZAR RECARGA TOTAL */
+const HM_JS_VERSION = "18.11";
 
 
 /* ==================================================
@@ -59,13 +59,7 @@ for (let i = 1; i <= totalPaginasBlindaje; i++) {
     }
 }
 
-const videosBlindaje = {
-    2: "https://youtu.be/mp8pfF9UnwU?si=64oEJaYHq162gKWE",
-    3: "https://youtu.be/NY1qfQk1HI4?si=Pzi7qjEwzsbVZseo",
-    5: "https://youtu.be/TDPHl9ki4Ps?si=hoE1VV0O8MpISO_B",
-    6: "https://youtu.be/NdvozbM5dyo?si=tVO8JBoZDohOq4-q"
-};
-
+const videosBlindaje = {};
 const subtitulosBlindaje = {};
 let paginaActualBlindaje = 1;
 
@@ -183,7 +177,6 @@ function alternarVideoMails() {
 
 const totalPaginasPlayConsole = 7;
 let paginaActualPlayConsole = 1;
-const idVideoYouTubePlayConsole = "REEMPLAZAR_CON_ID_VIDEO_PLAY_CONSOLE";
 
 function abrirPaginaPlayConsole(numeroPagina) {
     paginaActualPlayConsole = numeroPagina;
@@ -206,27 +199,17 @@ function abrirPaginaPlayConsole(numeroPagina) {
         modal.style.display = "flex";
         modal.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
-
-        actualizarVisibilidadVideoPlayConsole();
     }
 }
 
 function cerrarModalPlayConsole() {
     const modal = document.getElementById("modalPlayConsole");
     const visor = document.getElementById("paginaVisorPlayConsole");
-    const iframeVideo = document.getElementById("videoPlayConsole");
-    const contenedorVideo = document.getElementById("contenedorVideoPlayConsole");
-
     if (modal) {
         modal.style.display = "none";
         modal.setAttribute("aria-hidden", "true");
     }
     if (visor) visor.src = "";
-    if (iframeVideo) iframeVideo.src = "";
-    if (contenedorVideo) {
-        contenedorVideo.classList.remove("visible");
-        contenedorVideo.setAttribute("aria-hidden", "true");
-    }
     document.body.style.overflow = "";
 }
 
@@ -241,46 +224,6 @@ function avanzarPaginaPlayConsole() {
 function retrocederPaginaPlayConsole() {
     if (paginaActualPlayConsole <= 1) return;
     abrirPaginaPlayConsole(paginaActualPlayConsole - 1);
-}
-
-function actualizarVisibilidadVideoPlayConsole() {
-    const botonVideo = document.getElementById("botonVideoComplementarioPlayConsole");
-    const contenedorVideo = document.getElementById("contenedorVideoPlayConsole");
-    const iframeVideo = document.getElementById("videoPlayConsole");
-
-    if (paginaActualPlayConsole === 1) {
-        if (botonVideo) {
-            botonVideo.style.display = "inline-block";
-            botonVideo.textContent = "▶ VER VIDEO";
-        }
-    } else {
-        if (botonVideo) botonVideo.style.display = "none";
-        if (contenedorVideo) {
-            contenedorVideo.classList.remove("visible");
-            contenedorVideo.setAttribute("aria-hidden", "true");
-        }
-        if (iframeVideo) iframeVideo.src = "";
-    }
-}
-
-function alternarVideoPlayConsole() {
-    const botonVideo = document.getElementById("botonVideoComplementarioPlayConsole");
-    const contenedorVideo = document.getElementById("contenedorVideoPlayConsole");
-    const iframeVideo = document.getElementById("videoPlayConsole");
-
-    if (!contenedorVideo || !iframeVideo) return;
-
-    if (contenedorVideo.classList.contains("visible")) {
-        contenedorVideo.classList.remove("visible");
-        contenedorVideo.setAttribute("aria-hidden", "true");
-        iframeVideo.src = "";
-        if (botonVideo) botonVideo.textContent = "▶ VER VIDEO";
-    } else {
-        contenedorVideo.classList.add("visible");
-        contenedorVideo.setAttribute("aria-hidden", "false");
-        iframeVideo.src = `https://www.youtube.com/embed/${idVideoYouTubePlayConsole}?autoplay=1&rel=0`;
-        if (botonVideo) botonVideo.textContent = "▲ CERRAR VIDEO";
-    }
 }
 
 
@@ -412,13 +355,14 @@ function alternarVideoSearchConsole() {
 
 const totalPaginasCache = 6;
 let paginaActualCache = 1;
+const idVideoYouTubeCache = "4PA3_FX1MWg"; // Video asignado a la página 2
 
 const paginasCacheMap = {
     1: "guia-cache-plataforma-digital/01-portada.png",
-    2: "guia-cache-plataforma-digital/02-la-interfaz-puede-variar.png",
-    3: "guia-cache-plataforma-digital/03-la-opcion-omitir.png",
-    4: "guia-cache-plataforma-digital/04-no-garantiza-actualizacion.png",
-    5: "guia-cache-plataforma-digital/05-la-version-en-los-archivos.png",
+    2: "guia-cache-plataforma-digital/02-herramientas-y-contexto.png",
+    3: "guia-cache-plataforma-digital/03-recorrido-cloudflare.png",
+    4: "guia-cache-plataforma-digital/04-configuracion-anti-cache.png",
+    5: "guia-cache-plataforma-digital/05-habito-desarrollador.png",
     6: "guia-cache-plataforma-digital/06-aclaracion-importante.png"
 };
 
@@ -443,18 +387,27 @@ function abrirPaginaCache(numeroPagina) {
         modal.style.display = "flex";
         modal.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
+
+        actualizarVisibilidadVideoCache();
     }
 }
 
 function cerrarModalCache() {
     const modal = document.getElementById("modalCache");
     const visor = document.getElementById("paginaVisorCache");
+    const iframeVideo = document.getElementById("videoCache");
+    const contenedorVideo = document.getElementById("contenedorVideoCache");
 
     if (modal) {
         modal.style.display = "none";
         modal.setAttribute("aria-hidden", "true");
     }
     if (visor) visor.src = "";
+    if (iframeVideo) iframeVideo.src = "";
+    if (contenedorVideo) {
+        contenedorVideo.classList.remove("visible");
+        contenedorVideo.setAttribute("aria-hidden", "true");
+    }
     document.body.style.overflow = "";
 }
 
@@ -469,6 +422,50 @@ function avanzarPaginaCache() {
 function retrocederPaginaCache() {
     if (paginaActualCache <= 1) return;
     abrirPaginaCache(paginaActualCache - 1);
+}
+
+function actualizarVisibilidadVideoCache() {
+    const botonVideo = document.getElementById("botonVideoComplementarioCache");
+    const contenedorVideo = document.getElementById("contenedorVideoCache");
+    const iframeVideo = document.getElementById("videoCache");
+
+    if (paginaActualCache === 2) {
+        if (botonVideo) {
+            botonVideo.style.display = "inline-block";
+            botonVideo.textContent = "▶ VER VIDEO";
+        }
+    } else {
+        if (botonVideo) botonVideo.style.display = "none";
+        if (contenedorVideo) {
+            contenedorVideo.classList.remove("visible");
+            contenedorVideo.setAttribute("aria-hidden", "true");
+        }
+        if (iframeVideo) iframeVideo.src = "";
+    }
+}
+
+function alternarVideoCache() {
+    const botonVideo = document.getElementById("botonVideoComplementarioCache");
+    const contenedorVideo = document.getElementById("contenedorVideoCache");
+    const iframeVideo = document.getElementById("videoCache");
+
+    if (!contenedorVideo || !iframeVideo) return;
+
+    if (contenedorVideo.classList.contains("visible")) {
+        contenedorVideo.classList.remove("visible");
+        contenedorVideo.setAttribute("aria-hidden", "true");
+        iframeVideo.src = "";
+        if (botonVideo) botonVideo.textContent = "▶ VER VIDEO";
+    } else {
+        contenedorVideo.classList.add("visible");
+        contenedorVideo.setAttribute("aria-hidden", "false");
+        iframeVideo.src = `https://www.youtube.com/embed/${idVideoYouTubeCache}?autoplay=1&rel=0`;
+        if (botonVideo) botonVideo.textContent = "▲ CERRAR VIDEO";
+
+        window.setTimeout(function() {
+            contenedorVideo.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 80);
+    }
 }
 
 
@@ -712,7 +709,6 @@ async function intentarIngreso() {
             return;
         }
 
-        // CORRECCIÓN QUIRÚRGICA DEL FLUJO DE PAGO: REDIRECCIÓN OBLIGATORIA E INMEDIATA
         if (mensajeIngreso) mensajeIngreso.textContent = "Redirigiendo a Mercado Pago...";
         await abrirMercadoPago();
     } catch (error) {
@@ -1037,162 +1033,6 @@ function cerrarModal() {
     const visor = document.getElementById("paginaVisor");
     const video = document.getElementById("videoComplementario");
     const contenedorVideo = document.getElementById("contenedorVideoComplementario");
-
-    if (!modal) return;
-
-    modal.style.display = "none";
-    modal.setAttribute("aria-hidden", "true");
-
-    if (visor) visor.src = "";
-    if (video) video.src = "";
-    if (contenedorVideo) {
-        contenedorVideo.classList.remove("visible");
-        contenedorVideo.setAttribute("aria-hidden", "true");
-    }
-    document.body.style.overflow = "";
-}
-
-
-/* ==================================================
-   LÓGICA BLINDAJE DIGITAL (76 PÁGINAS PASO A PASO)
-   ================================================== */
-
-function gestionarAvisoRotacion(num) {
-    const aviso = document.getElementById("avisoGirarCelular");
-
-    if (!aviso) return;
-
-    if (num === 49) {
-        aviso.textContent =
-            "📱 Girá el celular a posición horizontal para leer las próximas páginas cuando sea necesario.";
-        aviso.style.cssText =
-            "display:block; color:#ffffff; background:transparent; border:0;" +
-            "box-shadow:none; border-radius:0; padding:0; margin:0 auto 8px;" +
-            "font-family:'Courier New',monospace; font-size:12px;" +
-            "line-height:1.4; text-align:center; max-width:95%;";
-    } else {
-        aviso.style.display = "none";
-    }
-}
-
-function resetearVideoBlindaje() {
-    const botonVideo = document.getElementById("botonVideoComplementarioBlindaje");
-    const subtitulo = document.getElementById("subtituloVideoBlindaje");
-    const contenedorVideo = document.getElementById("contenedorVideoBlindaje");
-    const video = document.getElementById("videoBlindaje");
-
-    if (!botonVideo || !subtitulo || !contenedorVideo || !video) return;
-
-    video.src = "";
-    contenedorVideo.classList.remove("visible");
-    contenedorVideo.setAttribute("aria-hidden", "true");
-    botonVideo.textContent = "▶ VER VIDEO";
-    subtitulo.textContent = subtitulosBlindaje[paginaActualBlindaje] || "";
-}
-
-function prepararVideoBlindaje() {
-    const botonVideo = document.getElementById("botonVideoComplementarioBlindaje");
-    const subtitulo = document.getElementById("subtituloVideoBlindaje");
-    if (!botonVideo || !subtitulo) return;
-
-    const urlVideo = videosBlindaje[paginaActualBlindaje];
-    if (!urlVideo) {
-        botonVideo.classList.add("oculto");
-        subtitulo.textContent = "";
-        return;
-    }
-    botonVideo.classList.remove("oculto");
-    subtitulo.textContent = subtitulosBlindaje[paginaActualBlindaje] || "";
-}
-
-function alternarVideoBlindaje() {
-    const botonVideo = document.getElementById("botonVideoComplementarioBlindaje");
-    const contenedorVideo = document.getElementById("contenedorVideoBlindaje");
-    const video = document.getElementById("videoBlindaje");
-
-    if (!botonVideo || !contenedorVideo || !video) return;
-
-    const urlVideo = videosBlindaje[paginaActualBlindaje];
-    if (!urlVideo) {
-        alert("El video complementario de esta página estará disponible próximamente.");
-        return;
-    }
-
-    const videoVisible = contenedorVideo.classList.contains("visible");
-    if (videoVisible) {
-        video.src = "";
-        contenedorVideo.classList.remove("visible");
-        contenedorVideo.setAttribute("aria-hidden", "true");
-        botonVideo.textContent = "▶ VER VIDEO";
-        return;
-    }
-
-    const youtubeId = obtenerIdYoutube(urlVideo);
-    if (!youtubeId) return;
-
-    video.src = "https://www.youtube.com/embed/" + encodeURIComponent(youtubeId) + "?autoplay=1&rel=0";
-    contenedorVideo.classList.add("visible");
-    contenedorVideo.setAttribute("aria-hidden", "false");
-    botonVideo.textContent = "▲ CERRAR VIDEO";
-}
-
-function cargarPaginaBlindaje(num) {
-    const visor = document.getElementById("paginaVisorBlindaje");
-    const carpeta = document.querySelector("#modalBlindaje .carpeta-visor");
-    const botonAnterior = document.getElementById("botonAnteriorBlindaje");
-
-    if (!visor) return;
-
-    paginaActualBlindaje = num;
-
-    visor.src = paginasBlindaje[num]; 
-    visor.alt = "Página " + num + " del curso Blindaje Digital";
-
-    gestionarAvisoRotacion(num);
-
-    const botonAccion = document.getElementById("accionPaginaBlindaje");
-    if (botonAccion) {
-        botonAccion.textContent = (num >= totalPaginasBlindaje) ? "VOLVER A INTERFAZ" : "SIGUIENTE PÁGINA";
-    }
-
-    if (botonAnterior) {
-        botonAnterior.style.display = (num <= 1) ? "none" : "inline-block";
-    }
-
-    resetearVideoBlindaje();
-    prepararVideoBlindaje();
-
-    if (carpeta) carpeta.scrollTop = 0;
-}
-
-function abrirPaginaBlindaje(num = 1) {
-    const modal = document.getElementById("modalBlindaje");
-    if (!modal) return;
-
-    cargarPaginaBlindaje(num);
-    modal.style.display = "flex";
-    modal.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
-}
-
-function avanzarPaginaBlindaje() {
-    if (paginaActualBlindaje >= totalPaginasBlindaje) {
-        cerrarModalBlindaje();
-        return;
-    }
-    cargarPaginaBlindaje(paginaActualBlindaje + 1);
-}
-
-function retrocederPaginaBlindaje() {
-    if (paginaActualBlindaje <= 1) return;
-    cargarPaginaBlindaje(paginaActualBlindaje - 1);
-}
-
-function cerrarModalBlindaje() {
-    const modal = document.getElementById("modalBlindaje");
-    const visor = document.getElementById("paginaVisorBlindaje");
-    const video = document.getElementById("videoBlindaje");
-    const contenedorVideo = document.getElementById("contenedorVideoBlindaje");
 
     if (!modal) return;
 

@@ -1,7 +1,7 @@
 "use strict";
 
-/* CACHE-BUSTER-FORCE: 2026-10-23-1430 - FORZAR RECARGA TOTAL */
-const HM_JS_VERSION = "18.11";
+/* CACHE-BUSTER-FORCE: 2026-10-23-1500 - FORZAR RECARGA TOTAL */
+const HM_JS_VERSION = "18.12";
 
 
 /* ==================================================
@@ -59,9 +59,61 @@ for (let i = 1; i <= totalPaginasBlindaje; i++) {
     }
 }
 
-const videosBlindaje = {};
-const subtitulosBlindaje = {};
 let paginaActualBlindaje = 1;
+
+function abrirPaginaBlindaje(numeroPagina) {
+    paginaActualBlindaje = numeroPagina;
+    const modal = document.getElementById("modalBlindaje");
+    const imagenVisor = document.getElementById("paginaVisorBlindaje");
+    const botonAnterior = document.getElementById("botonAnteriorBlindaje");
+    const botonAccion = document.getElementById("accionPaginaBlindaje");
+    const avisoGirar = document.getElementById("avisoGirarCelular");
+
+    if (modal && imagenVisor) {
+        const nombreArchivo = paginasBlindaje[paginaActualBlindaje] || `Página ${paginaActualBlindaje}.png`;
+        imagenVisor.src = encodeURI(nombreArchivo);
+        imagenVisor.alt = `Página ${paginaActualBlindaje} de Blindaje Digital`;
+
+        if (botonAnterior) {
+            botonAnterior.style.display = (paginaActualBlindaje <= 1) ? "none" : "inline-block";
+        }
+        if (botonAccion) {
+            botonAccion.textContent = (paginaActualBlindaje >= totalPaginasBlindaje) ? "VOLVER A INTERFAZ" : "SIGUIENTE PÁGINA";
+        }
+
+        if (avisoGirar) {
+            avisoGirar.style.display = (paginaActualBlindaje === 49) ? "block" : "none";
+        }
+
+        modal.style.display = "flex";
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+    }
+}
+
+function cerrarModalBlindaje() {
+    const modal = document.getElementById("modalBlindaje");
+    const visor = document.getElementById("paginaVisorBlindaje");
+    if (modal) {
+        modal.style.display = "none";
+        modal.setAttribute("aria-hidden", "true");
+    }
+    if (visor) visor.src = "";
+    document.body.style.overflow = "";
+}
+
+function avanzarPaginaBlindaje() {
+    if (paginaActualBlindaje >= totalPaginasBlindaje) {
+        cerrarModalBlindaje();
+        return;
+    }
+    abrirPaginaBlindaje(paginaActualBlindaje + 1);
+}
+
+function retrocederPaginaBlindaje() {
+    if (paginaActualBlindaje <= 1) return;
+    abrirPaginaBlindaje(paginaActualBlindaje - 1);
+}
 
 
 /* ==================================================
@@ -177,6 +229,7 @@ function alternarVideoMails() {
 
 const totalPaginasPlayConsole = 7;
 let paginaActualPlayConsole = 1;
+const idVideoYouTubePlayConsole = "YF1otO4tfvk"; // Video asignado a la página 2
 
 function abrirPaginaPlayConsole(numeroPagina) {
     paginaActualPlayConsole = numeroPagina;
@@ -199,17 +252,27 @@ function abrirPaginaPlayConsole(numeroPagina) {
         modal.style.display = "flex";
         modal.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
+
+        actualizarVisibilidadVideoPlayConsole();
     }
 }
 
 function cerrarModalPlayConsole() {
     const modal = document.getElementById("modalPlayConsole");
     const visor = document.getElementById("paginaVisorPlayConsole");
+    const iframeVideo = document.getElementById("videoPlayConsole");
+    const contenedorVideo = document.getElementById("contenedorVideoPlayConsole");
+
     if (modal) {
         modal.style.display = "none";
         modal.setAttribute("aria-hidden", "true");
     }
     if (visor) visor.src = "";
+    if (iframeVideo) iframeVideo.src = "";
+    if (contenedorVideo) {
+        contenedorVideo.classList.remove("visible");
+        contenedorVideo.setAttribute("aria-hidden", "true");
+    }
     document.body.style.overflow = "";
 }
 
@@ -224,6 +287,50 @@ function avanzarPaginaPlayConsole() {
 function retrocederPaginaPlayConsole() {
     if (paginaActualPlayConsole <= 1) return;
     abrirPaginaPlayConsole(paginaActualPlayConsole - 1);
+}
+
+function actualizarVisibilidadVideoPlayConsole() {
+    const botonVideo = document.getElementById("botonVideoComplementarioPlayConsole");
+    const contenedorVideo = document.getElementById("contenedorVideoPlayConsole");
+    const iframeVideo = document.getElementById("videoPlayConsole");
+
+    if (paginaActualPlayConsole === 2) {
+        if (botonVideo) {
+            botonVideo.style.display = "inline-block";
+            botonVideo.textContent = "▶ VER VIDEO";
+        }
+    } else {
+        if (botonVideo) botonVideo.style.display = "none";
+        if (contenedorVideo) {
+            contenedorVideo.classList.remove("visible");
+            contenedorVideo.setAttribute("aria-hidden", "true");
+        }
+        if (iframeVideo) iframeVideo.src = "";
+    }
+}
+
+function alternarVideoPlayConsole() {
+    const botonVideo = document.getElementById("botonVideoComplementarioPlayConsole");
+    const contenedorVideo = document.getElementById("contenedorVideoPlayConsole");
+    const iframeVideo = document.getElementById("videoPlayConsole");
+
+    if (!contenedorVideo || !iframeVideo) return;
+
+    if (contenedorVideo.classList.contains("visible")) {
+        contenedorVideo.classList.remove("visible");
+        contenedorVideo.setAttribute("aria-hidden", "true");
+        iframeVideo.src = "";
+        if (botonVideo) botonVideo.textContent = "▶ VER VIDEO";
+    } else {
+        contenedorVideo.classList.add("visible");
+        contenedorVideo.setAttribute("aria-hidden", "false");
+        iframeVideo.src = `https://www.youtube.com/embed/${idVideoYouTubePlayConsole}?autoplay=1&rel=0`;
+        if (botonVideo) botonVideo.textContent = "▲ CERRAR VIDEO";
+
+        window.setTimeout(function() {
+            contenedorVideo.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 80);
+    }
 }
 
 
@@ -355,7 +462,7 @@ function alternarVideoSearchConsole() {
 
 const totalPaginasCache = 6;
 let paginaActualCache = 1;
-const idVideoYouTubeCache = "4PA3_FX1MWg"; // Video asignado a la página 2
+const idVideoYouTubeCache = "4PA3_FX1MWg";
 
 const paginasCacheMap = {
     1: "guia-cache-plataforma-digital/01-portada.png",

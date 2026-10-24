@@ -1,7 +1,7 @@
 "use strict";
 
-/* CACHE-BUSTER-FORCE: 2026-10-24-1345 - FORZAR RECARGA TOTAL CON PRELOADER */
-const HM_JS_VERSION = "18.16";
+/* CACHE-BUSTER-FORCE: 2026-10-24-1730 - FORZAR RECARGA TOTAL */
+const HM_JS_VERSION = "18.17";
 
 
 /* ==================================================
@@ -90,12 +90,11 @@ for (let i = 1; i <= totalPaginasBlindaje; i++) {
     }
 }
 
-/* MAPA DE VIDEOS REALES DE BLINDAJE DIGITAL (CORREGIDO) */
 const videosBlindajeMap = {
-    2: "mp8pfF9UnwU", // Supabase
-    3: "NY1qfQk1HI4", // Mercado Pago
-    5: "TDPHl9ki4Ps", // GitHub
-    6: "NdvozbM5dyo"  // Cloudflare
+    2: "mp8pfF9UnwU",
+    3: "NY1qfQk1HI4",
+    5: "TDPHl9ki4Ps",
+    6: "NdvozbM5dyo"
 };
 
 let paginaActualBlindaje = 1;
@@ -765,7 +764,7 @@ async function validarSesionUnica(cliente, userId) {
 
 
 /* ==================================================
-   PANTALLA PREVIA Y CONTROL DE ACCESO
+   PANTALLA PREVIA Y CONTROL DE ACCESO (MERCADO PAGO RESTAURADO)
    ================================================== */
 
 const pantallaAcceso = document.getElementById("pantallaAcceso");
@@ -897,40 +896,18 @@ async function intentarIngreso() {
 }
 
 async function abrirMercadoPago() {
-    if (mensajeIngreso) mensajeIngreso.textContent = "Redirigiendo a Mercado Pago...";
+    if (mensajeIngreso) mensajeIngreso.textContent = "Generando el enlace de pago...";
     try {
         const cliente = await obtenerSupabaseClient();
-        const { data: usuarioData, error: usuarioError } = await cliente.auth.getUser();
-
-        if (usuarioError || !usuarioData || !usuarioData.user) {
-            mostrarPanelIngreso();
-            return;
-        }
-
-        const tieneAcceso = await consultarAccesoUsuario(cliente, usuarioData.user.id);
-        if (tieneAcceso) {
-            const resultadoSesion = await verificarYSellarSesion(cliente, usuarioData.user.id);
-            if (!resultadoSesion.permitido) {
-                if (mensajeIngreso) mensajeIngreso.textContent = resultadoSesion.mensaje;
-                await cliente.auth.signOut();
-                return;
-            }
-            mostrarContenidoPrincipal();
-            return;
-        }
-
-        if (mensajeIngreso) mensajeIngreso.textContent = "Generando el enlace de pago...";
         const { data, error } = await cliente.functions.invoke(SUPABASE_FUNCTION_PAGO, { body: {} });
 
         if (error || !data || !data.payment_url) {
-            if (mensajeIngreso) mensajeIngreso.textContent = "No se pudo generar el pago.";
-            mostrarPanelIngreso();
+            if (mensajeIngreso) mensajeIngreso.textContent = "No se pudo generar el enlace de pago.";
             return;
         }
         window.location.href = data.payment_url;
     } catch (error) {
         if (mensajeIngreso) mensajeIngreso.textContent = "No se pudo conectar con el sistema de pago.";
-        mostrarPanelIngreso();
     }
 }
 

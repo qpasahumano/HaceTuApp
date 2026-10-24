@@ -1,7 +1,7 @@
 "use strict";
 
-/* CACHE-BUSTER-FORCE: 2026-10-24-1730 - FORZAR RECARGA TOTAL */
-const HM_JS_VERSION = "18.17";
+/* CACHE-BUSTER-FORCE: 2026-10-24-1800 - FORZAR RECARGA TOTAL */
+const HM_JS_VERSION = "18.18";
 
 
 /* ==================================================
@@ -764,7 +764,7 @@ async function validarSesionUnica(cliente, userId) {
 
 
 /* ==================================================
-   PANTALLA PREVIA Y CONTROL DE ACCESO (MERCADO PAGO RESTAURADO)
+   PANTALLA PREVIA Y CONTROL DE ACCESO (LIBRE DE BLOQUEOS)
    ================================================== */
 
 const pantallaAcceso = document.getElementById("pantallaAcceso");
@@ -1148,7 +1148,7 @@ function cerrarModal() {
 
 
 /* ==================================================
-   CIERRES Y PROTECCIONES
+   CIERRES Y PROTECCIONES (CLIC DERECHO HABILITADO)
    ================================================== */
 
 window.addEventListener("click", function(event) {
@@ -1178,14 +1178,8 @@ document.addEventListener("keydown", function(event) {
     }
 });
 
-document.addEventListener("contextmenu", function(event) { event.preventDefault(); });
+// El bloque de contextmenu (clic derecho) ha sido retirado para garantizar que los botones y la interacción respondan siempre.
 document.addEventListener("dragstart", function(event) { if (event.target.tagName === "IMG") event.preventDefault(); });
-
-document.addEventListener("keydown", function(event) {
-    const key = event.key.toLowerCase();
-    if (event.ctrlKey && (key === "s" || key === "p" || key === "u" || key === "i")) event.preventDefault();
-    if (event.ctrlKey && event.shiftKey && (key === "i" || key === "j" || key === "c")) event.preventDefault();
-});
 
 document.querySelectorAll("img").forEach(function(imagen) { imagen.setAttribute("draggable", "false"); });
 

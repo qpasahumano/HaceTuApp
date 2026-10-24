@@ -775,6 +775,7 @@ const usuarioAcceso = document.getElementById("usuarioAcceso");
 const claveAcceso = document.getElementById("claveAcceso");
 
 const MODO_DESARROLLO = false;
+let modoIngreso = "login"; // 'login' o 'registro'
 
 function mostrarContenidoPrincipal() {
     if (contenidoPrincipal) contenidoPrincipal.style.display = "block";
@@ -787,12 +788,16 @@ function ocultarContenidoPrincipal() {
     if (pantallaAcceso) pantallaAcceso.style.display = "block";
 }
 
-function mostrarPanelIngreso() {
+function mostrarPanelIngreso(modo) {
     if (!panelIngreso) return;
+    modoIngreso = modo || "login";
     panelIngreso.classList.add("visible");
     panelIngreso.setAttribute("aria-hidden", "false");
 
     if (usuarioAcceso) usuarioAcceso.placeholder = "Correo electrónico";
+    if (botonConfirmarIngreso) {
+        botonConfirmarIngreso.textContent = (modoIngreso === "registro") ? "REGISTRARME Y PAGAR" : "INGRESAR";
+    }
     if (mensajeIngreso) mensajeIngreso.textContent = "";
     window.setTimeout(function() { if (usuarioAcceso) usuarioAcceso.focus(); }, 80);
 }
@@ -846,54 +851,76 @@ async function intentarIngreso() {
         if (mensajeIngreso) mensajeIngreso.textContent = "Ingresá tu correo y tu clave.";
         return;
     }
-    if (mensajeIngreso) mensajeIngreso.textContent = "Verificando acceso...";
 
     try {
         const cliente = await obtenerSupabaseClient();
-        const { data, error } = await cliente.auth.signInWithPassword({ email: email, password: password });
 
-        if (error) {
-            if (mensajeIngreso) {
-                const mensajeError = error.message || "";
-                if (mensajeError.includes("rate limit") || mensajeError.includes("52 seconds")) {
-                    mensajeIngreso.textContent = "Por seguridad, aguardá unos segundos antes de intentar nuevamente.";
-                } else {
-                    mensajeIngreso.textContent = "Correo o contraseña incorrectos.";
+        if (modoIngreso === "registro") {
+            if (mensajeIngreso) mensajeIngreso.textContent = "Creando cuenta...";
+            const { data: dataReg, error: errorReg } = await cliente.auth.signUp({ email: email, password: password });
+
+            if (errorReg) {
+                // Si la cuenta ya existe, se loguea
+                if (errorReg.message.includes("User already registered")) {
+                    const { data: dataLogin, error: errorLogin } = await cliente.auth.signInWithPassword({ email: email, password: password });
+                    if (errorLogin) {
+                        if (mensajeIngreso) mensajeIngreso.textContent = "El usuario ya existe. Clave incorrecta.";
+                        return;
+                    }
+                    await procesarAccesoOPago(cliente, dataLogin.user.id);
+                    return;
                 }
-            }
-            return;
-        }
-
-        if (!data || !data.user) {
-            if (mensajeIngreso) mensajeIngreso.textContent = "No se pudo validar la cuenta.";
-            return;
-        }
-
-        const tieneAcceso = await consultarAccesoUsuario(cliente, data.user.id);
-        if (tieneAcceso) {
-            const resultadoSesion = await verificarYSellarSesion(cliente, data.user.id);
-            if (!resultadoSesion.permitido) {
-                if (mensajeIngreso) mensajeIngreso.textContent = resultadoSesion.mensaje;
-                await cliente.auth.signOut();
+                if (mensajeIngreso) mensajeIngreso.textContent = errorReg.message || "Error al crear la cuenta.";
                 return;
             }
-            ocultarPanelIngreso();
-            mostrarContenidoPrincipal();
-            return;
-        }
 
-        if (mensajeIngreso) mensajeIngreso.textContent = "Redirigiendo a Mercado Pago...";
-        await abrirMercadoPago();
+            if (dataReg && dataReg.user) {
+                if (mensajeIngreso) mensajeIngreso.textContent = "Cuenta creada. Redirigiendo a Mercado Pago...";
+                await abrirMercadoPago(dataReg.user.id);
+            }
+        } else {
+            if (mensajeIngreso) mensajeIngreso.textContent = "Verificando acceso...";
+            const { data, error } = await cliente.auth.signInWithPassword({ email: email, password: password });
+
+            if (error) {
+                if (mensajeIngreso) mensajeIngreso.textContent = "Correo o contraseña incorrectos.";
+                return;
+            }
+
+            if (data && data.user) {
+                await procesarAccesoOPago(cliente, data.user.id);
+            }
+        }
     } catch (error) {
-        if (mensajeIngreso) mensajeIngreso.textContent = "Error de conexión con Supabase.";
+        if (mensajeIngreso) mensajeIngreso.textContent = "Error de conexión con el servidor.";
     }
 }
 
-async function abrirMercadoPago() {
+async function procesarAccesoOPago(cliente, userId) {
+    const tieneAcceso = await consultarAccesoUsuario(cliente, userId);
+    if (tieneAcceso) {
+        const resultadoSesion = await verificarYSellarSesion(cliente, userId);
+        if (!resultadoSesion.permitido) {
+            if (mensajeIngreso) mensajeIngreso.textContent = resultadoSesion.mensaje;
+            await cliente.auth.signOut();
+            return;
+        }
+        ocultarPanelIngreso();
+        mostrarContenidoPrincipal();
+        return;
+    }
+
+    if (mensajeIngreso) mensajeIngreso.textContent = "Generando pago ($45.000)...";
+    await abrirMercadoPago(userId);
+}
+
+async function abrirMercadoPago(userId) {
     if (mensajeIngreso) mensajeIngreso.textContent = "Generando el enlace de pago ($45.000)...";
     try {
         const cliente = await obtenerSupabaseClient();
-        const { data, error } = await cliente.functions.invoke(SUPABASE_FUNCTION_PAGO, { body: {} });
+        const { data, error } = await cliente.functions.invoke(SUPABASE_FUNCTION_PAGO, { 
+            body: { user_id: userId } 
+        });
 
         if (error || !data || !data.payment_url) {
             if (mensajeIngreso) mensajeIngreso.textContent = "No se pudo generar el enlace de pago.";
@@ -901,7 +928,7 @@ async function abrirMercadoPago() {
         }
         window.location.href = data.payment_url;
     } catch (error) {
-        if (mensajeIngreso) mensajeIngreso.textContent = "No se pudo conectar con el sistema de pago.";
+        if (mensajeIngreso) mensajeIngreso.textContent = "No se pudo conectar con Mercado Pago.";
     }
 }
 
@@ -1196,17 +1223,19 @@ function vincularEventosManuales() {
     const btnConfirmar = document.getElementById("botonConfirmarIngreso");
     const btnCerrar = document.getElementById("botonCerrarIngreso");
 
+    // BOTÓN IZQUIERDO: Ya tengo acceso -> Iniciar Sesión
     if (btnYa) {
         btnYa.onclick = function(e) {
             e.preventDefault();
-            mostrarPanelIngreso();
+            mostrarPanelIngreso("login");
         };
     }
 
+    // BOTÓN DERECHO: No tengo acceso -> Crear usuario por 1a vez y redirigir a Mercado Pago
     if (btnNo) {
         btnNo.onclick = function(e) {
             e.preventDefault();
-            abrirMercadoPago();
+            mostrarPanelIngreso("registro");
         };
     }
 

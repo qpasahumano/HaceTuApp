@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 /* ==================================================
-   HAZTUAPP.COM - ESTYLOS GENERALES (v=63-force-refresh-cs)
+   HAZTUAPP.COM - ESTYLOS GENERALES (v=64-force-refresh-cs)
    ================================================== */
 
 * {
@@ -590,16 +590,16 @@ body::before {
     border-color: rgba(110, 231, 183, 0.75);
 }
 
-/* PENDRIVES AGRANDADOS Y VISIBLES */
+/* PENDRIVES AGRANDADOS Y DESTACADOS */
 .imagen-pendrive {
     display: block;
     width: 100%;
     height: auto;
-    max-height: 120px !important;
+    max-height: 155px !important;
     object-fit: contain;
     margin-bottom: 0;
     pointer-events: none;
-    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.75));
+    filter: drop-shadow(0 6px 14px rgba(0,0,0,0.8));
 }
 
 .indicador-pendrive-touch {
@@ -839,7 +839,7 @@ body::before {
 
     .zona-proyectos-produccion { max-width: 780px; }
     .tarjeta-pendrive { max-width: 270px; padding: 12px; }
-    .imagen-pendrive { max-height: 135px !important; }
+    .imagen-pendrive { max-height: 175px !important; }
 
     #paginaVisor,
     #paginaVisorBlindaje,

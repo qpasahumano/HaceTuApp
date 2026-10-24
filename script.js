@@ -1,9 +1,5 @@
 "use strict";
 
-/* CACHE-BUSTER-FORCE: 2026-10-24-1845 - REPARACION TOTAL DE EVENTOS */
-const HM_JS_VERSION = "18.19";
-
-
 /* ==================================================
    CONTROLADOR DE PRELOADER UNÍSONO
    ================================================== */
@@ -764,7 +760,7 @@ async function validarSesionUnica(cliente, userId) {
 
 
 /* ==================================================
-   PANTALLA PREVIA Y CONTROL DE ACCESO (BLINDADO Y DIRECTO)
+   PANTALLA PREVIA Y CONTROL DE ACCESO
    ================================================== */
 
 const pantallaAcceso = document.getElementById("pantallaAcceso");
@@ -893,32 +889,19 @@ async function intentarIngreso() {
     }
 }
 
-/* FUNCIÓN DE PAGO DIRECTA Y FORZADA CON REDIRECCIÓN */
 async function abrirMercadoPago() {
-    console.log("Iniciando redirección a Mercado Pago...");
     if (mensajeIngreso) mensajeIngreso.textContent = "Generando el enlace de pago ($45.000)...";
-    
     try {
         const cliente = await obtenerSupabaseClient();
         const { data, error } = await cliente.functions.invoke(SUPABASE_FUNCTION_PAGO, { body: {} });
 
-        if (error) {
-            console.error("Error en Supabase Edge Function:", error);
-            if (mensajeIngreso) mensajeIngreso.textContent = "Error al generar pago: " + (error.message || "Revisar consola");
+        if (error || !data || !data.payment_url) {
+            if (mensajeIngreso) mensajeIngreso.textContent = "No se pudo generar el enlace de pago.";
             return;
         }
-
-        if (!data || !data.payment_url) {
-            console.error("No llegó la URL de pago en la respuesta:", data);
-            if (mensajeIngreso) mensajeIngreso.textContent = "No se recibió la URL de Mercado Pago.";
-            return;
-        }
-
-        console.log("Redirigiendo a:", data.payment_url);
         window.location.href = data.payment_url;
-    } catch (err) {
-        console.error("Excepción al conectar con Mercado Pago:", err);
-        if (mensajeIngreso) mensajeIngreso.textContent = "Error de red al conectar con el pago.";
+    } catch (error) {
+        if (mensajeIngreso) mensajeIngreso.textContent = "No se pudo conectar con el sistema de pago.";
     }
 }
 
@@ -1159,7 +1142,7 @@ function cerrarModal() {
 
 
 /* ==================================================
-   CIERRES Y PROTECCIONES
+   CIERRES Y PROTECCIONES (CLIC DERECHO LIBRE)
    ================================================== */
 
 window.addEventListener("click", function(event) {
@@ -1194,7 +1177,7 @@ document.querySelectorAll("img").forEach(function(imagen) { imagen.setAttribute(
 
 
 /* ==================================================
-   VINCULACIÓN DE EVENTOS (CON LOGS DE DEPURACIÓN)
+   ZOOM DE CARTA Y VINCULACIÓN DE EVENTOS DE INTERFAZ
    ================================================== */
 
 function abrirZoomCarta() {
@@ -1218,8 +1201,6 @@ function vincularEventosManuales() {
             e.preventDefault();
             mostrarPanelIngreso();
         };
-    } else {
-        console.warn("Aviso: No se encontró el elemento #botonYaAcceso en el DOM.");
     }
 
     if (btnNo) {
@@ -1227,8 +1208,6 @@ function vincularEventosManuales() {
             e.preventDefault();
             abrirMercadoPago();
         };
-    } else {
-        console.warn("Aviso: No se encontró el elemento #botonNoAcceso en el DOM.");
     }
 
     if (btnConfirmar) {

@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 /* ==================================================
    HAZTUAPP.COM - ESTYLOS GENERALES (v=63-force-refresh-cs)
    ================================================== */
@@ -143,9 +145,10 @@ body::before {
     filter: drop-shadow(6px 12px 16px rgba(0,0,0,0.65)) drop-shadow(2px 3px 4px rgba(0,0,0,0.4));
 }
 
+/* MANITO POSICIONADA A LA MITAD DE LA CARTA */
 .indicador-mano-tocando {
     position: absolute;
-    bottom: 22px;
+    top: 35%;
     right: 18px;
     z-index: 30;
     display: flex;
@@ -153,6 +156,7 @@ body::before {
     justify-content: center;
     pointer-events: auto;
     cursor: pointer;
+    transform: translateY(-50%);
 }
 
 .circulo-touch {
@@ -586,15 +590,16 @@ body::before {
     border-color: rgba(110, 231, 183, 0.75);
 }
 
+/* PENDRIVES AGRANDADOS Y VISIBLES */
 .imagen-pendrive {
     display: block;
     width: 100%;
     height: auto;
-    max-height: 82px !important;
+    max-height: 120px !important;
     object-fit: contain;
     margin-bottom: 0;
     pointer-events: none;
-    filter: drop-shadow(0 3px 5px rgba(0,0,0,0.55));
+    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.75));
 }
 
 .indicador-pendrive-touch {
@@ -626,6 +631,17 @@ body::before {
     filter: drop-shadow(0 2px 3px rgba(0,0,0,0.7));
     transform: rotate(-125deg) translate(2px, 2px);
     animation: tapDedito 1.8s infinite ease-in-out;
+}
+
+/* EFECTO GLOW PARA PROYECTO 01 / PROYECTO 02 */
+.etiqueta-proyecto {
+    color: #6ee7b7;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 13.5px;
+    margin-top: 6px;
+    letter-spacing: 1px;
+    text-shadow: 0 0 8px rgba(110,231,183,0.85), 0 0 15px rgba(110,231,183,0.4);
 }
 
 .zona-silla {
@@ -823,7 +839,7 @@ body::before {
 
     .zona-proyectos-produccion { max-width: 780px; }
     .tarjeta-pendrive { max-width: 270px; padding: 12px; }
-    .imagen-pendrive { max-height: 94px !important; }
+    .imagen-pendrive { max-height: 135px !important; }
 
     #paginaVisor,
     #paginaVisorBlindaje,

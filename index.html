@@ -37,7 +37,7 @@
 
     <link
         rel="stylesheet"
-        href="style.css?v=66"
+        href="style.css?v=67"
     >
 
 </head>
@@ -94,7 +94,7 @@
         </div>
 
 
-        <!-- 2. CARTA DE PRESENTACIÓN CON DEDO APOYANDO DIRECTAMENTE SOBRE EL PAPEL -->
+        <!-- 2. CARTA DE PRESENTACIÓN CON DEDO APOYANDO A LA MITAD DE LA CARTA -->
         <div 
             class="acceso-carta-contenedor"
         >
@@ -112,7 +112,7 @@
                     draggable="false"
                 />
 
-                <!-- INDICADOR DE TOUCH MONTADO Y APUNTANDO A LA HOJA -->
+                <!-- INDICADOR DE TOUCH MONTADO Y APUNTANDO A LA MITAD DE LA HOJA -->
                 <div 
                     class="indicador-mano-tocando" 
                     onclick="abrirZoomCarta()"
@@ -505,7 +505,7 @@
 
 
         <!-- ==================================================
-             PROYECTOS EN PRODUCCIÓN (CON TAMAÑO ARMÓNICO Y SILLA VISIBLE)
+             PROYECTOS EN PRODUCCIÓN (CON PENDRIVES GRANDES Y EFECTO GLOW)
              ================================================== -->
         <section class="zona-proyectos-produccion">
             
@@ -527,7 +527,7 @@
                             <span class="icono-dedo-mini">👆</span>
                         </div>
                     </a>
-                    <span style="color: #6ee7b7; font-family: 'Courier New', monospace; font-weight: bold; font-size: 13.5px; margin-top: 6px; text-shadow: 0 0 6px rgba(110,231,183,0.6); letter-spacing: 1px;">proyecto 01</span>
+                    <span class="etiqueta-proyecto">proyecto 01</span>
                 </div>
 
                 <!-- PROYECTO 2 (DERECHA) - humanometroparejas.com -->
@@ -546,7 +546,7 @@
                             <span class="icono-dedo-mini">👆</span>
                         </div>
                     </a>
-                    <span style="color: #6ee7b7; font-family: 'Courier New', monospace; font-weight: bold; font-size: 13.5px; margin-top: 6px; text-shadow: 0 0 6px rgba(110,231,183,0.6); letter-spacing: 1px;">proyecto 02</span>
+                    <span class="etiqueta-proyecto">proyecto 02</span>
                 </div>
 
             </div>
@@ -773,7 +773,16 @@
                         ANTERIOR
                     </button>
 
-                    <!-- Botones huérfanos de video eliminados -->
+                    <!-- BOTÓN DE VIDEO COMPLEMENTARIO PARA BLINDAJE DIGITAL -->
+                    <button
+                        id="botonVideoComplementarioBlindaje"
+                        class="boton-video-complementario"
+                        type="button"
+                        onclick="alternarVideoBlindaje()"
+                        style="display: none;"
+                    >
+                        ▶ VER VIDEO
+                    </button>
 
                     <button
                         id="accionPaginaBlindaje"

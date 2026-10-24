@@ -1,7 +1,7 @@
 "use strict";
 
 /* CACHE-BUSTER-FORCE: 2026-10-23-1530 - FORZAR RECARGA TOTAL CON PRELOADER */
-const HM_JS_VERSION = "18.14";
+const HM_JS_VERSION = "18.15";
 
 
 /* ==================================================
@@ -90,7 +90,6 @@ for (let i = 1; i <= totalPaginasBlindaje; i++) {
     }
 }
 
-// IDs de YouTube específicos para Blindaje Digital (Páginas 2, 3, 5 y 6)
 const videosBlindajeMap = {
     2: "YOUR_SUPABASE_VIDEO_ID",
     3: "YOUR_MERCADOPAGO_VIDEO_ID",
@@ -779,8 +778,6 @@ const mensajeIngreso = document.getElementById("mensajeIngreso");
 const usuarioAcceso = document.getElementById("usuarioAcceso");
 const claveAcceso = document.getElementById("claveAcceso");
 
-let botonCrearCuenta = null;
-let modoPanelIngreso = "ingreso";
 const MODO_DESARROLLO = false;
 
 function mostrarContenidoPrincipal() {
@@ -794,35 +791,14 @@ function ocultarContenidoPrincipal() {
     if (pantallaAcceso) pantallaAcceso.style.display = "block";
 }
 
-function prepararBotonCrearCuenta() {
-    if (botonCrearCuenta) return;
-    const contenedor = panelIngreso ? panelIngreso.querySelector(".panel-ingreso-contenido") : null;
-    if (!contenedor) return;
-
-    botonCrearCuenta = document.createElement("button");
-    botonCrearCuenta.id = "botonCrearCuenta";
-    botonCrearCuenta.type = "button";
-    botonCrearCuenta.className = "boton-confirmar-ingreso";
-    botonCrearCuenta.textContent = "CREAR CUENTA";
-    botonCrearCuenta.addEventListener("click", function() { crearCuenta(); });
-
-    if (botonConfirmarIngreso) {
-        botonConfirmarIngreso.insertAdjacentElement("afterend", botonCrearCuenta);
-    } else {
-        contenedor.appendChild(botonCrearCuenta);
-    }
-}
-
-function mostrarPanelIngreso(modo = "ingreso") {
+function mostrarPanelIngreso() {
     if (!panelIngreso) return;
-    modoPanelIngreso = modo;
-    prepararBotonCrearCuenta();
     panelIngreso.classList.add("visible");
     panelIngreso.setAttribute("aria-hidden", "false");
 
     if (usuarioAcceso) usuarioAcceso.placeholder = "Correo electrónico";
     if (mensajeIngreso) {
-        mensajeIngreso.textContent = (modo === "compra") ? "Para continuar con la compra, ingresá a tu cuenta o creá una nueva." : "";
+        mensajeIngreso.textContent = "";
     }
     window.setTimeout(function() { if (usuarioAcceso) usuarioAcceso.focus(); }, 80);
 }
@@ -919,65 +895,6 @@ async function intentarIngreso() {
     }
 }
 
-async function crearCuenta() {
-    if (!usuarioAcceso || !claveAcceso) return;
-    const email = usuarioAcceso.value.trim().toLowerCase();
-    const password = claveAcceso.value;
-
-    if (!email || !email.includes("@")) {
-        if (mensajeIngreso) mensajeIngreso.textContent = "Ingresá un correo electrónico válido.";
-        return;
-    }
-    if (password.length < 6) {
-        if (mensajeIngreso) mensajeIngreso.textContent = "La clave debe tener al menos 6 caracteres.";
-        return;
-    }
-    if (mensajeIngreso) mensajeIngreso.textContent = "Creando tu cuenta...";
-
-    try {
-        const cliente = await obtenerSupabaseClient();
-        const { data, error } = await cliente.auth.signUp({
-            email: email,
-            password: password,
-            options: { emailRedirectTo: "https://hacetuapp.com/" }
-        });
-
-        if (error) {
-            if (mensajeIngreso) {
-                const mensajeError = error.message || "";
-                if (mensajeError.includes("rate limit") || mensajeError.includes("52 seconds")) {
-                    mensajeIngreso.textContent = "Por seguridad, aguardá unos segundos antes de intentar nuevamente.";
-                } else {
-                    mensajeIngreso.textContent = "No se pudo crear la cuenta: " + mensajeError;
-                }
-            }
-            return;
-        }
-
-        if (data && data.session) {
-            const tieneAcceso = await consultarAccesoUsuario(cliente, data.user.id);
-            if (tieneAcceso) {
-                const resultadoSesion = await verificarYSellarSesion(cliente, data.user.id);
-                if (!resultadoSesion.permitido) {
-                    if (mensajeIngreso) mensajeIngreso.textContent = resultadoSesion.mensaje;
-                    await cliente.auth.signOut();
-                    return;
-                }
-                ocultarPanelIngreso();
-                mostrarContenidoPrincipal();
-                return;
-            }
-            if (mensajeIngreso) mensajeIngreso.textContent = "Cuenta creada. Redirigiendo al pago...";
-            await abrirMercadoPago();
-            return;
-        }
-
-        if (mensajeIngreso) mensajeIngreso.textContent = "Cuenta creada. Revisá tu correo.";
-    } catch (error) {
-        if (mensajeIngreso) mensajeIngreso.textContent = "Error al crear la cuenta.";
-    }
-}
-
 async function abrirMercadoPago() {
     if (mensajeIngreso) mensajeIngreso.textContent = "Redirigiendo a Mercado Pago...";
     try {
@@ -985,7 +902,7 @@ async function abrirMercadoPago() {
         const { data: usuarioData, error: usuarioError } = await cliente.auth.getUser();
 
         if (usuarioError || !usuarioData || !usuarioData.user) {
-            mostrarPanelIngreso("compra");
+            mostrarPanelIngreso();
             return;
         }
 
@@ -1006,13 +923,13 @@ async function abrirMercadoPago() {
 
         if (error || !data || !data.payment_url) {
             if (mensajeIngreso) mensajeIngreso.textContent = "No se pudo generar el pago.";
-            mostrarPanelIngreso("compra");
+            mostrarPanelIngreso();
             return;
         }
         window.location.href = data.payment_url;
     } catch (error) {
         if (mensajeIngreso) mensajeIngreso.textContent = "No se pudo conectar con el sistema de pago.";
-        mostrarPanelIngreso("compra");
+        mostrarPanelIngreso();
     }
 }
 
@@ -1315,7 +1232,7 @@ function vincularEventosManuales() {
     const btnConfirmar = document.getElementById("botonConfirmarIngreso");
     const btnCerrar = document.getElementById("botonCerrarIngreso");
 
-    if (btnYa) btnYa.onclick = function(e) { e.preventDefault(); mostrarPanelIngreso("ingreso"); };
+    if (btnYa) btnYa.onclick = function(e) { e.preventDefault(); mostrarPanelIngreso(); };
     if (btnNo) btnNo.onclick = function(e) { e.preventDefault(); abrirMercadoPago(); };
     if (btnConfirmar) btnConfirmar.onclick = function(e) { e.preventDefault(); intentarIngreso(); };
     if (btnCerrar) btnCerrar.onclick = function(e) { e.preventDefault(); ocultarPanelIngreso(); };

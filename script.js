@@ -1,7 +1,7 @@
 "use strict";
 
-/* CACHE-BUSTER-FORCE: 2026-10-23-1530 - FORZAR RECARGA TOTAL CON PRELOADER */
-const HM_JS_VERSION = "18.15";
+/* CACHE-BUSTER-FORCE: 2026-10-24-1345 - FORZAR RECARGA TOTAL CON PRELOADER */
+const HM_JS_VERSION = "18.16";
 
 
 /* ==================================================
@@ -90,11 +90,12 @@ for (let i = 1; i <= totalPaginasBlindaje; i++) {
     }
 }
 
+/* MAPA DE VIDEOS REALES DE BLINDAJE DIGITAL (CORREGIDO) */
 const videosBlindajeMap = {
-    2: "YOUR_SUPABASE_VIDEO_ID",
-    3: "YOUR_MERCADOPAGO_VIDEO_ID",
-    5: "YOUR_GITHUB_VIDEO_ID",
-    6: "YOUR_CLOUDFLARE_VIDEO_ID"
+    2: "mp8pfF9UnwU", // Supabase
+    3: "NY1qfQk1HI4", // Mercado Pago
+    5: "TDPHl9ki4Ps", // GitHub
+    6: "NdvozbM5dyo"  // Cloudflare
 };
 
 let paginaActualBlindaje = 1;

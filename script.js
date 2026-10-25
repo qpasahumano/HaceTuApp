@@ -919,14 +919,14 @@ async function abrirMercadoPago(userId) {
     try {
         const cliente = await obtenerSupabaseClient();
         const { data, error } = await cliente.functions.invoke(SUPABASE_FUNCTION_PAGO, { 
-            body: { user_id: userId } 
+            body: { userId: userId, user_id: userId } 
         });
 
-        if (error || !data || !data.payment_url) {
+        if (error || !data || (!data.init_point && !data.payment_url && !data.initPoint)) {
             if (mensajeIngreso) mensajeIngreso.textContent = "No se pudo generar el enlace de pago.";
             return;
         }
-        window.location.href = data.payment_url;
+        window.location.href = data.init_point || data.payment_url || data.initPoint;
     } catch (error) {
         if (mensajeIngreso) mensajeIngreso.textContent = "No se pudo conectar con Mercado Pago.";
     }
